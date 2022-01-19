@@ -52,6 +52,8 @@ def edit_post(request, post_id):
             if post.User != request.user:
                 raise Http404
             form.save()
+
+            
             return HttpResponseRedirect(reverse('blogs:index'))
 
     context = {'post': post, 'form': form}
