@@ -13,6 +13,6 @@ urlpatterns = [
     path('create_post/', views.create_post, name='create_post'),
 
     # edit post
-    url(r'^edit_post/(?P<post_id>\d+)/$', views.edit_post, name='edit_post')
+    path('edit_post/<int:post_id>/', views.edit_post, name='edit_post')
 
     ]

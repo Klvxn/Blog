@@ -1,5 +1,3 @@
-from hashlib import new
-from django import http
 from django.views import generic
 from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
@@ -17,7 +15,6 @@ class IndexView(generic.ListView):
     template_name = 'blogs/index.html'
 
     def get_queryset(self):
-        """Display all the posts available."""
         return BlogPost.objects.order_by('date_added')
 
 @login_required
@@ -49,10 +46,7 @@ def edit_post(request, post_id):
         form = BlogForm(instance=post, data=request.POST)
         if form.is_valid():
 
-            if post.User != request.user:
-                raise Http404
             form.save()
-
             
             return HttpResponseRedirect(reverse('blogs:index'))
 
