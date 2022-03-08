@@ -20,6 +20,9 @@ class IndexView(generic.ListView):
 @login_required
 def create_post(request):
     """Creating a new post."""
+
+    if request.User != request.user:
+        raise Http404
     if request.method != 'POST':
         form = BlogForm()
 
@@ -33,6 +36,7 @@ def create_post(request):
 
     context = {'form': form}
     return render(request, 'blogs/create_post.html', context)
+
 
 @login_required
 def edit_post(request, post_id):
