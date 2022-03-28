@@ -1,5 +1,5 @@
 from django.urls import path
-from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -13,6 +13,13 @@ urlpatterns = [
     path('create_post/', views.create_post, name='create_post'),
 
     # edit post
-    path('edit_post/<int:post_id>/', views.edit_post, name='edit_post')
+    path('<int:post_id>/edit_post/', views.edit_post, name='edit_post'),
+
+    # delete post
+    path('<int:post_id>/delete_post/', views.delete_post, name='delete_post'),
+
+    # Login redirect page
+    path('registration/login/', auth_views.LoginView.as_view()),
+
 
     ]

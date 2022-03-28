@@ -1,20 +1,32 @@
 {% extends 'blogs/base.html' %}
 
+{% block page_header %}
+   <h3> Blog posts </h3>
+{% endblock page_header %}
+
 {% block content %}
+<h5> <a href="{% url 'blogs:create_post' %}"> Add new post</a> </h5>
 
-<p> Posts: <a href="{% url 'blogs:create_post' %}">Add new post</a>  </p>
-<ul> 
 {% for post in all_posts_list %}
-   <ol>
-   {{ post }} - {{post.date_added }} 
-    <p>{{ post.text }} </p>
-         <p> <a href="{% url 'blogs:edit_post' post.id %}">Edit post</a> </p>
-       </ol>
-    </ul>
-       {% endfor %}
+<div id="sidebar" class="card text-center" style="width: 40rem;">
+   
+      <div class="card-header">
+         <b> {{ post.title }} </b>
+      </div>
+      <div class="card-body"> 
+         <p> {{ post.text }} </p>
+         <p class="author"> by <strong> {{ post.owner}} </strong> - {{post.date_added }} </p>
+      </div>
+      <div class="card-footer">
+         <a href="{% url 'blogs:edit_post' post.id %}">Edit post</a> | <a href="{% url 'blogs:delete_post' post.id %}">Delete post</a> </div>
+      </div>
+      <br>
+      
+   {% empty %}
+      <p> there are no posts at the moment. </p>
+   {% endfor %}
+   
+</div>
 
-        {% if empty %}
-        <p> there are no posts at the moment. </p>
-        {% endif %}
 
 {% endblock content %}
