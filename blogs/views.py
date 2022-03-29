@@ -15,7 +15,7 @@ class IndexView(generic.ListView):
     template_name = 'blogs/index.html'
 
     def get_queryset(self):
-        return BlogPost.objects.order_by('date_added')
+        return BlogPost.objects.order_by('-date_added')
 
 
 @login_required(login_url='/registration/login')
@@ -40,7 +40,7 @@ def edit_post(request, post_id):
     """Editing an existing post."""
     post = BlogPost.objects.get(id=post_id)
     if post.owner != request.user:
-        return HttpResponse('Access denied.')
+        return HttpResponse('Access denied. You can\'t ')
     else:
         if request.method != 'POST':
             form = BlogForm(instance=post)

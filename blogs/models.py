@@ -9,6 +9,9 @@ class BlogPost(models.Model):
     date_added = models.DateTimeField('Date Published', auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-date_added']
+
     def __str__(self):
         """Return a string representation of the blog."""
         return f'{self.title}'

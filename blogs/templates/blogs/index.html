@@ -1,26 +1,29 @@
 {% extends 'blogs/base.html' %}
-
 {% block page_header %}
-   <h3> Blog posts </h3>
+   <h3> Posts </h3>
 {% endblock page_header %}
 
 {% block content %}
 <h5> <a href="{% url 'blogs:create_post' %}"> Add new post</a> </h5>
 
 {% for post in all_posts_list %}
-<div id="sidebar" class="card text-center" style="width: 40rem;">
+<div class="card text-left mb-4">
    
-      <div class="card-header">
-         <b> {{ post.title }} </b>
+      <div class="card-header text-white bg-dark">
+         <big style="font-family:calibri;"> {{ post.title }} </big>
       </div>
-      <div class="card-body"> 
-         <p> {{ post.text }} </p>
-         <p class="author"> by <strong> {{ post.owner}} </strong> - {{post.date_added }} </p>
+
+      <div class="card-body" style="font-family:sans-serif"> 
+         <p>{{ post.text }}</p>
+         By <b> {{ post.owner}} </b>
+         <br>
+         <a style="color:rgb(187, 187, 187);"> {{post.date_added }} </a>
       </div>
+      
       <div class="card-footer">
          <a href="{% url 'blogs:edit_post' post.id %}">Edit post</a> | <a href="{% url 'blogs:delete_post' post.id %}">Delete post</a> </div>
       </div>
-      <br>
+
       
    {% empty %}
       <p> there are no posts at the moment. </p>
