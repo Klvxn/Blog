@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zc6ndrtt-$*jbjxpf9=2oma&o8-#h^8f@32bc3+1$8uc)=za@-'
+SECRET_KEY = 'beb8b8e#$%l;]-zc6ndrtt-$*jbjxpf9=2oma&o8-#h^8f@32bc3+1$8uc)=za@-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -137,7 +137,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # My settings
 # LOGIN_URL = 'users:login'
-
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
 # Heroku settings.
 import django_heroku, os
