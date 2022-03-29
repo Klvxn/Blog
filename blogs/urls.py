@@ -8,6 +8,9 @@ app_name = 'blogs'
 urlpatterns = [
     # index page.
     path('', views.IndexView.as_view(), name='index'),
+
+    # post detail
+    path('posts/<int:pk>/', views.BlogPostDetailView.as_view(), name='post_detail'),
     
     # new post.
     path('create_post/', views.create_post, name='create_post'),

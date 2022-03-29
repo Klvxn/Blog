@@ -1,0 +1,21 @@
+{% extends 'blogs/base.html' %}
+{% load bootstrap4 %}
+
+
+{% block page_header %}
+    <p style="font-family:Sans-serif; font-weight:bold; font-size:25px;"> Post: {{object.title}} </p>
+{% endblock page_header %}
+
+{% block content %}
+    <div class="main mb-5">
+    <p style="font-family:calibri; font-size:19px"> 
+        {{ object.text }} </p>
+    </div>
+
+    <div class="p-5 border-bottom ">
+        <a class="d-inline p-2 bg-dark" style="color:white;" href="{% url 'blogs:edit_post' post.id %}"> Edit post</a> 
+        <a class="d-inline p-2 bg-danger" style="color:white;" href="{% url 'blogs:delete_post' post.id %}"> Delete post </a>
+    </div>
+
+
+{% endblock %}

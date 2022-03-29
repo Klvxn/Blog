@@ -18,6 +18,13 @@ class IndexView(generic.ListView):
         return BlogPost.objects.order_by('-date_added')
 
 
+class BlogPostDetailView(generic.DetailView):
+
+    model = BlogPost
+    context_object_name = 'post'
+    template_name = "blogs/post_detail.html"
+
+
 @login_required(login_url='/registration/login')
 def create_post(request):
     """Creating a new post."""

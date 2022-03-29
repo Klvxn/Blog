@@ -4,32 +4,36 @@
 {% endblock page_header %}
 
 {% block content %}
-<h5> <a href="{% url 'blogs:create_post' %}"> Add new post</a> </h5>
-
+<a style="font-size:17px;" href="{% url 'blogs:create_post' %}"> Add new post </a>
+<hr>
 {% for post in all_posts_list %}
-<div class="card text-left mb-4">
-   
-      <div class="card-header text-white bg-dark">
-         <big style="font-family:calibri;"> {{ post.title }} </big>
-      </div>
-
-      <div class="card-body" style="font-family:sans-serif"> 
-         <p>{{ post.text }}</p>
-         By <b> {{ post.owner}} </b>
-         <br>
-         <a style="color:rgb(187, 187, 187);"> {{post.date_added }} </a>
-      </div>
+   <div class="card text-left mb-4">
       
-      <div class="card-footer">
-         <a href="{% url 'blogs:edit_post' post.id %}">Edit post</a> | <a href="{% url 'blogs:delete_post' post.id %}">Delete post</a> </div>
-      </div>
+         <div class="card-header text-white bg-dark">
+            <a href="{% url 'blogs:post_detail' post.pk %}" style="color:white; font-family:calibri; font-size:20px"> {{ post.title }} </a>
+         </div>
+
+         <div class="card-body" style="font-family:sans-serif; font-size:17px"> 
+            <p>{{ post.text|truncatewords:15 }}</p>
+            By <b> {{ post.owner}} </b>
+            <br>
+            <a style="color:rgb(187, 187, 187);"> {{post.date_added }} </a>
+         </div>
+         
+         <div class="card-footer ">
+            <a href="{% url 'blogs:edit_post' post.id %}">Edit post</a> | <a href="{% url 'blogs:delete_post' post.id %}">Delete post</a> 
+            
+         </div>
+
+            
+   </div>
 
       
-   {% empty %}
-      <p> there are no posts at the moment. </p>
-   {% endfor %}
+{% empty %}
+   <p> there are no posts at the moment. </p>
+{% endfor %}
    
-</div>
+
 
 
 {% endblock content %}
