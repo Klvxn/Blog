@@ -8,11 +8,10 @@
 
 {% block content %} 
 
-<form action="{% url 'users:register' %}" method="post">
+<form action="{% url 'users:register' %}" method="post" style="font-size:25px;">
     {% csrf_token %}
     {% bootstrap_form form %}
     <button name="Submit" class="btn btn-primary"> Register </button>
-    <input type="hidden" name="next" value="{% url 'blogs:index' %}" />
 </form>
 
 {% endblock content %} 

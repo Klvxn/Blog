@@ -24,6 +24,8 @@ def PostDetail(request, pk):
         comment_form = CommentForm(request.POST)    
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
+            if posts.owner == request.user:
+                new_comment.username = request.user
             new_comment.post = posts
             new_comment.save()
             return redirect(posts)

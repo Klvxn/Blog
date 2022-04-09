@@ -4,7 +4,6 @@ from django.urls import reverse
 
 # Create your models here.
 class BlogPost(models.Model):
-
     """A post the user will post on the blog."""
     title = models.CharField(max_length=200)
     text = models.TextField(max_length=500)

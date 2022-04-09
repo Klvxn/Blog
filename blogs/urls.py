@@ -21,11 +21,6 @@ urlpatterns = [
     # delete post
     path('posts/<int:post_id>/delete-post/', views.delete_post, name='delete_post'),
 
-    # post a comment 
-    #path('posts/<int:post_id>/post-comment/', views.comment, name='post-comment'),
-
     # Login redirect page
     path('registration/login/', auth_views.LoginView.as_view()),
-
-
     ]

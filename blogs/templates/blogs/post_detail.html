@@ -37,9 +37,9 @@
 <h2>  Add a comment </h2>
         <form action="" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-secondary btn-dark bg-dark ">Post </button>
-            </form>
-            </div>
+            {% bootstrap_form form %}
+            <button class="btn bg-dark text-white "> Post </button>
+        </form>
+            
     
 {% endblock %}
