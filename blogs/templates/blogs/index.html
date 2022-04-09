@@ -1,39 +1,94 @@
 {% extends 'blogs/base.html' %}
+
 {% block page_header %}
-   <h3> Posts </h3>
+   <h4 style="font-size: xx-large; font-weight: bold;"> Posts </h4>
 {% endblock page_header %}
 
 {% block content %}
-<a style="font-size:17px;" href="{% url 'blogs:create_post' %}"> Add new post </a>
-<hr>
-{% for post in all_posts_list %}
-   <div class="card text-left mb-4">
-      
-         <div class="card-header text-white bg-dark">
-            <a href="{% url 'blogs:post_detail' post.pk %}" style="color:white; font-family:calibri; font-size:20px"> {{ post.title }} </a>
-         </div>
 
-         <div class="card-body" style="font-family:sans-serif; font-size:17px"> 
-            <p>{{ post.text|truncatewords:15 }}</p>
-            By <b> {{ post.owner}} </b>
-            <br>
-            <a style="color:rgb(187, 187, 187);"> {{post.date_added }} </a>
-         </div>
-         
-         <div class="card-footer ">
-            <a href="{% url 'blogs:edit_post' post.id %}">Edit post</a> | <a href="{% url 'blogs:delete_post' post.id %}">Delete post</a> 
-            
-         </div>
+<div class="mb-3 border-bottom">
+   <a style="font-size:25px;" href="{% url 'blogs:create_post' %}"> Add new post </a>
+</div>
 
-            
+<div class="container-fluid text-black" id="sidebar">
+   <p style="font-size:25px; font-weight:bolder;"> List of Posts </p>
+   <ul>
+      {% for post in all_posts %}
+         <li> <a href="{{ post.get_absolute_url }}"> {{post.title}} by {{post.owner}} </a> </li> 
+      {% endfor %}
+   </ul>
+
+   <div id="authors" class="mt-4">
+      <p style="font-size:25px; font-weight:bolder;">  Authors </p>
+      <ul>
+      {% for user in users %}
+         <li> <a href="#"> {{user}} </a> </li>
+      {% endfor %}
+      </ul>
    </div>
 
-      
-{% empty %}
-   <p> there are no posts at the moment. </p>
-{% endfor %}
+   <p style="font-weight:bold; margin-top: 50px;"> [NOTE] - Only verified users can add, edit and\or delete posts. </p>
+</div>
+
+<div class="container-fluid" id="maincontent">
+   {% for post in posts_list %}
+      <div class="card text-left mb-4 ">
+         <div class="card-header text-white bg-dark">
+            <a href="{{ post.get_absolute_url }}" style="color:white; font-family:calibri; font-size:20px"> {{ post.title }} </a>
+         </div>
+         <div class="card-body" style="font-family:sans-serif; font-size:17px"> 
+            <p>{{ post.text|truncatewords:15 }}</p>
+            By <b> {{post.owner}} </b>
+            <br>  
+            <a style="color:rgb(187, 187, 187);"> {{post.date_added|timesince}} ago </a>
+         </div>
+         <div class="card-footer">
+            <a href="{% url 'blogs:edit_post' post.id %}">Edit post</a> | <a href="{% url 'blogs:delete_post' post.id %}">Delete post</a> 
+
+            
+         </div>       
+      </div>
+   {% empty %}
+      <p> there are no posts at the moment. </p>
+   </div>
+   {% endfor %}
+
+   <div class="pagination" style="font-size: x-large; float:left;" >
+      <span class="step-links">
+         {% if posts_list.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{posts_list.previous_page_number }}">Previous</a>
+         {% endif %}
+         <span class="current">
+            Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}.
+         </span>
+         {% if posts_list.has_next %}
+            <a href="?page={{ posts_list.next_page_number }}">Next</a>
+            <a href="?page={{ posts_list.paginator.num_pages }}">Last &raquo;</a>
+         {% endif %}
+      </span>
+   </div>
+
+</div>
+
+
    
 
-
-
 {% endblock content %}
+
+<div class="pagination" style="font-size: x-large; float:left;" >
+   <span class="step-links">
+      {% if page_obj.has_previous %}
+         <a href="?page=1">&laquo; First</a>
+         <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+      <span class="current">
+         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+      {% if page_obj.has_next %}
+         <a href="?page={{ page_obj.next_page_number }}">Next</a>
+         <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+      {% endif %}
+   </span>
+</div>
+

@@ -1,28 +1,36 @@
-from django.views import generic
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from .models import BlogPost
-from .forms import BlogForm
+from .forms import BlogForm, CommentForm
 
 
 # Create your views here.
-class IndexView(generic.ListView):
-    model = BlogPost
-    context_object_name = 'all_posts_list'
-    template_name = 'blogs/index.html'
+def IndexView(request):
+    posts = BlogPost.objects.all().order_by('-date_added')
+    paginator = Paginator(posts, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'posts_list':page_obj, 'all_posts':posts}
+    return render(request, 'blogs/index.html', context )
 
-    def get_queryset(self):
-        return BlogPost.objects.order_by('-date_added')
 
-
-class BlogPostDetailView(generic.DetailView):
-
-    model = BlogPost
-    context_object_name = 'post'
-    template_name = "blogs/post_detail.html"
+def PostDetail(request, pk):
+    posts = get_object_or_404(BlogPost, pk=pk)
+    comment_count = posts.comment_set.all()
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)    
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = posts
+            new_comment.save()
+            return redirect(posts)
+    else:
+        comment_form = CommentForm()
+    context = {'form':comment_form, 'posts':posts, 'comment_count':comment_count}
+    return render(request, "blogs/post_detail.html", context)
 
 
 @login_required(login_url='/registration/login')
@@ -36,8 +44,7 @@ def create_post(request):
             new_post = form.save(commit=False)
             new_post.owner = request.user
             new_post.save()
-            return HttpResponseRedirect(reverse('blogs:index'))
-
+            return redirect('blogs:index')
     context = {'form': form}
     return render(request, 'blogs/create_post.html', context)
 
@@ -45,9 +52,9 @@ def create_post(request):
 @login_required(login_url='/registration/login/')
 def edit_post(request, post_id):
     """Editing an existing post."""
-    post = BlogPost.objects.get(id=post_id)
+    post = get_object_or_404(BlogPost, id=post_id)
     if post.owner != request.user:
-        return HttpResponse('Access denied. You can\'t ')
+        return HttpResponse('<h1> (ERROR) Access denied. </h1>')
     else:
         if request.method != 'POST':
             form = BlogForm(instance=post)
@@ -55,8 +62,7 @@ def edit_post(request, post_id):
             form = BlogForm(instance=post, data=request.POST)
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect(reverse('blogs:index'))
-        
+                return redirect('blogs:index')
     context = {'post': post, 'form': form}
     return render(request, 'blogs/edit_post.html', context)
 
@@ -65,11 +71,11 @@ def edit_post(request, post_id):
 def delete_post(request, post_id):
     post = get_object_or_404(BlogPost, id=post_id)
     if post.owner != request.user:
-        return HttpResponse('Request Denied')
+        return HttpResponse('<h1> (ERROR) Request denied. </h1>')
     else:
         if request.method == 'POST':
             post.delete()
             return redirect('blogs:index')
-
     context = {'post':post}
     return render (request, 'blogs/delete_post.html', context)
+        

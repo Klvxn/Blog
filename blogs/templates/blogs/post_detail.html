@@ -3,19 +3,43 @@
 
 
 {% block page_header %}
-    <p style="font-family:Sans-serif; font-weight:bold; font-size:25px;"> Post: {{object.title}} </p>
+<div id="title">
+    <span> Post: {{posts.title}} </span> <br>
+    <span style="font-family: calibri; color:rgb(187, 187, 187); font-size:24px;"> published by {{posts.owner}} - {{posts.date_added.date}} </span> <br>
+    <i style="color: burlywood; font-size: 23px;"> {{comment_count.count}} comments </i>  
+</div>
 {% endblock page_header %}
 
 {% block content %}
     <div class="main mb-5">
-    <p style="font-family:calibri; font-size:19px"> 
-        {{ object.text }} </p>
+    <p style="font-family:calibri; font-size:x-large;"> 
+        {{ posts.text }} </p>
     </div>
 
     <div class="p-5 border-bottom ">
-        <a class="d-inline p-2 bg-dark" style="color:white;" href="{% url 'blogs:edit_post' post.id %}"> Edit post</a> 
-        <a class="d-inline p-2 bg-danger" style="color:white;" href="{% url 'blogs:delete_post' post.id %}"> Delete post </a>
+        <a class="d-inline p-2 bg-dark" style="color:white;" href="{% url 'blogs:edit_post' posts.pk %}"> Edit post</a> 
+        <a class="d-inline p-2 bg-danger" style="color:white;" href="{% url 'blogs:delete_post' posts.pk %}"> Delete post </a>
     </div>
 
+    <div class="" id="commentSection">
+        <h2 style="font-family:Sans-serif; font-weight:bold; font-size:25px;"> Comments </h2>
+        {% for comment in posts.comment_set.all %}
+            <div style="margin-left: 15px;">
+                <p> <b> {{comment.username}}: </b> <br> 
+                {{comment.text}} </p>    
+                </div>
+        {% empty %}
+                No comments..
+        {% endfor %}
+    </div>
 
+<hr>
+<h2>  Add a comment </h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary btn-dark bg-dark ">Post </button>
+            </form>
+            </div>
+    
 {% endblock %}

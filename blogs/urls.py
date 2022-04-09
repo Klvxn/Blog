@@ -7,19 +7,22 @@ app_name = 'blogs'
 
 urlpatterns = [
     # index page.
-    path('', views.IndexView.as_view(), name='index'),
+    path('', views.IndexView, name='index'),
 
     # post detail
-    path('posts/<int:pk>/', views.BlogPostDetailView.as_view(), name='post_detail'),
+    path('posts/<int:pk>/', views.PostDetail, name='post_detail'),
     
     # new post.
-    path('create_post/', views.create_post, name='create_post'),
+    path('create-post/', views.create_post, name='create_post'),
 
     # edit post
-    path('<int:post_id>/edit_post/', views.edit_post, name='edit_post'),
+    path('posts/<int:post_id>/edit-post/', views.edit_post, name='edit_post'),
 
     # delete post
-    path('<int:post_id>/delete_post/', views.delete_post, name='delete_post'),
+    path('posts/<int:post_id>/delete-post/', views.delete_post, name='delete_post'),
+
+    # post a comment 
+    #path('posts/<int:post_id>/post-comment/', views.comment, name='post-comment'),
 
     # Login redirect page
     path('registration/login/', auth_views.LoginView.as_view()),

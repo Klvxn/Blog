@@ -2,16 +2,16 @@
 {% load bootstrap4 %} 
 
 {% block page_header %} 
-    <h4> Edit post </h4>
+    <h2> Edit post </h2>
 {% endblock %}
 
 
 {% block content %}
-
+<div style="font-size: x-large;">
     <form  action="{% url 'blogs:edit_post' post.id %}" method='post'>
         {% csrf_token %}
         {% bootstrap_form form %}
         <button class="btn btn-secondary btn-dark bg-dark ">Save changes </button>
     </form>
-
+</div>
 {% endblock content %}
