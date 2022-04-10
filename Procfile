@@ -1,1 +1,1 @@
-waitress-serve --listen=*:8000 Blog.wsgi:application
+web: gunicorn Blog.wsgi --log-file -
