@@ -15,9 +15,9 @@
       <p style="font-size: x-large;"> {{ post.text }} </p>
 
       <br>
-      <button class="btn btn-secondary btn-dark bg-danger">Delete</button> 
+      <button class="btn btn-danger" style="font-size:23px;">Delete</button> 
 
-      <a class="btn btn-outline-secondary " href="{% url 'blogs:index' %}" role="button"> Cancel</a
+      <a class="btn btn-outline-secondary" href="{% url 'blogs:post_detail' post.slug %}" style="font-size:23px;"> Cancel</a
    </form>
 
 {% endblock content %}

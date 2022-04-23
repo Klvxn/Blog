@@ -5,8 +5,8 @@
 {% block page_header %}
 <div id="title">
     <span> Post: {{posts.title}} </span> <br>
-    <span style="font-family: calibri; color:rgb(187, 187, 187); font-size:24px;"> published by {{posts.owner}} - {{posts.date_added.date}} </span> <br>
-    <i style="color: burlywood; font-size: 23px;"> {{comment_count.count}} comments </i>  
+    <span style="font-family: calibri; color:rgb(187, 187, 187); font-size:24px;"> published by {{posts.author}} - {{posts.date_added.date}} </span>
+    <i style="color: burlywood; font-size: 23px; float:right;"> {{comment_count.count}} comments </i>  
 </div>
 {% endblock page_header %}
 
@@ -15,17 +15,19 @@
     <p style="font-family:calibri; font-size:x-large;"> 
         {{ posts.text }} </p>
     </div>
-
+    
     <div class="p-5 border-bottom ">
-        <a class="d-inline p-2 bg-dark" style="color:white;" href="{% url 'blogs:edit_post' posts.pk %}"> Edit post</a> 
-        <a class="d-inline p-2 bg-danger" style="color:white;" href="{% url 'blogs:delete_post' posts.pk %}"> Delete post </a>
+        {% if request.user == posts.author.user %}
+            <a class="d-inline p-2 bg-dark" style="color:white;" href="{% url 'blogs:edit_post' posts.slug %}"> Edit post</a> 
+            <a class="d-inline p-2 bg-danger" style="color:white;" href="{% url 'blogs:delete_post' posts.slug %}"> Delete post </a>
+        {% endif %}
     </div>
 
-    <div class="" id="commentSection">
+    <div class="mt-3" id="commentSection">
         <h2 style="font-family:Sans-serif; font-weight:bold; font-size:25px;"> Comments </h2>
         {% for comment in posts.comment_set.all %}
             <div style="margin-left: 15px;">
-                <p> <b> {{comment.username}}: </b> <br> 
+                <p> <b> {{comment.username}}: </b> - <i style="font-family: calibri; color:rgb(187, 187, 187);"> {{comment.date_created|timesince}} ago </i> <br> 
                 {{comment.text}} </p>    
                 </div>
         {% empty %}
@@ -34,12 +36,11 @@
     </div>
 
 <hr>
-<h2>  Add a comment </h2>
-        <form action="" method="post">
+<h4>  Add a comment </h4>
+        <form action="" class="form-group" method="post">
             {% csrf_token %}
-            {% bootstrap_form form %}
-            <button class="btn bg-dark text-white "> Post </button>
+          <div>
+               {{form.as_p}}
+            <button class="btn bg-dark text-white"> Post </button>
         </form>
-            
-    
 {% endblock %}

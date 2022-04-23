@@ -7,11 +7,11 @@
 
 
 {% block content %}
-<div style="font-size: x-large;">
+<div style="font-size: 25px;">
     <form  action="{% url 'blogs:edit_post' post.id %}" method='post'>
         {% csrf_token %}
         {% bootstrap_form form %}
-        <button class="btn btn-secondary btn-dark bg-dark ">Save changes </button>
+        <button class="btn btn-dark" style="font-size:23px;">Save changes </button>
     </form>
 </div>
 {% endblock content %}

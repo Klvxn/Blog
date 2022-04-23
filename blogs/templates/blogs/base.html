@@ -15,17 +15,17 @@
         font-weight:bold;
       }
       #sidebar{
-         width: 32%;
-         float: right;
-         background:rgba(187, 187, 187);
-         list-style-type: none;
-         font-size: 17px;
-         padding: 20px;
-         color: black;
-         height: 100%;
+        float: right;
+        height: 50%;
+        position:sticky;
+        background:rgb(209, 208, 208);
+        list-style-type: none;
+        font-size: 17px;
+        padding: 20px;
+        color: rgb(0, 0, 0); 
       } 
       [id="sidebar"] a{
-         color:white;
+         color:grey;
          font-weight:bold; 
          font-family:sans-serif; 
          font-size:20px;
@@ -35,14 +35,33 @@
         font-weight:bold;
         font-size:30px;
       }
-
-     div#maincontent{
-         float: left;
-         width: 65%;
+     article#maincontent{
+        float: left;
+        width: 65%;
+         
       }
       #commentSection{
         font-size: larger;
       }
+    #about{
+      background-color: slategray;
+      font-size: x-large;
+      color: azure;
+      text-shadow: 10cm;
+      font-weight: normal;
+    }
+    a{
+      text-decoration: none;
+    }
+    a:hover{
+      color:black;
+      text-decoration:underline;
+    }
+    form#search 
+    { float: right; 
+    font-size: 0.8cm;
+    
+    }
     
    </style>
 
@@ -61,9 +80,11 @@
       <div class="collapse navbar-collapse" id="navbarCollapse" style="font-size: 23px;">
         <ul class ="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'blogs:index' %}"> Home <a/> </li>
+            <a class="nav-link active" aria-current="page" href="{% url 'blogs:index' %}"> Home </a> </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'blogs:create_post' %}"> Add post <a/> </li>
+            <a class="nav-link active" aria-current="page" href="{% url 'blogs:create_post' %}"> Add post </a> </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'blogs:authors' %}"> Authors </a> </li>
         </ul> 
 
         <ul class="navbar-nav ml-auto"> 
@@ -90,15 +111,34 @@
         </div>
       </div>
   </nav>
+
+
+  <main role="main" class="container-fluid">
+    <div class="pb-1 mb-3 mt-3 border-bottom" id="title">
+        {% block page_header %} {% endblock page_header %}
+    </div>
+
+    <div>
+        {% block content %}{% endblock content %}
+    </div>
+    
+    <div class="card mt-5 bg-dark" id="about" style="width:  100%; padding: 10px;"> 
+      <div class="card-header">
+        About <br>
+      </div>
+      <div class="card-body">
+        Contact us <br>
+        <a href="https://www.twitter.com">Twitter</a> 
+        <a href="https://www.instagram.com"> Instagram</a> <br>
+      </div>
+      <div class="card-footer">
+        copyright (c) Blogs.com
+      </div>
+    </div>
+
+  </main>
 </body> 
 
-<main role="main" class="container-fluid">
-  <div class="pb-1 mb-3 mt-3 border-bottom" id="title">
-      {% block page_header %} {% endblock page_header %}
-  </div>
+</html>
 
-  <div>
-      {% block content %}{% endblock content %}
-  </div>
-  </main>
-    
+

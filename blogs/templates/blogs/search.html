@@ -1,0 +1,23 @@
+{% extends 'blogs/base.html' %}
+
+{% block page_header %} <h2> Search results for <i>"{{searched}}"</i>:  </h2> {% endblock page_header %}
+
+{% block content %}
+{% if search.count > 1 %}
+   <i style="font-size: xx-large;"> {{search.count}} matches found </i>
+{% elif search.count == 1 %} 
+   <i style="font-size: xx-large;"> {{search.count}} match found </i>
+{% else %} 
+   <i style="font-size: xx-large;"> No match found :(</i>
+{% endif %}
+
+<ul>
+   {% for searches in search %}
+      <li> <a style="color:grey; font-family:calibri; font-size:32px" href="{{ searches.get_absolute_url }}"> {{searches}} </a> </li>  
+{% endfor %}
+</ul>
+{% for searches in search_author %}
+   {{searches}}
+{% endfor %}
+
+{% endblock %}

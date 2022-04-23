@@ -1,50 +1,55 @@
 {% extends 'blogs/base.html' %}
-
+{% load bootstrap4 %}
 {% block page_header %}
-   <h4 style="font-size: xx-large; font-weight: bold;"> Posts </h4>
+      <h4 style="font-size: xx-large; font-weight: bold;"> Posts
+         <form class=" mb-3" id="search" method="GET" action="{% url 'blogs:search' %}"> 
+            <input type="search" name="query" placeholder="Search for posts, authors...">
+            <button class="btn btn-dark" style="font-size: 0.5cm;" type="submit"> Search</button>
+         </form>  
+      </h4>
+   {{search_results}}
 {% endblock page_header %}
 
 {% block content %}
 
-<div class="mb-3 border-bottom">
-   <a style="font-size:25px;" href="{% url 'blogs:create_post' %}"> Add new post </a>
-</div>
+{% if post %}
+   <div class="col-md-15">
+   <div class="text-center" id="sidebar">
+      <p style="font-size:30px; font-weight:normal;" class="mb-0 bg-light-rounded"> Posts </p>
+   
+         {% for post in all_posts %}
+            <li> - <a href="{{ post.get_absolute_url }}"> {{post.title}} by {{post.author}} </a> </li> 
+         {% endfor %} <br/>   
+   
+      </div>
+   </div>
+{% endif %}
 
-<div class="container-fluid text-black" id="sidebar">
-   <p style="font-size:25px; font-weight:bolder;"> List of Posts </p>
-   <ul>
-      {% for post in all_posts %}
-         <li> <a href="{{ post.get_absolute_url }}"> {{post.title}} by {{post.owner}} </a> </li> 
-      {% endfor %}
-   </ul>
-
-   <p style="font-weight:bold; margin-top: 50px;"> [NOTE] - Only verified users can add, edit and\or delete posts. </p>
-</div>
-
-<div class="container-fluid" id="maincontent">
+<article class="container-fluid blog-post" id="maincontent">
    {% for post in posts_list %}
-      <div class="card text-left mb-4 ">
-         <div class="card-header text-white bg-dark">
-            <a href="{{ post.get_absolute_url }}" style="color:white; font-family:calibri; font-size:20px"> {{ post.title }} </a>
+      <div class="text-left mb-5 blog-post-meta">
+         <div class="">
+            <a href="{{ post.get_absolute_url }}" style="color:grey; font-family:calibri; font-size:32px"> {{ post.title }} </a> <hr class="mt-0"> 
          </div>
-         <div class="card-body" style="font-family:sans-serif; font-size:17px"> 
-            <p>{{ post.text|truncatewords:15 }}</p>
-            By <b> {{post.owner}} </b>
+         <div class="" style="font-family:sans-serif; font-size:20px"> 
+            <p>{{ post.text|truncatewords:20 }}</p>
+            By <b> {{post.author}} </b>
             <br>  
             <a style="color:rgb(187, 187, 187);"> {{post.date_added|timesince}} ago </a>
          </div>
-         <div class="card-footer">
+         {% if user == posts.author.user %}
+         <div class="">
             <a href="{% url 'blogs:edit_post' post.id %}">Edit post</a> | <a href="{% url 'blogs:delete_post' post.id %}">Delete post</a> 
-
-            
-         </div>       
+         </div>  
+        {% endif %}     
       </div>
    {% empty %}
       <p> there are no posts at the moment. </p>
    </div>
    {% endfor %}
 
-   <div class="pagination" style="font-size: x-large; float:left;" >
+
+   <div class="pagination" style="font-size: x-large; float: left;" >
       <span class="step-links">
          {% if posts_list.has_previous %}
             <a href="?page=1">&laquo; First</a>
@@ -59,27 +64,13 @@
          {% endif %}
       </span>
    </div>
+</article>
 
-</div>
+
+{% endblock %}
 
 
-   
-
-{% endblock content %}
-
-<div class="pagination" style="font-size: x-large; float:left;" >
-   <span class="step-links">
-      {% if page_obj.has_previous %}
-         <a href="?page=1">&laquo; First</a>
-         <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-      {% endif %}
-      <span class="current">
-         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-      </span>
-      {% if page_obj.has_next %}
-         <a href="?page={{ page_obj.next_page_number }}">Next</a>
-         <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
-      {% endif %}
-   </span>
-</div>
-
+<div class="col-md-4">
+   <div class="position-sticky" style="top: 2rem;">
+     <div class="p-4 mb-3 bg-light rounded">
+      

@@ -11,7 +11,7 @@
 <form action="{% url 'users:register' %}" method="post" style="font-size:25px;">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button name="Submit" class="btn btn-primary"> Register </button>
+    <button name="Submit" class="btn btn-dark" style="font-size: 23px;"> Register </button>
 </form>
 
 {% endblock content %} 

@@ -1,0 +1,15 @@
+{% extends 'blogs/base.html' %}
+
+{% block page_header %}
+<h2> Authors 
+<a href="{% url 'blogs:beauthor' %}" style="float:right;"> Be an author </a> </h2>
+{% endblock %}
+
+{% block content %}
+   <div> 
+   <ul> {% for authors in authors %}
+      <li> <a style="color:grey; font-family:calibri; font-size:35px" href="{{ authors.get_absolute_url }}"> {{ authors.firstname|title }} {{authors.lastname|title}} </a> </li>
+    {% empty %}
+    <h3> No authors at the moment </h3>
+    {% endfor %}  </ul>  </div>
+{% endblock content %}
