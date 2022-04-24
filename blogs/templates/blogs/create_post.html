@@ -10,10 +10,10 @@
 {% block content %}
     <p>{{ post }}</p>
 
-    <form  action="{% url 'blogs:create_post'%}" method='post' style="font-size:25px;">
+    <form  action="" method='post' style="font-size:25px;">
         {% csrf_token %}
         {% bootstrap_form form %}
-            <button class="btn btn-dark" style="font-size:23px;">Add post</button>
+        <button class="btn btn-dark" style="font-size:23px;">Add post</button>
     
     </form>
 

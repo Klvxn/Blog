@@ -1,3 +1,5 @@
+from django.urls import reverse
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -5,6 +7,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+
 from .models import BlogPost, Author
 from .forms import AuthorForm, BlogForm, CommentForm
 
@@ -16,10 +19,7 @@ def IndexView(request):
     paginator = Paginator(posts, 7)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {
-        'posts_list':page_obj,
-        'all_posts':posts,
-        'authors': authors}
+    context = {'posts_list':page_obj, 'all_posts':posts, 'authors': authors}
     return render(request, 'blogs/index.html', context )
 
 
@@ -42,17 +42,21 @@ def PostDetail(request, slug):
 @login_required(login_url='/registration/login')
 def create_post(request):
     """Creating a new post."""
-    if request.method != 'POST':
-        form = BlogForm()
-    else:
+    Authors = Author.objects.all()
+    if request.method == 'POST':
         form = BlogForm(request.POST)
         if form.is_valid():
             new_post = form.save(commit=False)
             new_post.slug = slugify(new_post.title)
-            author = Author(user=request.user,)
-            new_post.author = author.user
-            new_post.save()
-            return redirect('blogs:index')
+            if hasattr(request.user, 'author'): 
+                author = get_object_or_404(Author, user=request.user)
+                new_post.author = author 
+                new_post.save()
+                return redirect('blogs:index')
+            else:
+                pass         
+    else:       
+        form = BlogForm()
     context = {'form': form}
     return render(request, 'blogs/create_post.html', context)
 
@@ -65,7 +69,9 @@ def edit_post(request, slug):
         if request.method == 'POST':
             form = BlogForm(instance=post, data=request.POST)
             if form.is_valid():
-                form.save()
+                edit = form.save(commit=False)
+                edit.slug = slugify(edit.title)
+                edit.save()
                 return redirect('blogs:index')    
         else:
             form = BlogForm(instance=post)
@@ -114,13 +120,13 @@ def beauthor(request):
             return redirect(new_author)
     else:
         author_form = AuthorForm()
-    context = {'form':author_form}
+    context = {('form', 'author_form'):author_form}
     return render(request, 'blogs/becomeauthor.html', context)
 
 
 def search(request):
     query = request.GET['query']
     search_post_result = BlogPost.objects.filter(Q(title__icontains=query) | Q(text__icontains=query))
-    search_author_result = Author.objects.filter(Q(firstname__contains=query) | Q(lastname__contains=query))
+    search_author_result = Author.objects.filter(Q(firstname__icontains=query) | Q(lastname__icontains=query))
     context={'search':search_post_result, 'searched':query, 'search_author':search_author_result}
     return render(request, 'blogs/search.html', context )

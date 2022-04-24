@@ -6,22 +6,22 @@
 
 {% block content %} 
 <div style="font-size: 30px;">
-    <div  style="margin-bottom: 6cm;">
-        <b> Posts by {{author.firstname}} {{author.lastname}} </b> <br>
-        <ol>
-            {% for posts in author_posts %}
-                <li> <a href="{{posts.get_absolute_url}}">{{posts.title}} </a> </li>
-            {% empty %}
-                This author hasn't made any posts yet.
-            {% endfor %} 
-        </ol>
-    </div>
-    <div class="">
-        <p> <b> About the Author </b> <br>
+    <div class="mb-5">
+        <p class="mb-5"> <b> About the Author </b> <br>
         <i class="ml-4"> {{author.bio}} </i> </p>  
 
         <b> Contact {{author.firstname}} </b> <br>
          <span class="ml-4"> E-mail: {{author.email}} </span>
+    </div>
+    <div  style=";">
+        <b> Posts by {{author.firstname|title}} {{author.lastname|title}} </b> <br>
+        <ol>
+            {% for posts in author_posts %}
+                <li > <a style="font-weight:bold; color:blue;"  href="{{posts.get_absolute_url}}">{{posts.title}} </a> </li>
+            {% empty %}
+                This author hasn't made any posts yet.
+            {% endfor %} 
+        </ol>
     </div>
 </div>
 {% endblock content %}

@@ -5,7 +5,7 @@
 {% block page_header %}
 <div id="title">
     <span> Post: {{posts.title}} </span> <br>
-    <span style="font-family: calibri; color:rgb(187, 187, 187); font-size:24px;"> published by {{posts.author}} - {{posts.date_added.date}} </span>
+    <span style="font-family: calibri; color:rgb(187, 187, 187); font-size:24px;"> published by <a href="{{ posts.author.get_absolute_url}}"> {{posts.author.firstname|title}} {{posts.author.lastname|title}} </a> - {{posts.date_added.date}} </span>
     <i style="color: burlywood; font-size: 23px; float:right;"> {{comment_count.count}} comments </i>  
 </div>
 {% endblock page_header %}

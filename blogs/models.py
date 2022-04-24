@@ -21,8 +21,8 @@ class Author(models.Model):
 class BlogPost(models.Model):
     """A post the user will post on the blog."""
     title = models.CharField(max_length=200)
-    text = models.TextField(max_length=500)
-    slug = models.SlugField(null = True)
+    text = models.TextField()
+    slug = models.SlugField(max_length=100, null = True)
     date_added = models.DateTimeField('Date Published', default=timezone.now)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)
 
