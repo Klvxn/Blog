@@ -18,8 +18,8 @@
     
     <div class="p-5 border-bottom ">
         {% if request.user == posts.author.user %}
-            <a class="d-inline p-2 bg-dark" style="color:white;" href="{% url 'blogs:edit_post' posts.slug %}"> Edit post</a> 
-            <a class="d-inline p-2 bg-danger" style="color:white;" href="{% url 'blogs:delete_post' posts.slug %}"> Delete post </a>
+            <a class="btn btn-dark" style="color:white;" href="{% url 'blogs:edit_post' posts.slug %}"> Edit post</a> 
+            <a class="btn btn-danger" style="color:white;" href="{% url 'blogs:delete_post' posts.slug %}"> Delete post </a>
         {% endif %}
     </div>
 
@@ -41,6 +41,6 @@
             {% csrf_token %}
           <div>
                {{form.as_p}}
-            <button class="btn bg-dark text-white"> Post </button>
+            <button class="btn bg-dark text-white"> Post comment</button>
         </form>
 {% endblock %}

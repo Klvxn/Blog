@@ -1,16 +1,23 @@
 {% extends 'blogs/base.html' %}
 {% load bootstrap4 %}
 {% block page_header %}
-      <h4 style="font-size: xx-large; font-weight: bold;"> Posts
-         <form class=" mb-3" id="search" method="GET" action="{% url 'blogs:search' %}"> 
-            <input type="search" name="query" placeholder="Search for posts, authors...">
-            <button class="btn btn-dark" style="font-size: 0.5cm;" type="submit"> Search</button>
-         </form>  
-      </h4>
-   {{search_results}}
+<h4 style="font-size: xx-large; font-weight: bold;"> Posts
+   <form class=" mb-3" id="search" method="GET" action="{% url 'blogs:search' %}"> 
+      <input type="search" name="query" placeholder="Search for posts, authors...">
+      <button class="btn btn-dark" style="font-size: 0.5cm;" type="submit"> Search</button>
+   </form>  
+</h4>
 {% endblock page_header %}
 
 {% block content %}
+{% if messages %}
+   <ul class="messages">
+     {% for message in messages %}
+         <span style="color: limegreen; font-size: large;">{{ message }}</span>
+      {% endfor %}
+   </ul>
+{% endif %}
+
 
 {% if all_posts %}
    <div class="text-center position-sticky " id="sidebar">

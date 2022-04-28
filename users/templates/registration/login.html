@@ -10,9 +10,9 @@
 <form method="post" action="{% url 'users:login' %}" style="font-size:25px;" >
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button class="btn btn-dark" style="font-size:23px;">Log in</button> 
+    <button class="btn btn-success" style="font-size:23px;">Log in</button> 
     <hr>
-    Don't have an account? <a href="{% url 'users:register' %}"> Register </a>
+    Don't have an account? <a class="text-success" href="{% url 'users:register' %}"> Register </a>
     <input type="hidden" name="next" value="{% url 'blogs:index' %}" />
 </form>
 

@@ -1,12 +1,14 @@
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.utils.translation import gettext as _
 
 from .models import BlogPost, Author
 from .forms import AuthorForm, BlogForm, CommentForm
@@ -42,7 +44,6 @@ def PostDetail(request, slug):
 @login_required(login_url='/registration/login')
 def create_post(request):
     """Creating a new post."""
-    Authors = Author.objects.all()
     if request.method == 'POST':
         form = BlogForm(request.POST)
         if form.is_valid():
@@ -52,9 +53,11 @@ def create_post(request):
                 author = get_object_or_404(Author, user=request.user)
                 new_post.author = author 
                 new_post.save()
+                messages.success(request, 'Your post has been submitted successfully.')
                 return redirect('blogs:index')
             else:
-                pass         
+                messages.error(request, 'You are not an author.')
+                return redirect('blogs:beauthor')
     else:       
         form = BlogForm()
     context = {'form': form}
@@ -103,9 +106,7 @@ def authors(request):
 def author(request, firstname, lastname):
     author = get_object_or_404(Author, firstname=firstname, lastname=lastname)
     author_post = BlogPost.objects.filter(author=author)
-    context = {
-        'author_posts':author_post,
-        'author':author }
+    context = {'author_posts':author_post, 'author':author}
     return render(request, 'blogs/authorpage.html', context)
 
 

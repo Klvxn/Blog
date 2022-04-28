@@ -1,27 +1,27 @@
 {% extends 'blogs/base.html' %}
 
 {% block page_header %}
-    <h2> Author </h2>
+    <h2>About the Author</h2>
 {% endblock page_header %}
 
 {% block content %} 
 <div style="font-size: 30px;">
-    <div class="mb-5">
-        <p class="mb-5"> <b> About the Author </b> <br>
-        <i class="ml-4"> {{author.bio}} </i> </p>  
+    <div class="mb-5 card body">
+        <p class="mb-5" > <b> Bio  </b> <br>
+        <span class="ml-3"> {{author.bio}} </span> </p>  
 
-        <b> Contact {{author.firstname}} </b> <br>
-         <span class="ml-4"> E-mail: {{author.email}} </span>
+        <b> Contact </b> 
+         <span class="ml-3"> E-mail: {{author.email}} </span>
     </div>
-    <div  style=";">
-        <b> Posts by {{author.firstname|title}} {{author.lastname|title}} </b> <br>
-        <ol>
+    <div  class="card body">
+        <b> Posts by {{author.firstname|title}} {{author.lastname|title}} </b> 
+        <ul>
             {% for posts in author_posts %}
                 <li > <a style="font-weight:bold; color:blue;"  href="{{posts.get_absolute_url}}">{{posts.title}} </a> </li>
             {% empty %}
                 This author hasn't made any posts yet.
             {% endfor %} 
-        </ol>
+        </ul>
     </div>
 </div>
 {% endblock content %}

@@ -21,9 +21,15 @@
 
 <div style="font-size:xx-large;">
    <u> Authors </u>
-   {% for searches in search_author %}
-      <li> <a style="color:blue; font-weight: bold;" href="{{searches.get_absolute_url}}"> {{searches}} </a> </b> </li>
+   <ul>
+   {% for searched in search_author %}
+      <li> <a style="color:blue; font-weight: bold;" href="{{searched.get_absolute_url}}"> {{searched}} </a> </li>
+   {% empty %} 
+      No author matched your search :(
    {% endfor %}
+   </ul>
 </div>
+
+
 
 {% endblock %}

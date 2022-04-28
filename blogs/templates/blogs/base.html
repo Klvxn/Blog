@@ -68,7 +68,7 @@
 
 <body>   
     
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style=" width: 100%;">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" style="font-size:35px; font-weight:bolder;" href="{% url 'blogs:index' %}">Blog</a>
 
@@ -77,34 +77,37 @@
         <span class="navbar-toggler-icon"> </span> </button>
 
       <div class="collapse navbar-collapse" id="navbarCollapse" style="font-size: 23px;">
-        <ul class ="navbar-nav mr-auto">
-          <li class="nav-item">
+        <ul class ="navbar-nav selected">
+          <li>
             <a class="nav-link active" aria-current="page" href="{% url 'blogs:index' %}"> Home </a> </li>
-          <li class="nav-item">
+          <li>
             <a class="nav-link active" aria-current="page" href="{% url 'blogs:create_post' %}"> Add post </a> </li>
-          <li class="nav-item">
+          <li>
             <a class="nav-link active" aria-current="page" href="{% url 'blogs:authors' %}"> Authors </a> </li>
         </ul> 
 
-        <ul class="navbar-nav ml-auto"> 
+         
+        <ul class="navbar-nav ml-auto" > 
           {% if user.is_authenticated %}
-
+            <span style="margin-right: 650px;">
             <li class="nav-item">
-              <span class="navbar-text"> Hello, {{ user.username }} |
+              <span class="navbar-text font-weight-bold " style="font-size: x-large;" > HELLO,  {{ user.username|title }}
                 </span> </li>  
+            </span>
 
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'users:logout' %}"> Log out </a> </li> 
+              <a class="btn bg-light ml-3" style="font-size: 22px;" href="{% url 'users:logout' %}"> Log out </a> </li> 
 
           {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'users:login' %}"> Log in </a> </li>
+              <a class="btn btn-outline-success mr-3" style="font-size: 22px ;" href="{% url 'users:login' %}"> Log in </a> </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'users:register' %}"> Register </a> </li>
+              <a class="btn btn-success" style="font-size: 22px;" href="{% url 'users:register' %}"> Register </a> </li>
 
           {% endif %}
           </ul>
+       
 
          
         </div>
