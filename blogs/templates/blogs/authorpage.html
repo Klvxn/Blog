@@ -1,21 +1,23 @@
 {% extends 'blogs/base.html' %}
 
 {% block page_header %}
-    <h2>About the Author</h2>
+    <h2>About {{author.firstname|title}} {{author.lastname|title}}</h2>
 {% endblock page_header %}
 
 {% block content %} 
-<div style="font-size: 30px;">
-    <div class="mb-5 card body">
-        <p class="mb-5" > <b> Bio  </b> <br>
-        <span class="ml-3"> {{author.bio}} </span> </p>  
-
-        <b> Contact </b> 
-         <span class="ml-3"> E-mail: {{author.email}} </span>
+<div style="font-size: 30px; font-family: sans-serif ;">
+    <div class="mb-5 card body " style="width: fit-content;">
+        <p class="mb-5 " > <b class="card header bg-light"> Bio  </b> 
+        <span class="ml-3 mr-5"> {{author.bio}} </span> </p>  
     </div>
-    <div  class="card body">
-        <b> Posts by {{author.firstname|title}} {{author.lastname|title}} </b> 
-        <ul>
+
+    <div class="card body mb-5 " style="width: max-content;">
+        <b class="card header bg-light"> Contact </b> 
+         <span class="ml-3 mr-5 mb-5"> E-mail: {{author.email}} </span>
+    </div>
+    <div  class="card body " style="width:fit-content;">
+        <b class="card header  bg-light" > Posts by {{author.firstname|title}} {{author.lastname|title}} </b> 
+        <ul style=" margin-right: 25px;">
             {% for posts in author_posts %}
                 <li > <a style="font-weight:bold; color:blue;"  href="{{posts.get_absolute_url}}">{{posts.title}} </a> </li>
             {% empty %}

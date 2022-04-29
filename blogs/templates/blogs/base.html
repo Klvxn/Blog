@@ -16,8 +16,8 @@
       }
       #sidebar{
         float: right;
-        width:35%;
-        background:rgb(209, 208, 208);
+        width:33%;
+        background:antiquewhite;
         list-style-type: none;
         font-size: 17px;
         padding: 20px;
@@ -26,8 +26,8 @@
       [id="sidebar"] a{
         color:grey;
         font-weight:bold; 
-        font-family:sans-serif; 
-        font-size:20px;
+        font-family:'Open Sans'; 
+        font-size:22px;
       }
       #title{
         font-family:Sans-serif; 
@@ -91,7 +91,7 @@
           {% if user.is_authenticated %}
             <span style="margin-right: 650px;">
             <li class="nav-item">
-              <span class="navbar-text font-weight-bold " style="font-size: x-large;" > HELLO,  {{ user.username|title }}
+              <span class="navbar-text font-weight-bold ml-1" style="font-size: x-large;" > HELLO,  {{ user.username|title }}
                 </span> </li>  
             </span>
 

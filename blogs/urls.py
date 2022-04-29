@@ -10,13 +10,13 @@ urlpatterns = [
     # index page.
     path('', views.IndexView, name='index'),
     # post detail
-    path('post/<slug:slug>/', views.PostDetail, name='post_detail'),
+    path('post/<slug:slug>/<int:pk>/', views.PostDetail, name='post_detail'),
     # new post.
     path('create-post/', views.create_post, name='create_post'),
     # edit post
-    path('post/<slug:slug>/edit-post/', views.edit_post, name='edit_post'),
+    path('post/<slug:slug>/<int:pk>/edit-post/', views.edit_post, name='edit_post'),
     # delete post
-    path('post/<slug:slug>/delete-post/', views.delete_post, name='delete_post'),
+    path('post/<slug:slug>/<int:pk>/delete-post/', views.delete_post, name='delete_post'),
     # authors page
     path('authors/', views.authors, name='authors'),
     # author page
@@ -24,8 +24,4 @@ urlpatterns = [
     path('become-an-author/', views.beauthor, name='beauthor'),
     # search page
     path('search/', views.search, name='search'),
-
-
-    # Login redirect page
-    path('registration/login/', auth_views.LoginView.as_view()),
     ]

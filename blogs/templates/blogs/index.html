@@ -13,15 +13,15 @@
 {% if messages %}
    <ul class="messages">
      {% for message in messages %}
-         <span style="color: limegreen; font-size: large;">{{ message }}</span>
+         <span style="color: rgb(6, 189, 6); font-size: xx-large;">{{ message }}</span>
       {% endfor %}
    </ul>
 {% endif %}
 
 
 {% if all_posts %}
-   <div class="text-center position-sticky " id="sidebar">
-      <p style="font-size:30px; font-weight:normal;" class="mb-0"> Posts </p>
+   <div class=" position-sticky " id="sidebar">
+      <p style="font-size:30px;  font-weight: bold;" class="mb-0 text-center">All Posts </p>
          {% for post in all_posts %}
             <li> - <a href="{{ post.get_absolute_url }}"> {{post.title}} by {{post.author}} </a> </li> 
          {% endfor %} <br/>   

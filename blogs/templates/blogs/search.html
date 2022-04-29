@@ -1,31 +1,31 @@
 {% extends 'blogs/base.html' %}
 
-{% block page_header %} <h2> Search results for <i>"{{searched}}"</i>:  </h2> {% endblock page_header %}
+{% block page_header %} <h2> Search results for <i>"{{searched}}"</i>  </h2> {% endblock page_header %}
 
 {% block content %}
 {% if search.count %}
-   <i style="font-size: xx-large;"> match found </i>
+   <span style="font-size: xx-large;"> Match found </span>
 
 {% endif %}
 
 
 <div style="font-size:xx-large;">
-   <u> Posts </u>
+   <b> <u> Posts </u> </b>
    <ul> 
    {% for searches in search %}
-      <li> <a style="color:blue; font-family:calibri; font-size:32px; font-weight: bold;" href="{{ searches.get_absolute_url }}"> {{searches.title}} </a>  by {{searches.author}}</li>  
+      <li> <a style="color:blue; font-family:calibri; font-size:32px; font-weight: bold;" href="{{ searches.get_absolute_url }}"> {{searches.title}} </a>  by {{searches.author.firstname|title}}  {{searches.author.lastname|title}}</li>  
 {% empty %} 
-      No post matched your search :(
+      No post matched your search.
 {% endfor %} </div>
 </ul>
 
 <div style="font-size:xx-large;">
-   <u> Authors </u>
+   <b> <u> Authors </u> </b>
    <ul>
    {% for searched in search_author %}
-      <li> <a style="color:blue; font-weight: bold;" href="{{searched.get_absolute_url}}"> {{searched}} </a> </li>
+      <li> <a style="color:blue; font-weight: bold;" href="{{searched.get_absolute_url}}"> {{searched.firstname|title}} {{searched.lastname|title}} </a> </li>
    {% empty %} 
-      No author matched your search :(
+      No author matched your search.
    {% endfor %}
    </ul>
 </div>

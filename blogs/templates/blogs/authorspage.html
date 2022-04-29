@@ -9,7 +9,7 @@
    <div style="font-size:xx-large;"> 
       <ul> 
          {% for authors in authors %}
-            <li> <a style="color:blue; font-family:calibri; font-size:35px; font-weight:bold;" href="{{ authors.get_absolute_url }}"> {{ authors.firstname|title }} {{authors.lastname|title}} </a> </li>
+            <li> <a style="color:blue; font-family:Open sans; font-size:35px; font-weight:bold;" href="{{ authors.get_absolute_url }}"> {{ authors.firstname|title }} {{authors.lastname|title}} </a> </li>
          {% empty %}
             <h3> No authors at the moment </h3>
          {% endfor %}  

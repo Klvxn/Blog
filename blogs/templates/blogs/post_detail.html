@@ -18,8 +18,8 @@
     
     <div class="p-5 border-bottom ">
         {% if request.user == posts.author.user %}
-            <a class="btn btn-dark" style="color:white;" href="{% url 'blogs:edit_post' posts.slug %}"> Edit post</a> 
-            <a class="btn btn-danger" style="color:white;" href="{% url 'blogs:delete_post' posts.slug %}"> Delete post </a>
+            <a class="btn btn-dark" style="color:white;" href="{% url 'blogs:edit_post' posts.slug posts.pk %}"> Edit post</a> 
+            <a class="btn btn-danger" style="color:white;" href="{% url 'blogs:delete_post' posts.slug posts.pk %}"> Delete post </a>
         {% endif %}
     </div>
 
