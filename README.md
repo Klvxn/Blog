@@ -6,5 +6,5 @@ Link to the app --> http://kelvxn-blog.herokuapp.com
 Added other functionalities like a comment section, pagination(4 posts per page), and a small sidebar that contains a list of all the blog posts.
 
 <h3> Requirements </h3>
-Install Python from <a href="https://www.python.org" > Python.org </a>
-Install Django using pip install Django
+Install Python from <a href="https://www.python.org" > Python.org </a> <br>
+Install Django using - pip install Django
