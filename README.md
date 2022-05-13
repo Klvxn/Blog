@@ -14,13 +14,14 @@ A Django based web app that allows users to view, create, edit or delete blog po
      <li> Browsable API </li>
      <li> Comment section </li>
      <li> Author's can also edit their profile </li>
+     <li> Added search </li>
 
-     <li> Added search. To be able to search for posts and authors. </li>
+
   </ol>
   
 
 <h3> Requirements </h3>
-Install Python <a href="https://www.python.org" > python.org </a> <br>
+Install Python <br> <a href="https://www.python.org" > python.org </a> <br>
 Install Django <br>
 
 ```
@@ -32,3 +33,6 @@ pip install djangorestframework
 ```
 
 <h3> Deployed on Heroku at </h3> - https://kvn-blog.herokuapp.com
+
+<h3> P.S. </h3> 
+Make sure to view from a PC. 
