@@ -22,6 +22,11 @@ A Django based web app that allows users to view, create, edit or delete blog po
 
 <h3> Requirements </h3>
 Install Python from <a href="https://www.python.org" > Python.org </a> <br>
-Install Django - ```python 
-pip install django``` <br>
-Install DRF - ’’’pip install djangorestframework’’’
+Install Django - 
+```
+pip install django 
+```
+Install DRF - 
+```
+pip install djangorestframework
+```
