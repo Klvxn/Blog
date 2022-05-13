@@ -8,11 +8,12 @@ A Django based web app that allows users to view, create, edit or delete blog po
 
 <h3> Added Features </h3>
 <ol>
-  <li> A comment section </li>
-  <li> Author model and individual author's page </li>
-  <li> Author's can also edit their profile </li>
+   <li> Author model and individual author's page </li>
+  <li> Added and ran tests using pytest-django package </li>
   <li> Pagination - 11 posts per page </li>
   <li> Built the API using DRF </li>
+  <li> A comment section </li>
+  <li> Author's can also edit their profile </li>
   <li> A small sidebar on the homepage that shows a list of recent posts </li>
   <li> Added a sesrch functionality. To be able to search for posts and authors. </li>
   </ol>
@@ -21,4 +22,5 @@ A Django based web app that allows users to view, create, edit or delete blog po
 
 <h3> Requirements </h3>
 Install Python from <a href="https://www.python.org" > Python.org </a> <br>
-Install Django using - pip install Django
+Install Django - pip install Django
+Install DRF - pip install djangorestframework
