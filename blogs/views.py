@@ -60,7 +60,7 @@ def create_post(request):
                 return render(request, template_name)
     else:
         if not hasattr(request.user, 'author'): 
-            messages.warning(request, "You are not an author. Only verified authors can create a post!")       
+            messages.warning(request, "You are not an author! Only verified authors can create a post.")       
         form = BlogForm()
     template_name = 'blogs/create_post.html'
     context = {'form': form}
@@ -78,7 +78,7 @@ def edit_post(request, slug, pk):
                 edit = form.save(commit=False)
                 edit.slug = slugify(edit.title)
                 edit.save()
-                return redirect('blogs:index')    
+                return redirect(edit)    
         else:
             form = BlogForm(instance=post)
     else:

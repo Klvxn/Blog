@@ -6,16 +6,19 @@
 {% endblock %}
 
 {% block content %}
-<div >
-<span style="font-size:35px;"> These are the authors/writers behind some of the best posts you've read on our site.. </span>
+<div>
+   <p class="authors" style="font-size:35px; text-align:center;">
+      These are the authors/writers behind some of the best posts you've read on our site.. <br>
+      Feel free to reach out to any of them :) </p>
    <div> 
       <ul> 
          {% for authors in authors %}
-            <li> <a style="color:blue; font-family:Tahoma; font-size:35px;  font-weight:normal;" href="{{ authors.get_absolute_url }}"> {{ authors.firstname|title }} {{authors.lastname|title}} </a> </li>
+            <li> <a style="color:blue; font-family:Tahoma; font-size:35px;" href="{{ authors.get_absolute_url }}"> {{ authors.firstname|title }} {{authors.lastname|title}} </a> </li>
          {% empty %}
-            <h3> No authors at the moment </h3>
+            <h3> No authors. Click the link above to become an author. </h3>
          {% endfor %}  
       </ul>  
    </div>
 </div>
+
 {% endblock content %}

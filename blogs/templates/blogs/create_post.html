@@ -11,8 +11,8 @@
 {% if messages %}
    <ul class="messages">
      {% for message in messages %}
-         <span class="text-danger" style="font-size: 25px;">{{ message }}
-      {% endfor %} Click <a href="{% url 'blogs:beauthor' %}"> here </a> to become an author (!)</span>
+         <span class="text-danger" style="font-size: 25px;"> <i class="fa fa-warning"></i> {{ message }}
+      {% endfor %} <br> &ThickSpace;  Click <a href="{% url 'blogs:beauthor' %}"> here </a> to become an author.</span>
    </ul>
 {% endif %}
 

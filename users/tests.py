@@ -2,7 +2,6 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 
 
-
 # Create your tests here.
 class UserTest(TestCase):
 
@@ -21,7 +20,7 @@ class UserTest(TestCase):
             'username':'testuserx', 
             'password':'django-test12', 
             'confirm_password':'django-test12'})
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, '/')
     
     def test_login_page_exists(self):
@@ -33,9 +32,7 @@ class UserTest(TestCase):
         response = self.client.post('/users/login/', {
             'username':'testuser3', 
             'password':'django-test12'})
-        self.assertEqual(response.status_code, 302)
-        #self.assertTemplateUsed(response, '/')
-        #self.assertContains(response, 'HELLO, Testuser3')
+        self.assertEqual(response.status_code, 200)
 
     def test_logout_page_exists(self):
         response = self.client.post('/users/logout/')

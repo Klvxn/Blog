@@ -3,7 +3,7 @@
 
 
 {% block page_header %}
-<h2 > Posts
+<h2> Posts
    <form id="search" class="d-flex" method="GET" action="{% url 'blogs:search' %}"> 
       <div class="input-group ">
       <input type="search" class=" form-control-lg mr-2 rounded" name="query" aria-label="Search" placeholder="Search...">
@@ -11,7 +11,6 @@
    </form>  
 </h2>
 {% endblock page_header %}
-
 
 {% block content %}
 {% if messages %}
@@ -21,57 +20,65 @@
       {% endfor %}
    </ul>
 {% endif %}
-<section>
-   <div id="sidebar" class="container" style="position: sticky; top: 0;" >
-      <div class="card welcomenote mb-4">
-      <b> Hi there, Welcome to Blog</b> <hr class="mt-3">
-      <span class="mb-4"> Your favourite web app for daily tech related news and discussions. </span>
-   </div>
-
-   {% if all_posts %}
-      <div class="card posts">
-         <p style="font-size:30px;  font-weight: bold;" class="mb-0 ">Recent posts <hr> </p> 
-            {% for post in all_posts %}
-               <li> <a href="{{ post.get_absolute_url }}"> `{{post.title}} by {{post.author}} </a> </li> 
-            {% endfor %} <br/>   
+<div class="mb-5">
+   <div id="sidebar" class="container" >
+      <div class="card welcomenote border mb-4">
+         <b> Hi there, Welcome to Blog.</b> <hr class="mt-3">
+         <span class="mb-4"> Your favourite web app for daily tech related news and discussions. </span>
       </div>
-   {% endif %}
-</div>
 
-
-<article class="container-fluid" id="maincontent">
-   {% for post in posts_list %}
-      <div class="text-left mb-4 border-bottom">
-         <div>
-            <a href="{{ post.get_absolute_url }}" style="color:blue; font-weight: bold; font-family:calibri; font-size:32px"> {{ post.title }} </a>  
+      {% if all_posts %}
+         <div class="card posts">
+            <p style="font-size:40px;"   class="mb-auto ">Recent posts <hr> </p> 
+               {% for post in all_posts %}
+                  <li> <a href="{{ post.get_absolute_url }}"> `{{post.title}} by {{post.author}} </a> </li> 
+               {% endfor %} <br/>   
          </div>
-         <div> 
-            <p>{{ post.text|truncatewords:35 }}</p>
-            By <b> {{post.author.firstname|title}} {{post.author.lastname|title}} </b>
-            <br>  
-            <a style="color:rgb(187, 187, 187);"> {{post.date_added.date}} </a>
-         </div>   
-      </div>
-   {% empty %}
-      <p> there are no posts at the moment. </p>
+      {% endif %}
    </div>
-   {% endfor %}
 
-   <div class="pagination" style="font-size: x-large; text-align:right;" >
+   <article class="container-fluid" id="maincontent">
+      {% for post in posts_list %}
+         <div class="text-left mb-4 border-bottom">
+            <div>
+               <a href="{{ post.get_absolute_url }}" style="color:blue; font-weight: bold; font-family:calibri; font-size:32px"> {{ post.title }} </a>  
+            </div>
+            <div> 
+               <p>{{ post.text|truncatewords:35 }}</p>
+               By <b> {{post.author.firstname|title}} {{post.author.lastname|title}} </b>
+               <br>  
+               <a style="color:rgb(187, 187, 187);"> {{post.date_added.date}} </a>
+            </div>   
+         </div>
+      {% empty %}
+         <p> there are no posts at the moment. </p>
+      </div>
+      {% endfor %}
+   </article>
+
+   <div class="pagination">
       <span class="step-links">
          {% if posts_list.has_previous %}
             <a href="?page=1">&laquo; First</a>
             <a href="?page={{posts_list.previous_page_number }}">Previous</a>
          {% endif %}
          <span class="current">
-            Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}.
+            Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}. <br>
          </span>
          {% if posts_list.has_next %}
-            <a href="?page={{ posts_list.next_page_number }}">Next</a>
-            <a href="?page={{ posts_list.paginator.num_pages }}">Last &raquo;</a>
+            <a href="?page={{ posts_list.next_page_number }}">Next </a> | 
+            <a href="?page={{ posts_list.paginator.num_pages }}"> Last &raquo;</a>
          {% endif %}
       </span>
    </div>
-</article>
-</section>
+</div>
+&ThickSpace;
+
+<footer class="mt-5 mr-0 ml-0">
+   <div class=" about bg-border text-center">   
+      <p> Built with <a href="https://djangoproject.com"> Django </a> </p> <hr>
+      <p> Copyright (c) 2022. All rights reserved.</p>
+   </div>
+</footer>
+
 {% endblock %}
