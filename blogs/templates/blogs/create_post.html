@@ -3,11 +3,21 @@
 
 
 {% block page_header %} 
-    <h2> Add a new post</h2>
+    <h2> Create a post</h2>
 {% endblock page_header %}
 
 
 {% block content %}
+{% if messages %}
+   <ul class="messages">
+     {% for message in messages %}
+         <span class="text-danger" style="font-size: 25px;">{{ message }}
+      {% endfor %} Click <a href="{% url 'blogs:beauthor' %}"> here </a> to become an author (!)</span>
+   </ul>
+{% endif %}
+
+
+
     <p>{{ post }}</p>
 
     <form  action="" method='post' style="font-size:25px;">

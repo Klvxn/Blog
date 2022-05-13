@@ -3,36 +3,44 @@
 
 
 {% block page_header %}
-<div id="title">
+<h2>
     <span> Post: {{posts.title}} </span> <br>
     <span style="font-family: calibri; color:rgb(187, 187, 187); font-size:24px;"> published by <a href="{{ posts.author.get_absolute_url}}"> {{posts.author.firstname|title}} {{posts.author.lastname|title}} </a> - {{posts.date_added.date}} </span>
     <i style="color: burlywood; font-size: 23px; float:right;"> {{comment_count.count}} comments </i>  
-</div>
+</h2>
 {% endblock page_header %}
 
 {% block content %}
     <div class="main mb-5">
-    <p style="font-family:calibri; font-size:x-large;"> 
-        {{ posts.text }} </p>
+        <p style="font-family:calibri; font-size:x-large;"> 
+            {{ posts.text }} </p>
+        
+        <div class="textlink mt-5" >
+            {% if posts.source %}
+              <span style="font-size:x-large;">  Source: <a href="{{posts.source}}"> {{posts.source}} </a> </span>
+            {% endif %}
+        </div> 
     </div>
-    
+
     <div class="p-5 border-bottom ">
         {% if request.user == posts.author.user %}
-            <a class="btn btn-dark" style="color:white;" href="{% url 'blogs:edit_post' posts.slug posts.pk %}"> Edit post</a> 
+            <a class="btn btn-primary" style="color:white;" href="{% url 'blogs:edit_post' posts.slug posts.pk %}"> Edit post</a> 
             <a class="btn btn-danger" style="color:white;" href="{% url 'blogs:delete_post' posts.slug posts.pk %}"> Delete post </a>
         {% endif %}
     </div>
 
     <div class="mt-3" id="commentSection">
-        <h2 style="font-family:Sans-serif; font-weight:bold; font-size:25px;"> Comments </h2>
-        {% for comment in posts.comment_set.all %}
-            <div style="margin-left: 15px;">
-                <p> <b> {{comment.username}}: </b> - <i style="font-family: calibri; color:rgb(187, 187, 187);"> {{comment.date_created|timesince}} ago </i> <br> 
-                {{comment.text}} </p>    
-                </div>
-        {% empty %}
+        <h3 style="font-family:Sans-serif; font-weight:bold; font-size:25px;"> 
+            {% if posts.comment_set.all %} Comments </h3>
+                {% for comment in posts.comment_set.all %}
+                    <div style="margin-left: 15px;">
+                        <p> <b> {{comment.username}}: </b> - <i style="font-family: calibri; color:rgb(187, 187, 187);"> {{comment.date_created|timesince}} ago </i> <br> 
+                        {{comment.text}} </p>  
+                    </div> 
+                {% endfor %}  
+            {% else %} 
                 No comments..
-        {% endfor %}
+            {% endif %}   
     </div>
 
 <hr>

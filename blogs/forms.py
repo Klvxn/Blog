@@ -4,9 +4,10 @@ from .models import Author, BlogPost, Comment
 
 
 class BlogForm(forms.ModelForm):
+    source = forms.URLField(required=False, widget=forms.URLInput(attrs={'placeholder':'Link to post source.'}))
     class Meta:
         model = BlogPost
-        fields = ['title', 'text']
+        fields = ['title', 'text', 'source']
 
 
 class AuthorForm(forms.ModelForm):

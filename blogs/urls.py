@@ -1,27 +1,27 @@
-import re
 from django.urls import path
-from django.contrib.auth import views as auth_views
 
 from . import views
+
 
 app_name = 'blogs'
 
 urlpatterns = [
-    # index page.
+    # Home page.
     path('', views.IndexView, name='index'),
-    # post detail
+    # Post detail
     path('post/<slug:slug>/<int:pk>/', views.PostDetail, name='post_detail'),
-    # new post.
+    # Create post.
     path('create-post/', views.create_post, name='create_post'),
-    # edit post
+    # Edit post
     path('post/<slug:slug>/<int:pk>/edit-post/', views.edit_post, name='edit_post'),
-    # delete post
+    # Delete post
     path('post/<slug:slug>/<int:pk>/delete-post/', views.delete_post, name='delete_post'),
-    # authors page
+    # Authors page
     path('authors/', views.authors, name='authors'),
-    # author page
+    # Author page
     path('author/<slug:firstname>-<slug:lastname>/', views.author, name='author'),
     path('become-an-author/', views.beauthor, name='beauthor'),
-    # search page
+    path('author/<slug:firstname>-<slug:lastname>/edit-profile/', views.edit_author_profile, name='edit_author_profile'),
+    # Search page
     path('search/', views.search, name='search'),
     ]

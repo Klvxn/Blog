@@ -2,9 +2,12 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.utils.text import slugify
+
 
 # Create your models here.
 class Author(models.Model):
+  
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     firstname = models.CharField(max_length=10)
     lastname = models.CharField(max_length=10)
@@ -19,10 +22,11 @@ class Author(models.Model):
 
 
 class BlogPost(models.Model):
-    """A post the user will post on the blog."""
+
     title = models.CharField(max_length=200)
     text = models.TextField()
-    slug = models.SlugField(max_length=100, null = True)
+    slug = models.SlugField(max_length=100, null=True, default=slugify(title))
+    source = models.URLField(null=True, blank=True)
     date_added = models.DateTimeField('Date Published', default=timezone.now)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)
 
@@ -30,7 +34,6 @@ class BlogPost(models.Model):
         ordering = ['-date_added']
 
     def __str__(self):
-        """Return a string representation of the blog."""
         return f'{self.title} by {self.author}'
 
     def get_absolute_url(self):
@@ -38,6 +41,7 @@ class BlogPost(models.Model):
 
 
 class Comment(models.Model):
+
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
     username  = models.CharField(max_length=100)
     text = models.TextField(('Comment'), null=True)

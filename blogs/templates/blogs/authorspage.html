@@ -2,17 +2,20 @@
 
 {% block page_header %}
 <h2> Authors 
-<a href="{% url 'blogs:beauthor' %}" style="float:right; font-weight:normal;"> Become an author </a> </h2>
+{% if not user.author %} <a href="{% url 'blogs:beauthor' %}" style="float:right;"> Become an author </a> {% endif %} </h2>
 {% endblock %}
 
 {% block content %}
-   <div style="font-size:xx-large;"> 
+<div >
+<span style="font-size:35px;"> These are the authors/writers behind some of the best posts you've read on our site.. </span>
+   <div> 
       <ul> 
          {% for authors in authors %}
-            <li> <a style="color:blue; font-family:Open sans; font-size:35px; font-weight:bold;" href="{{ authors.get_absolute_url }}"> {{ authors.firstname|title }} {{authors.lastname|title}} </a> </li>
+            <li> <a style="color:blue; font-family:Tahoma; font-size:35px;  font-weight:normal;" href="{{ authors.get_absolute_url }}"> {{ authors.firstname|title }} {{authors.lastname|title}} </a> </li>
          {% empty %}
             <h3> No authors at the moment </h3>
          {% endfor %}  
       </ul>  
    </div>
+</div>
 {% endblock content %}

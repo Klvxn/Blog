@@ -1,0 +1,14 @@
+{% extends 'blogs/base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header %} 
+<h2> Edit Profile </h2>
+{% endblock page_header %}
+
+{% block content %}
+<form action="" method="post" style="font-size:25px;">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-primary" type="submit"> Save changes </button>
+</form>
+{% endblock content %}

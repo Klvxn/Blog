@@ -36,9 +36,12 @@ INSTALLED_APPS = [
      # My app
     'blogs.apps.BlogsConfig',
     'users.apps.UsersConfig',
+    'api.apps.ApiConfig',
 
     # THird party app
     'bootstrap4',
+    'rest_framework',
+    'markdown',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -134,13 +137,14 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # My security settings
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
 
 
 # My settings
 LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = '/'
 
 
 # Heroku settings.
