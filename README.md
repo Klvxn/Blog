@@ -2,7 +2,7 @@
 <h2> Introduction </h2>
 
 A Django based web app that allows users to view, create, edit or delete blog posts...and added features. <br>
-(From the book, Python Crash Course (2nd Edition) by @ehmattes Eric Matthes)
+(From the book, Python Crash Course (2nd Edition) by Eric Matthes)
 
 
 
