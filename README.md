@@ -21,7 +21,7 @@ A Django based web app that allows users to view, create, edit or delete blog po
   
 
 <h3> Requirements </h3>
-Install Python <br> <a href="https://www.python.org" > python.org </a> <br>
+<p> Install Python <br> <a href="https://www.python.org" > python.org </a> </p>
 Install Django <br>
 
 ```
