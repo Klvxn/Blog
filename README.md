@@ -11,7 +11,7 @@ A Django based web app that allows users to view, create, edit or delete blog po
      <li> Author model and view </li>
      <li> Added and ran tests using pytest-django package </li>
      <li> Pagination - 11 posts per page </li>
-     <li> Browsable API built using DRF </li>
+     <li> Browsable API </li>
      <li> Comment section </li>
      <li> Author's can also edit their profile </li>
 
@@ -20,7 +20,7 @@ A Django based web app that allows users to view, create, edit or delete blog po
   
 
 <h3> Requirements </h3>
-Install Python from <a href="https://www.python.org" > python.org </a> <br>
+Install Python <a href="https://www.python.org" > python.org </a> <br>
 Install Django <br>
 
 ```
@@ -31,4 +31,4 @@ Install DRF <br>
 pip install djangorestframework
 ```
 
-<h4> Deployed on Heroku at </h4> - https://kvn-blog.herokuapp.com
+<h3> Deployed on Heroku at </h3> - https://kvn-blog.herokuapp.com
