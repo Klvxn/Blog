@@ -1,7 +1,7 @@
 # Blog
 <h2> Introduction </h2>
 
-A Django based web app that allows users to view, create, edit or delete blog posts...and added features. <br>
+A Django based web app that allows users to view, create, edit or delete blog posts...and other features including it's API. <br>
 (From the book, Python Crash Course (2nd Edition) by Eric Matthes)
 
 
@@ -15,19 +15,19 @@ A Django based web app that allows users to view, create, edit or delete blog po
      <li> Comment section </li>
      <li> Author's can also edit their profile </li>
      <li> Added search </li>
-
-
   </ol>
   
 
 <h3> Requirements </h3>
-<p> Install Python - <a href="https://www.python.org" > python.org </a> </p>
-Install Django <br>
+<p> Python - <a href="https://www.python.org" > python.org </a> </p>
+
+Django <br>
 
 ```
 pip install django 
 ```
-Install DRF <br> 
+
+DRF <br> 
 ```
 pip install djangorestframework
 ```
