@@ -21,7 +21,6 @@ class UserTest(TestCase):
             'password':'django-test12', 
             'confirm_password':'django-test12'})
         self.assertEqual(response.status_code, 200)
-        self.assertRedirects(response, '/')
     
     def test_login_page_exists(self):
         response = self.client.get('/users/login/')
