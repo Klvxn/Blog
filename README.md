@@ -1,4 +1,7 @@
 # Blog
+
+https://github.com/Kelvxn/Blog/actions/workflows/django_test_config.yml/badge.svg
+
 <h2> Introduction </h2>
 
 A Django based web app that allows users to view, create, edit or delete blog posts...and other features including it's API. <br>
