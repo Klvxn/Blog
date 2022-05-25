@@ -1,6 +1,6 @@
 # Blog
 
-https://github.com/Kelvxn/Blog/actions/workflows/django_test_config.yml/badge.svg
+[! Test workflow] (https://github.com/Kelvxn/Blog/actions/workflows/django_test_config.yml/badge.svg)
 
 <h2> Introduction </h2>
 
