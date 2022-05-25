@@ -148,5 +148,5 @@ class CommentModelTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_date_of_comment(self):
-        date = timezone.now()
-        self.assertEqual(self.comment.date_created, date)
+        date = timezone.now().date()
+        self.assertEqual(self.comment.date_created.date(), date)
