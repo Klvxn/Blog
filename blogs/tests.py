@@ -93,8 +93,8 @@ class BlogPostModelTest(TestCase):
         self.assertContains(response, 'test post')
 
     def test_date_of_blogpost(self):
-        current_date = timezone.now()
-        self.assertEqual(self.blog.date_added, current_date)
+        current_date = timezone.now().date()
+        self.assertEqual(self.blog.date_added.date(), current_date)
 
     def test_slug_of_blogpost(self):
         test_slug = 'test-post'
