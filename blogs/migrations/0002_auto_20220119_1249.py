@@ -9,24 +9,28 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('blogs', '0001_initial'),
+        ("blogs", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='blogpost',
-            name='user',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='auth.user'),
+            model_name="blogpost",
+            name="user",
+            field=models.ForeignKey(
+                default=1, on_delete=django.db.models.deletion.CASCADE, to="auth.user"
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='date_added',
-            field=models.DateTimeField(auto_now_add=True, verbose_name='Date Published'),
+            model_name="blogpost",
+            name="date_added",
+            field=models.DateTimeField(
+                auto_now_add=True, verbose_name="Date Published"
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='text',
+            model_name="blogpost",
+            name="text",
             field=models.TextField(max_length=500),
         ),
     ]

@@ -8,32 +8,44 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blogs', '0008_auto_20220408_1454'),
+        ("blogs", "0008_auto_20220408_1454"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Author',
+            name="Author",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('username', models.CharField(max_length=15)),
-                ('firstname', models.CharField(max_length=10)),
-                ('lastname', models.CharField(max_length=10)),
-                ('email', models.EmailField(max_length=254)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("username", models.CharField(max_length=15)),
+                ("firstname", models.CharField(max_length=10)),
+                ("lastname", models.CharField(max_length=10)),
+                ("email", models.EmailField(max_length=254)),
             ],
         ),
         migrations.RemoveField(
-            model_name='blogpost',
-            name='owner',
+            model_name="blogpost",
+            name="owner",
         ),
         migrations.AddField(
-            model_name='comment',
-            name='date_created',
+            model_name="comment",
+            name="date_created",
             field=models.DateTimeField(default=django.utils.timezone.now),
         ),
         migrations.AddField(
-            model_name='blogpost',
-            name='author',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='blogs.author'),
+            model_name="blogpost",
+            name="author",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="blogs.author",
+            ),
         ),
     ]

@@ -10,18 +10,22 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('blogs', '0010_blogpost_slug'),
+        ("blogs", "0010_blogpost_slug"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='author',
-            name='username',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="author",
+            name="username",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='date_added',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date Published'),
+            model_name="blogpost",
+            name="date_added",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date Published"
+            ),
         ),
     ]
