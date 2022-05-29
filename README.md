@@ -35,12 +35,13 @@ DRF <br>
 pip install djangorestframework
 ```
 
-<h3> Deployed at </h3> -
-Heroku <a href="https://kvn-blog.herokuapp.com"> Blog app </a>
+<h3> Deployed at </h3>
+Heroku > <a href="https://kvn-blog.herokuapp.com"> Blog app </a>
 
 
 <h3> Clone repository </h3>
 Clone the repository using <br>
+
 ```
 git clone https://github.com/Kelvxn/Blog.git
 ```
