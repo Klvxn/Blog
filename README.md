@@ -35,7 +35,17 @@ DRF <br>
 pip install djangorestframework
 ```
 
-<h3> Deployed on Heroku at </h3> - https://kvn-blog.herokuapp.com
+<h3> Deployed at </h3> -
+Heroku <a href="https://kvn-blog.herokuapp.com"> Blog app </a>
+
+
+<h3> Clone repository </h3>
+Clone the repository using
+```
+git clone https://github.com/Kelvxn/Blog.git
+```
 
 <h3> P.S. </h3> 
 Make sure to view from a PC. 
+Feel free to clone or fork the repository. 
+or open an issue if you'd like to see a new feature.
