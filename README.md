@@ -36,7 +36,8 @@ pip install djangorestframework
 ```
 
 <h3> Deployed at </h3>
-Heroku > <a href="https://kvn-blog.herokuapp.com"> Blog app </a>
+Heroku > <a href="https://kvn-blog.herokuapp.com"> Blog app </a> <br>
+<a href="https://kvn-blog.herokuapp.com/api/v1/"> Blog API </a>
 
 
 <h3> Clone repository </h3>
