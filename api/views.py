@@ -1,12 +1,16 @@
+from django.contrib.auth.models import User
+
 from rest_framework.generics import ListAPIView, GenericAPIView
-from rest_framework.permissions import IsAdminUser, SAFE_METHODS, BasePermission
+from rest_framework.permissions import IsAdminUser
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, CreateModelMixin
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.decorators import api_view
 
-from blogs.models import User, BlogPost, Author
+from authors.models import Author
+from blogs.models import BlogPost
 
+from .permissions import IsAuthorOrReadOnly, IsUserOrReadOnly
 from .serializers import AuthorSerializer, BlogSerializer, UserSerializer
 
 
@@ -34,22 +38,6 @@ class BaseView(RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, GenericAP
 
     def delete(self, request, *args, **kwargs):
         return self.delete(request, args, kwargs)
-
-
-class IsAuthorOrReadOnly(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            return True
-
-        return obj.author.user == request.user
-
-
-class IsUserOrReadOnly(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            return True
-
-        return obj.user == request.user
 
 
 class BlogList(ListAPIView):

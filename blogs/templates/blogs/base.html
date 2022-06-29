@@ -1,12 +1,17 @@
 {% load bootstrap4 %}
+{% load django_htmx %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewpoint" content="width=device-width, initial-scale=1 shrink-to-fit=yes">
+        <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
 
         <title> Blog </title>
+
+        <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+        <script src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -15,141 +20,167 @@
 
         <style>
 
-            .navbar{
-                position: static;
-                top: 0;
-                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-                font-size: xx-large;  
+            body {
+                margin: 0;
+                padding: 0;
             }
 
-            h2{
+            .navbar {
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode';
+                font-size: 2rem;  
+            }
+
+            h2 {
                 margin-left: 20px;
                 margin-right: 20px;
                 font-family:  sans-serif; 
-                font-size:40px;
-                margin-bottom:30px;
-                border-bottom:1px solid rgb(111, 104, 104);
-                padding:8px 0 10px 0 ;
+                font-size:2rem;
+                margin:1.5rem 0;
+                padding: .5rem;
             }
 
-            div#sidebar{
-                position: sticky;
-                top:10px;
-                width:40%;
-                float: right;
-                font-family: 'Trebuchet MS';
-                list-style-type: none;
-                font-size: 17px; 
-            } 
-
-            #sidebar a{
-                color:rgb(126, 122, 122);
-                font-weight:bold; 
-                font-family:sans-serif; 
-                font-size:25px;
+            h4 {
+                padding: 1.5rem 3rem;
             }
 
-            .welcomenote{
-                font-family: Arial, Helvetica, sans-serif;
-                background-color:khaki;
-                padding: 10px 5px 0 10px;
-                border-width: 2px;
-                font-size: 30px;
+
+            @media (max-width: 1024px) {
+                
+                h2 {
+                    font-size: 1.5rem;
+                    border-bottom: none;
+                    margin-bottom: 2rem;
+                }
+
+                div.posts {
+                    font-family: Arial, Helvetica, sans-serif;
+                    padding: 1.5rem;
+                    background-color: rgb(216, 215, 210);
+                    font-size: 1rem;
+                    width: fit-content;
+                    margin-top: 5rem;
+                    margin: 0 auto;
+                }
+
+                #maincontent {
+                    width: 100%;
+                    font-size: 1.5rem;
+                    padding: 1.5rem;
+                }
+
             }
 
-            .posts{
-                font-family: Arial, Helvetica, sans-serif;
-                padding: 14px 5px 0 10px;
-                background-color: khaki;
-                border-width: 2px;
-                font-size: 25px;
-                margin-bottom: 0;
-                color: #000;
+            @media (min-width: 1025px) {
+                
+                div.posts {
+                    font-family: Arial, Helvetica, sans-serif;
+                    padding: 1rem;
+                    position: sticky;
+                    top:0;
+                    float: right;
+                    width: 35%;
+                    padding: 1.4rem;
+                    background-color: rgb(232, 231, 221);
+                    font-size: 1.3rem;
+                }
+               
+                #maincontent {
+                    margin-left: 0;
+                    width: 60%;
+                    font-family:Verdana, Geneva, Tahoma;
+                    font-size:1.5rem;
+                }
+                
+            }  
+
+            .details {
+                color: rgb(187, 187, 187);
+                padding: 1rem;
             }
 
-            .nav1{
-               margin-left: 33%;
-               text-align: center;
-               float: left;
-               list-style-type: none;
+            .authors div{
+                text-align: left;
             }
 
-            .nav2 a{
-                font-size: 25px;
-                float: right;
-                list-style-type: none;
-            }
-                        
-            article#maincontent{
-                margin-left: 0;
-                width: 60%;
-                font-family:Verdana, Geneva, Tahoma;
-                font-size:20px;
-            }
-
-            #commentSection{
-                font-size: larger;
-            }
-
-            div.about{
-                position: relative;
-                background-color: rgba(235, 235, 235, 0.308);
-                width:100%;
-                font-size: 35px;
-                margin: 0 0 0 0;
-                margin-left: 0;
-                margin-right: 0;
-                font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-                color: rgb(95, 93, 93);
-                padding: 20px;
-                font-weight: normal;
+            div.main {
+                font-size: 1.5rem;
+                margin: 0 auto;
+                padding: 1rem;
             }
             
-            .about a{
+            .nav1 {
+                font-size: 1.3rem;
+                list-style-type: none;
+            }
+            
+            .nav2 a {
+                list-style-type: none;
+                font-size: 1.3rem;
+            }
+            
+            .form-group {
+                margin: 0 auto;
+                width: 90%;
+                margin-bottom: 3rem; 
+                text-align: center; 
+            }
+
+            .form-group label {
+                font-size: 1.5rem;
+                text-align: left;
+            } 
+
+            .form-group button {
+                width: 10rem; 
+                font-size: 1.2rem;
+            }
+
+            .author-detail div {
+                width: 60%;
+                margin: 0 auto;
+            }
+
+            .author-detail span {
+                padding-left: 2rem;
+            }
+
+            li {
+                list-style-type: none;
+            }
+
+            div.about {
+                background-color: rgb(235, 235, 235);
+                width:100%;
+                font-size: 2rem;
+                font-family:'Gill Sans', 'Gill Sans MT';
+                color: rgb(95, 93, 93);
+                padding: 0;
+                margin: 0;
+            }
+            
+            .about a {
                 color: rgba(0, 128, 0, 0.849);
             }
 
-            .pagination{
-                background-color:sandybrown;
-                margin-right: 89%;
-                padding: 8px 8px;
+            .pagination {
+                padding: .5rem;
                 margin-top: 5%;
                 margin-bottom: 10%;
-                font-size: 25px;
-                font-weight: bold;
+                font-size: 1.5rem;
             }
 
-            .pagination a{
-                color: white;
-                margin-left: 0%;
-                font-size: 25px;
-                font-weight: bold; 
+            .pagination a {
+                font-size: 1.5rem;
             }
 
-            div#sidebar a:hover{
-                color:white;
-                text-decoration:underline;
-            }
-
-            .authors{
+            .authors {
                 text-align: center;
             }
 
-            form{   
-                font-family: 'Trebuchet MS', 'Lucida Sans', Arial, sans-serif;
-                margin-left: 20px;
-                margin-right: 20px;
-            }
-
-            form#search{
-                font-size: 32px;
+            #search {
+                font-size: 2rem;
                 float: right;
                 font-family: sans-serif;
-            }
-
-            .search, .search a{
-                font-size: 25px;
-                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             }
         </style>
 
@@ -157,48 +188,45 @@
 
     <body>   
         
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark ">
             <div class="container-fluid">
-                <a class="navbar-brand" style="font-size:50px; " href="{% url 'blogs:index' %}">Blog</a>
+                <a class="navbar-brand" style="font-size:2rem; " href="{% url 'blogs:index' %}">Blog</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" 
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"> </span> </button>
 
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class ="navbar-nav nav1 selected">
+                    <ul class ="navbar-nav nav1 ml-auto">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'blogs:index' %}"> Home </a> </li>
                         <li class="nav-item">
-                            <a class="nav-link active ml-3 mr-3" aria-current="page" href="{% url 'blogs:create_post' %}"> Create post </a> </li>
+                            <a class="nav-link active" aria-current="page" href="{% url 'blogs:create_post' %}"> Create post </a> </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'blogs:authors' %}"> Authors </a> </li>
+                            <a class="nav-link active" aria-current="page" href="{% url 'authors:authors' %}"> Authors </a> </li>
                     </ul> 
             
                     <ul class="navbar-nav nav2 ml-auto" > 
                         {% if user.is_authenticated %}
-
                             <li class="nav-item dropdown">
                                 {% if user.author %}
-                                    <a type="button" class="mb-2" data-toggle="dropdown"  style="font-size: 30px;" href="#"> Hello,  {{ user.username|title }} &triangledown; </a> 
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{user.author.get_absolute_url}}"> Your profile  </a> 
-                                        <a class="dropdown-item" href="{% url 'blogs:edit_author_profile' user.author.firstname user.author.lastname %}"> Edit profile  </a>
-                                    </div>
+                                    <a type="button" data-toggle="dropdown" href="#"> Hello, {{ user.username|title }} &triangledown; </a> 
+                                    <ul class="dropdown-menu"> 
+                                        <li> <a class="dropdown-item" href="{{ user.author.get_absolute_url }}"> Your profile  </a> </li>   
+                                        <li> <a class="dropdown-item" href="{% url 'authors:edit_author_profile' user.author.slug %}"> Edit profile </a> </li> 
+                                    </ul>
                                 {% else %}
                                 <li class="nav-item">
-                                    <a href="#" class="mb-2" style="font-size: 30px;" >  Hello,  {{ user.username|title }} </a> </li>
+                                    <a href="#"> Hello, {{ user.username|title }} </a> </li>
                                 {% endif %}    
                             </li>
                             <li class="nav-item">
-                                <a class="btn border-light text-light ml-3" href="{% url 'users:logout' %}"> Log out </a> </li> 
-
+                                <a class="nav-link" href="{% url 'users:logout' %}"> Log out </a> </li> 
                         {% else %}
                             <li class="nav-item">
-                                <a class="btn btn-outline-success mr-4 mb-2" href="{% url 'users:login' %}"> Log in </a> </li>
-
+                                <a class="nav-link" href="{% url 'users:login' %}"> Log in </a> </li>
                             <li class="nav-item">
-                                <a class="btn btn-success" href="{% url 'users:register' %}"> Register </a> </li>
+                                <a class="nav-link" href="{% url 'users:register' %}"> Register </a> </li>
                         {% endif %}
                     </ul>
                 </div>
@@ -206,14 +234,10 @@
         </nav>
 
 
-        <main class="mr-2 ml-2">
-            
-                {% block page_header %} {% endblock page_header %}
-            
-
-            
-                {% block content %} {% endblock content %}
-           
+        <main class="px-5 py-4">
+            {% block page_header %} {% endblock page_header %}
+        
+            {% block content %} {% endblock content %}
         </main>
        
     </body> 

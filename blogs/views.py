@@ -1,17 +1,19 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponseForbidden
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
-from django.contrib import messages
 
-from .models import BlogPost, Author
-from .forms import AuthorForm, BlogForm, CommentForm
+from authors.models import Author
+
+from .forms import BlogForm, CommentForm
+from .models import BlogPost
 
 
 # Create your views here.
-def IndexView(request):
+def index_view(request):
     """Home page"""
     posts = BlogPost.objects.all().order_by("-date_added")
     authors = Author.objects.all()
@@ -23,7 +25,7 @@ def IndexView(request):
     return render(request, template_name, context)
 
 
-def PostDetail(request, slug, pk):
+def post_detail(request, slug, pk):
     """Viewing an individual post and it's comments."""
     posts = get_object_or_404(BlogPost, slug=slug, pk=pk)
     comment_count = posts.comment_set.all()
@@ -55,14 +57,11 @@ def create_post(request):
                 new_post.save()
                 messages.success(request, "Your post was submitted successfully.")
                 return redirect("blogs:index")
-            else:
-                template_name = "blogs/not_author_error.html"
-                return render(request, template_name)
     else:
         if not hasattr(request.user, "author"):
             messages.warning(
                 request,
-                "You are not an author! Only verified authors can create a post.",
+                "You are not a verified author. Only verified authors can create a post.",
             )
         form = BlogForm()
     template_name = "blogs/create_post.html"
@@ -113,7 +112,7 @@ def search(request):
         Q(title__icontains=query) | Q(text__icontains=query)
     ).distinct()
     search_author_result = Author.objects.filter(
-        Q(firstname__icontains=query) | Q(lastname__icontains=query)
+        Q(first_name__icontains=query) | Q(last_name__icontains=query)
     ).distinct()
     template_name = "blogs/search.html"
     context = {
@@ -121,58 +120,4 @@ def search(request):
         "searched": query,
         "search_author": search_author_result,
     }
-    return render(request, template_name, context)
-
-
-def authors(request):
-    """Viewing all authors page."""
-    authors = Author.objects.all()
-    template_name = "blogs/authorspage.html"
-    context = {"authors": authors}
-    return render(request, template_name, context)
-
-
-def author(request, firstname, lastname):
-    """Viewing individual author's page."""
-    author = get_object_or_404(Author, firstname=firstname, lastname=lastname)
-    author_post = BlogPost.objects.filter(author=author)
-    template_name = "blogs/authorpage.html"
-    context = {"author_posts": author_post, "author": author}
-    return render(request, template_name, context)
-
-
-@login_required
-def beauthor(request):
-    """Applying to be an author."""
-    if request.method == "POST":
-        author_form = AuthorForm(request.POST)
-        if author_form.is_valid():
-            new_author = author_form.save(commit=False)
-            new_author.user = request.user
-            new_author.save()
-            return redirect(new_author)
-    else:
-        author_form = AuthorForm()
-    template_name = "blogs/becomeauthor.html"
-    context = {"form": author_form}
-    return render(request, template_name, context)
-
-
-@login_required
-def edit_author_profile(request, firstname, lastname):
-    """Editing an author's profile."""
-    author = get_object_or_404(Author, firstname=firstname, lastname=lastname)
-    if author.user == request.user:
-        if request.method == "POST":
-            edit_form = AuthorForm(instance=author, data=request.POST)
-            if edit_form.is_valid():
-                edit = edit_form.save()
-                messages.success(request, "`Changes saved.` -")
-                return redirect(edit)
-        else:
-            edit_form = AuthorForm(instance=author)
-    else:
-        return HttpResponseForbidden()
-    template_name = "blogs/author_edit_profile.html"
-    context = {"form": edit_form}
     return render(request, template_name, context)

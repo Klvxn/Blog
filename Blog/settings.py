@@ -32,14 +32,17 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    # My app
+    # My apps
+    "api.apps.ApiConfig",
+    "authors.apps.AuthorsConfig",
     "blogs.apps.BlogsConfig",
     "users.apps.UsersConfig",
-    "api.apps.ApiConfig",
-    # THird party app
+
+    # Third party apps
     "bootstrap4",
     "rest_framework",
-    "markdown",
+    "django_htmx",
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -85,7 +88,17 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+    },
+
+    'postgres': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'demo',
+        'USER': 'postgres',
+        'PASSWORD': 'djangoDB',
+        'HOST': 'localhost',
+        'PORT': '',
     }
+
 }
 
 

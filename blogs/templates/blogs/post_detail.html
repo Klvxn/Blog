@@ -3,52 +3,47 @@
 
 
 {% block page_header %}
-<h2>
-    <span> Post: {{posts.title}} </span> <br>
-    <span style="font-family: calibri; color:rgb(187, 187, 187); font-size:24px;"> published by <a href="{{ posts.author.get_absolute_url}}"> {{posts.author.firstname|title}} {{posts.author.lastname|title}} </a> - {{posts.date_added.date}} </span>
-    <i style="color: burlywood; font-size: 23px; float:right;"> {{comment_count.count}} comments </i>  
-</h2>
+<h2> {{ posts.title }} </h2>
+<p class="details"> published by <a href="{{ posts.author.get_absolute_url }}"> {{ posts.author.first_name|title }} {{ posts.author.last_name|title }} </a> <br> {{ posts.date_added.date }} </p>
 {% endblock page_header %}
 
+
 {% block content %}
-    <div class="main mb-5">
-        <p style="font-family:calibri; font-size:x-large;"> 
-            {{ posts.text }} </p>
-        
-        <div class="textlink mt-5" >
-            {% if posts.source %}
-              <span style="font-size:x-large;">  Source: <a href="{{posts.source}}"> {{posts.source}} </a> </span>
-            {% endif %}
-        </div> 
-    </div>
-
-    <div class="p-5 border-bottom ">
-        {% if request.user == posts.author.user %}
-            <a class="btn btn-primary" style="color:white;" href="{% url 'blogs:edit_post' posts.slug posts.pk %}"> Edit post</a> 
-            <a class="btn btn-danger" style="color:white;" href="{% url 'blogs:delete_post' posts.slug posts.pk %}"> Delete post </a>
+<div class="main mb-5">
+    <p> {{ posts.text }} </p>
+    <div class="textlink mt-5" >
+        {% if posts.source %}
+        <span> Source: <a href="{{ posts.source }}"> {{ posts.source }} </a> </span>
         {% endif %}
-    </div>
+    </div> 
+</div>
 
-    <div class="mt-3" id="commentSection">
-        <h3 style="font-family:Sans-serif; font-weight:bold; font-size:25px;"> 
-            {% if posts.comment_set.all %} Comments </h3>
-                {% for comment in posts.comment_set.all %}
-                    <div style="margin-left: 15px;">
-                        <p> <b> {{comment.username}}: </b> - <i style="font-family: calibri; color:rgb(187, 187, 187);"> {{comment.date_created|timesince}} ago </i> <br> 
-                        {{comment.text}} </p>  
-                    </div> 
-                {% endfor %}  
-            {% else %} 
-                No comments..
-            {% endif %}   
-    </div>
+<div class="p-5 border-bottom ">
+    {% if request.user.is_superuser or request.user == posts.author.user %}
+        <a class="btn btn-primary p-1" style="color:white;" href="{% url 'blogs:edit_post' posts.slug posts.pk %}"> Edit post</a> 
+        <a class="btn btn-danger ml-5 p-1" style="color:white;" href="{% url 'blogs:delete_post' posts.slug posts.pk %}"> Delete post </a>
+    {% endif %}
+</div>
+
+<div class="mt-3" id="comment-section">
+    <h4 style="display: inline-block;">{% if posts.comment_set.all %} Comments </h4>
+    <i style="color: burlywood;"> {{ comment_count.count }} comments </i>  
+    {% for comment in posts.comment_set.all %}
+        <div class="ml-5">
+            <p> <b> {{ comment.username }}: </b> - <i style="color:rgb(187, 187, 187);"> {{ comment.date_created|timesince }} ago </i> <br> 
+            {{ comment.text }} </p>  
+        </div> 
+    {% endfor %}  
+    {% else %} 
+        No comments..
+    {% endif %}   
+</div>
 
 <hr>
-<h4>  Add a comment </h4>
-        <form action="" class="form-group" method="post">
-            {% csrf_token %}
-          <div>
-               {{form.as_p}}
-            <button class="btn bg-dark text-white"> Post comment</button>
-        </form>
+<h4> Add a comment </h4>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn bg-dark text-white p-1 mt-5" value="Post comment"/>
+</form>
 {% endblock %}

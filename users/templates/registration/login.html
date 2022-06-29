@@ -2,18 +2,17 @@
 {% load bootstrap4 %}
 
 {% block page_header %}
-<h2> Log into your account. </h2>
+<h2> Log in </h2>
 {% endblock page_header %}
 
 {% block content %} 
 
-<form method="post" action="{% url 'users:login' %}" style="font-size:25px;" >
+<form class="form-group" method="post" action="">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button class="btn btn-success" style="font-size:23px;">Log in</button> 
+    <button type="submit" class="btn btn-success" >Log in</button> 
     <hr>
     Don't have an account? <a class="text-success" href="{% url 'users:register' %}"> Register </a>
-    <input type="hidden" name="next" value="{% url 'blogs:index' %}" />
 </form>
 
 {% endblock content %}

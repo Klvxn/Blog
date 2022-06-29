@@ -1,0 +1,22 @@
+{% extends 'blogs/base.html' %}
+
+{% block page_header %}
+<h2> Authors 
+{% if not user.author %} <a href="{% url 'authors:become-author' %}" style="float:right;"> Join </a> {% endif %} </h2>
+{% endblock %}
+
+{% block content %}
+<div class="authors">
+   <p> These are the authors/writers behind some of the best posts you've read on our site.. <br>
+       Feel free to reach out to any of them :) </p>
+   <div> 
+      {% for authors in authors %}
+         <ul> 
+            <li> <a style="color:blue; font-family:Tahoma;" href="{{ authors.get_absolute_url }}"> {{ authors.first_name|title }} {{ authors.last_name|title }} </a> </li>
+         </ul>  
+         {% empty %}
+            <h3> No authors. Click the link above to become an author. </h3>
+      {% endfor %}  
+   </div>
+</div>
+{% endblock content %}

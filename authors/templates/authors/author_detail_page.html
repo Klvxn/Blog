@@ -1,0 +1,43 @@
+{% extends 'blogs/base.html' %}
+
+
+{% block page_header %}
+<h2> About {{ author.first_name|title }} {{ author.last_name|title }}  
+    {% if user.author %} 
+        <a style="float: right;" href="{% url 'authors:edit_author_profile' user.author.slug %}"> Edit profile </a>  
+    {% endif %}
+</h2>
+{% endblock page_header %}
+
+
+{% block content %} 
+{% if messages %}
+   <ul class="messages">
+     {% for message in messages %}
+        <span style="color: rgb(6, 189, 6);">{{ message }}</span>
+      {% endfor %}
+   </ul>
+{% endif %}
+<div class="author-detail">
+    <div class="mb-5 card body border-primary">
+        <b class="card header m-3 mb-3 bg-primary text-white border text-center">  Bio  </b> 
+        <span> {{ author.bio }} </span> 
+    </div>
+
+    <div class="card body border-info mb-5">
+        <b class="card header m-3 bg-info mb-3 text-white text-center border" > Contact </b> 
+        <span> E-mail: {{ author.email }} </span>
+    </div>
+    <div class="card body border-secondary">
+        <b class="card header m-3 mb-3 bg-dark text-white border text-center" > Posts by {{ author.first_name|title }} {{ author.last_name|title }} </b> 
+        <ul style=" margin-right: auto;">
+            {% for posts in author_posts %}
+                <li > <a style="font-weight:bold; color:blue;"  href="{{ posts.get_absolute_url }}">{{ posts.title }} </a> </li>
+            {% empty %}
+                This author hasn't made any posts yet.
+            {% endfor %} 
+        </ul>
+    </div>
+</div>
+{% endblock content %}
+

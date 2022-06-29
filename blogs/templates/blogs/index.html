@@ -3,70 +3,59 @@
 
 
 {% block page_header %}
-<h2> Posts
-   <form id="search" class="d-flex" method="GET" action="{% url 'blogs:search' %}"> 
-      <div class="input-group ">
-      <input type="search" class=" form-control-lg mr-2 rounded" name="query" aria-label="Search" placeholder="Search...">
-      <button class="btn btn-outline-primary"  type="submit"> Search</button> </div>
+<h2 style="display: inline;"> News Today </h2>
+   <form id="search" class="input-group-append" method="get" action="{% url 'blogs:search' %}"> 
+      <input type="search" class="form-control" name="query" aria-label="Search" placeholder="Search for posts and authors...">
+      <input class="btn btn-outline-primary" type="submit" value="Search"/>
    </form>  
-</h2>
 {% endblock page_header %}
 
 {% block content %}
 {% if messages %}
    <ul class="messages">
      {% for message in messages %}
-         <span style="color: rgb(6, 189, 6); font-size: xx-large;">{{ message }}</span>
+         <span style="color: rgb(6, 189, 6);">{{ message }}</span>
       {% endfor %}
    </ul>
 {% endif %}
-<div class="mb-5">
-   <div id="sidebar" class="container" >
-      <div class="card welcomenote border mb-4">
-         <b> Hi there, Welcome to Blog.</b> <hr class="mt-3">
-         <span class="mb-4"> Your favourite web app for daily tech related news and discussions. </span>
+<div class="my-5">
+   {% if all_posts %}
+      <div class="posts">
+         <p> Recent posts </p> <hr> 
+            {% for post in all_posts %}
+               <li> <a href="{{ post.get_absolute_url }}"> {{ post.title }}</a> </li> 
+            {% endfor %} 
       </div>
+   {% endif %}
 
-      {% if all_posts %}
-         <div class="card posts">
-            <p style="font-size:40px;"   class="mb-auto ">Recent posts <hr> </p> 
-               {% for post in all_posts %}
-                  <li> <a href="{{ post.get_absolute_url }}"> `{{post.title}} by {{post.author}} </a> </li> 
-               {% endfor %} <br/>   
-         </div>
-      {% endif %}
-   </div>
-
-   <article class="container-fluid" id="maincontent">
+   <div class="container-fluid" id="maincontent">
       {% for post in posts_list %}
-         <div class="text-left mb-4 border-bottom">
-            <div>
-               <a href="{{ post.get_absolute_url }}" style="color:blue; font-weight: bold; font-family:calibri; font-size:32px"> {{ post.title }} </a>  
-            </div>
+         <div class="mb-5 border-bottom">
+            <a href="{{ post.get_absolute_url }}" style="color:blue;"> {{ post.title }} </a>  
             <div> 
-               <p>{{ post.text|truncatewords:35 }}</p>
-               By <b> {{post.author.firstname|title}} {{post.author.lastname|title}} </b>
+               <p>{{ post.text|truncatewords:30 }}</p>
+               By <b> {{ post.author.first_name|title }} {{ post.author.last_name|title }} </b>
                <br>  
-               <a style="color:rgb(187, 187, 187);"> {{post.date_added.date}} </a>
+               <a style="color:rgb(187, 187, 187);"> {{ post.date_added.date }} </a>
             </div>   
          </div>
       {% empty %}
-         <p> there are no posts at the moment. </p>
+         <p> There are no posts at the moment. </p>
       </div>
       {% endfor %}
-   </article>
+   </div>
 
    <div class="pagination">
       <span class="step-links">
          {% if posts_list.has_previous %}
             <a href="?page=1">&laquo; First</a>
-            <a href="?page={{posts_list.previous_page_number }}">Previous</a>
+            <a href="?page={{ posts_list.previous_page_number }}">Previous</a>
          {% endif %}
          <span class="current">
             Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}. <br>
          </span>
          {% if posts_list.has_next %}
-            <a href="?page={{ posts_list.next_page_number }}">Next </a> | 
+            <a href="?page={{ posts_list.next_page_number }}">Next </a>
             <a href="?page={{ posts_list.paginator.num_pages }}"> Last &raquo;</a>
          {% endif %}
       </span>
@@ -80,5 +69,4 @@
       <p> Copyright (c) 2022. All rights reserved.</p>
    </div>
 </footer>
-
 {% endblock %}

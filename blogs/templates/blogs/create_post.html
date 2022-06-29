@@ -3,28 +3,28 @@
 
 
 {% block page_header %} 
-    <h2> Create a post</h2>
+<h2> Create a post</h2>
 {% endblock page_header %}
 
 
 {% block content %}
 {% if messages %}
-   <ul class="messages">
-     {% for message in messages %}
-         <span class="text-danger" style="font-size: 25px;"> <i class="fa fa-warning"></i> {{ message }}
-      {% endfor %} <br> &ThickSpace;  Click <a href="{% url 'blogs:beauthor' %}"> here </a> to become an author.</span>
-   </ul>
+    <ul class="messages">
+        {% for message in messages %}
+            <span class="text-danger"> <i class="fa fa-warning"></i> {{ message }}
+        {% endfor %}
+        <br> Click <a href="{% url 'authors:become-author' %}"> here </a> to become an author.</span>
+    </ul>
 {% endif %}
-
-
-
-    <p>{{ post }}</p>
-
-    <form  action="" method='post' style="font-size:25px;">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <button class="btn btn-dark" style="font-size:23px;">Add post</button>
-    
-    </form>
-
+<p> {{ post }} </p>
+<form class="form-group" action="" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% if request.user.author %}
+        <button class="btn btn-dark" > Submit </button>
+    {% else %}
+        <button class="btn btn-dark" disabled> Submit </button>
+    {% endif %}
+</form>
+</div>
 {% endblock content %}

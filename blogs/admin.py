@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Author, BlogPost, Comment
+from .models import BlogPost, Comment
+
 
 # Register your models here.
 class CommentInline(admin.TabularInline):
@@ -17,4 +18,3 @@ class BlogPostAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Comment)
-admin.site.register(Author)
