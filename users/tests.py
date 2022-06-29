@@ -25,7 +25,7 @@ class UserTest(TestCase):
             },
         )
         self.assertEqual(response.status_code, 200)
-
+        
     def test_login_page_exists(self):
         response = self.client.get("/users/login/")
         self.assertEqual(response.status_code, 200)
