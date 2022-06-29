@@ -96,7 +96,7 @@ class PostDetailViewTest(BaseSetUp):
     def test_view_renders_correct_template(self):
         response = self.client.get("/posts/first-test/1/")
         self.assertTemplateUsed(response, "blogs/post_detail.html")
-        self.assertContains(response, "Post: first test")
+        self.assertContains(response, "first test")
 
     def test_post_source_is_not_more_than_50_characters(self):
         post = self.blog
