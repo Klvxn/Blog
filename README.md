@@ -47,8 +47,3 @@ Clone the repository using <br>
 ```
 git clone https://github.com/Kelvxn/Blog.git
 ```
-
-<h3> P.S. </h3> 
-Make sure to view from a PC. 
-Feel free to clone or fork the repository. 
-or open an issue if you'd like to see a new feature.
