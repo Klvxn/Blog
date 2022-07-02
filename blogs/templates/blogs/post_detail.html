@@ -3,33 +3,41 @@
 
 
 {% block page_header %}
-<h2> {{ posts.title }} </h2>
-<p class="details"> published by <a href="{{ posts.author.get_absolute_url }}"> {{ posts.author.first_name|title }} {{ posts.author.last_name|title }} </a> <br> {{ posts.date_added.date }} </p>
+<h2> {{ post.title }} </h2>
 {% endblock page_header %}
 
 
 {% block content %}
-<div class="main mb-5">
-    <p> {{ posts.text }} </p>
-    <div class="textlink mt-5" >
-        {% if posts.source %}
-        <span> Source: <a href="{{ posts.source }}"> {{ posts.source }} </a> </span>
-        {% endif %}
-    </div> 
+{% if messages %}
+<div class="alert alert-success w-75" role="alert">
+    {% for message in messages %}
+    <span> {{ message }} </span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {% endfor %}
+</div>
+{% endif %}
+<p class="details my-5"> Published by <a href="{{ post.author.get_absolute_url }}"> {{ post.author.first_name|title }} {{ post.author.last_name|title }} </a> <br> <img class="my-3 rounded-circle" src="{{ post.author.image.url }}" alt=""> <br> {{ post.date_added.date }} </p>
+<div class="main my-5">
+    <span> {{ post.text }} </span>
+    {% if post.source %}
+        <p class="my-5"> Source: <a href="{{ post.source }}"> {{ post.source|truncatechars:55 }} </a> </p>
+    {% endif %}
 </div>
 
 <div class="p-5 border-bottom ">
-    {% if request.user.is_superuser or request.user == posts.author.user %}
-        <a class="btn btn-primary p-1" style="color:white;" href="{% url 'blogs:edit_post' posts.slug posts.pk %}"> Edit post</a> 
-        <a class="btn btn-danger ml-5 p-1" style="color:white;" href="{% url 'blogs:delete_post' posts.slug posts.pk %}"> Delete post </a>
+    {% if request.user.is_superuser or request.user == post.author.user %}
+        <a class="btn btn-primary text-white" " href="{% url 'blogs:edit_post' post.slug post.pk %}"> Edit post</a> 
+        <a class="btn btn-danger mx-5 text-white" " href="{% url 'blogs:delete_post' post.slug post.pk %}"> Delete post </a>
     {% endif %}
 </div>
 
 <div class="mt-3" id="comment-section">
-    <h4 style="display: inline-block;">{% if posts.comment_set.all %} Comments </h4>
+    <h4 class="d-inline">{% if post.comment_set.all %} Comment </h4>
     <i style="color: burlywood;"> {{ comment_count.count }} comments </i>  
-    {% for comment in posts.comment_set.all %}
-        <div class="ml-5">
+    {% for comment in post.comment_set.all %}
+        <div class="ml-5 mt-5">
             <p> <b> {{ comment.username }}: </b> - <i style="color:rgb(187, 187, 187);"> {{ comment.date_created|timesince }} ago </i> <br> 
             {{ comment.text }} </p>  
         </div> 
@@ -44,6 +52,9 @@
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" class="btn bg-dark text-white p-1 mt-5" value="Post comment"/>
+    <button class="btn bg-dark text-white px-3 mt-5">Post comment </button>
 </form>
 {% endblock %}
+
+
+{% block footer %} {% endblock %}

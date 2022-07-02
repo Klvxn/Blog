@@ -1,6 +1,6 @@
-import re
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -49,7 +49,7 @@ def become_author(request):
 def edit_author_profile(request, slug):
     """Editing an author's profile."""
     author = get_object_or_404(Author, slug=slug)
-    if author.user == request.user:
+    if request.user == author.user:
         if request.method == "POST":
             form = AuthorForm(instance=author, data=request.POST, files=request.FILES)
             if form.is_valid():
@@ -65,7 +65,12 @@ def edit_author_profile(request, slug):
     return render(request, template_name, context)
 
 
-def delete_profile(request, slug):
-    author = Author.objects.get(slug=slug)
-    if author.user == request.user:
-        pass
+def search_authors(request):
+    """Searching for post or an author."""
+    query = request.GET["query"]
+    search_result = Author.objects.filter(
+        Q(first_name__icontains=query) | Q(last_name__icontains=query)
+    ).distinct()
+    template_name = "authors/search_authors.html"
+    context = {"searched": query, "search_result": search_result}
+    return render(request, template_name, context)

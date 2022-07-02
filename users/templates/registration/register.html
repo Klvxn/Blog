@@ -1,6 +1,7 @@
 {% extends 'blogs/base.html' %}
 {% load bootstrap4 %}
 
+
 {% block page_header%} 
 <h2> Register </h2>
 {% endblock %}
@@ -12,7 +13,9 @@
     {% bootstrap_form form %}
     <button type="Submit" class="btn btn-success" >Register</button>
     <hr>
-    Already have an account? <a class="text-success" href="{% url 'users:login' %}"> Log in </a>
+    <p> Already have an account? <a class="text-success" href="{% url 'users:login' %}"> Log in </a> </p>
 </form>
-
 {% endblock content %} 
+
+
+{% block footer %} {% endblock %}

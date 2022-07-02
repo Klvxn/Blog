@@ -3,40 +3,45 @@
 
 
 {% block page_header %}
-<h2 style="display: inline;"> News Today </h2>
-   <form id="search" class="input-group-append" method="get" action="{% url 'blogs:search' %}"> 
-      <input type="search" class="form-control" name="query" aria-label="Search" placeholder="Search for posts and authors...">
-      <input class="btn btn-outline-primary" type="submit" value="Search"/>
-   </form>  
+<h2 class="d-inline"> News Today </h2>
+<form id="search" class="input-group-append" method="get" action="{% url 'blogs:search_posts' %}"> 
+   <input type="search" class="form-control" name="query" placeholder="Search for posts...">
+   <button class="btn btn-outline-primary"> Search </button>
+</form>  
 {% endblock page_header %}
 
 {% block content %}
 {% if messages %}
-   <ul class="messages">
+   <div class="alert alert-success w-75 my-5" role="alert">
      {% for message in messages %}
-         <span style="color: rgb(6, 189, 6);">{{ message }}</span>
+        <span> {{ message }} </span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
       {% endfor %}
-   </ul>
+   </div>
 {% endif %}
 <div class="my-5">
    {% if all_posts %}
-      <div class="posts">
+      <div class="recent-posts">
          <p> Recent posts </p> <hr> 
             {% for post in all_posts %}
+            <ul>
                <li> <a href="{{ post.get_absolute_url }}"> {{ post.title }}</a> </li> 
+            </ul>
             {% endfor %} 
       </div>
    {% endif %}
 
    <div class="container-fluid" id="maincontent">
       {% for post in posts_list %}
-         <div class="mb-5 border-bottom">
+         <div class="my-5 border-bottom">
             <a href="{{ post.get_absolute_url }}" style="color:blue;"> {{ post.title }} </a>  
-            <div> 
-               <p>{{ post.text|truncatewords:30 }}</p>
-               By <b> {{ post.author.first_name|title }} {{ post.author.last_name|title }} </b>
-               <br>  
-               <a style="color:rgb(187, 187, 187);"> {{ post.date_added.date }} </a>
+         
+            <p> {{ post.text|truncatewords:30 }} </p>
+            <div class="details text-2 p-0">
+               By <b> {{ post.author.first_name|title }} {{ post.author.last_name|title }} </b> <br>
+               <span> {{ post.date_added.date }} </span>
             </div>   
          </div>
       {% empty %}
@@ -48,25 +53,19 @@
    <div class="pagination">
       <span class="step-links">
          {% if posts_list.has_previous %}
-            <a href="?page=1">&laquo; First</a>
-            <a href="?page={{ posts_list.previous_page_number }}">Previous</a>
+            <a href="?page=1" class="page-link">&laquo; First</a>
+            <a href="?page={{ posts_list.previous_page_number }}" class="page-link">Previous</a>
          {% endif %}
          <span class="current">
             Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}. <br>
          </span>
          {% if posts_list.has_next %}
-            <a href="?page={{ posts_list.next_page_number }}">Next </a>
-            <a href="?page={{ posts_list.paginator.num_pages }}"> Last &raquo;</a>
+            <a href="?page={{ posts_list.next_page_number }}" class="page-link">Next </a>
+            <a href="?page={{ posts_list.paginator.num_pages }}" class="page-link"> Last &raquo;</a>
          {% endif %}
       </span>
    </div>
 </div>
 &ThickSpace;
-
-<footer class="mt-5 mr-0 ml-0">
-   <div class=" about bg-border text-center">   
-      <p> Built with <a href="https://djangoproject.com"> Django </a> </p> <hr>
-      <p> Copyright (c) 2022. All rights reserved.</p>
-   </div>
-</footer>
 {% endblock %}
+

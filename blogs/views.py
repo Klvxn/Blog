@@ -21,25 +21,25 @@ def index_view(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     template_name = "blogs/index.html"
-    context = {"posts_list": page_obj, "all_posts": posts[:5], "authors": authors}
+    context = {"posts_list": page_obj, "all_posts": posts[:7], "authors": authors}
     return render(request, template_name, context)
 
 
 def post_detail(request, slug, pk):
     """Viewing an individual post and it's comments."""
-    posts = get_object_or_404(BlogPost, slug=slug, pk=pk)
-    comment_count = posts.comment_set.all()
+    post = get_object_or_404(BlogPost, slug=slug, pk=pk)
+    comment_count = post.comment_set.all()
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
-            new_comment.post = posts
+            new_comment.post = post
             new_comment.save()
-            return redirect(posts)
+            return redirect(post)
     else:
         comment_form = CommentForm()
     template_name = "blogs/post_detail.html"
-    context = {"form": comment_form, "posts": posts, "comment_count": comment_count}
+    context = {"form": comment_form, "post": post, "comment_count": comment_count}
     return render(request, template_name, context)
 
 
@@ -73,13 +73,14 @@ def create_post(request):
 def edit_post(request, slug, pk):
     """Editing an existing post."""
     post = get_object_or_404(BlogPost, slug=slug, pk=pk)
-    if post.author.user == request.user:
+    if request.user.is_superuser or post.author.user == request.user:
         if request.method == "POST":
             form = BlogForm(instance=post, data=request.POST)
             if form.is_valid():
                 edit = form.save(commit=False)
                 edit.slug = slugify(edit.title)
                 edit.save()
+                messages.success(request, "Post updated successfully.")
                 return redirect(edit)
         else:
             form = BlogForm(instance=post)
@@ -105,19 +106,12 @@ def delete_post(request, slug, pk):
     return render(request, template_name, context)
 
 
-def search(request):
+def search_posts(request):
     """Searching for post or an author."""
     query = request.GET["query"]
     search_post_result = BlogPost.objects.filter(
         Q(title__icontains=query) | Q(text__icontains=query)
     ).distinct()
-    search_author_result = Author.objects.filter(
-        Q(first_name__icontains=query) | Q(last_name__icontains=query)
-    ).distinct()
-    template_name = "blogs/search.html"
-    context = {
-        "search": search_post_result,
-        "searched": query,
-        "search_author": search_author_result,
-    }
+    template_name = "blogs/search_posts.html"
+    context = {"search": search_post_result, "searched": query}
     return render(request, template_name, context)

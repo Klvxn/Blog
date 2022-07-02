@@ -1,9 +1,11 @@
 {% extends 'blogs/base.html' %}
 {% load bootstrap4 %}
 
+
 {% block page_header %} 
 <h2> Become an author </h2>
 {% endblock page_header %}
+
 
 {% block content %}  
 <form enctype="multipart/form-data" class="form-group" method="post" action="">
@@ -11,4 +13,7 @@
     {% bootstrap_form form %}
     <button class="btn btn-dark"> Submit </button>  
 </form>   
-{% endblock content %} %}
+{% endblock content %} 
+
+
+{% block footer %} {% endblock %}

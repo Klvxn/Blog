@@ -24,6 +24,7 @@ class BaseSetUp(TestCase):
             user=cls.user_1,
             first_name="Samson",
             last_name="Gregor",
+            image="my_profile_pic.jpg",
             email="gresam@blogs.xo",
             bio="I am a django developer",
         )
@@ -96,17 +97,11 @@ class PostDetailViewTest(BaseSetUp):
     def test_view_renders_correct_template(self):
         response = self.client.get("/posts/first-test/1/")
         self.assertTemplateUsed(response, "blogs/post_detail.html")
-        self.assertContains(response, "Post: first test")
+        self.assertContains(response, "first test")
 
-    def test_post_source_is_not_more_than_50_characters(self):
-        post = self.blog
-        post.source = "www.example.co/this-is-not-a-real-link/trying-to-test-my-source/"
-        post.save()
-        self.assertEqual(len(post.source), 50)
-
-    def test_comment_section_exists_in_a_post(self):
+    def test_comment_form_exists_under_a_post(self):
         response = self.client.get("/posts/first-test/1/")
-        self.assertContains(response, "Comments", status_code=200)
+        self.assertContains(response, "Add a comment")
 
     def test_users_can_comment_under_a_post(self):
         response = self.client.post(
@@ -153,8 +148,8 @@ class CreatePostViewTest(BaseSetUp):
 
     def test_that_unverified_authors_cannot_create_a_post(self):
         self.client.login(username="mantis", password="9wen3231")
-        resp = self.client.get("/create-post/")
-        response = self.client.post(
+        get_response = self.client.get("/create-post/")
+        post_response = self.client.post(
             "/create-post/",
             {
                 "title": "test title",
@@ -162,10 +157,10 @@ class CreatePostViewTest(BaseSetUp):
                 "source": "www.example.com/this-si",
             },
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(post_response.status_code, 200)
         self.assertContains(
-            resp,
-            "You are not a verified author. Only verified authors can create a post.",
+            get_response,
+            "You are not a verified author. Only verified authors can create a post."
         )
 
 

@@ -90,14 +90,14 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     },
 
-    'postgres': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'demo',
-        'USER': 'postgres',
-        'PASSWORD': 'djangoDB',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    # 'postgres': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'demo',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'djangoDB',
+    #     'HOST': 'localhost',
+    #     'PORT': '',
+    # }
 
 }
 
@@ -144,6 +144,11 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Media files
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # My security settings
 # CSRF_COOKIE_SECURE = True

@@ -2,3 +2,5 @@
 /migrations/
 *.sqlite3
 *.pyc
+*.bat
+.coverage

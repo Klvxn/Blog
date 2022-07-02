@@ -17,6 +17,8 @@ class BlogPost(models.Model):
 
     class Meta:
         ordering = ["-date_added"]
+        verbose_name = ("Post")
+        verbose_name_plural = ("Posts")
 
     def __str__(self):
         return f"{self.title} by {self.author}"
@@ -24,11 +26,6 @@ class BlogPost(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-
-        if self.source:
-            if len(self.source) > 50:
-                self.source = self.source[:47] + "..."
-
         return super().save(*args, **kwargs)
 
     def get_absolute_url(self):

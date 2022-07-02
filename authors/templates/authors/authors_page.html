@@ -1,22 +1,36 @@
 {% extends 'blogs/base.html' %}
 
-{% block page_header %}
-<h2> Authors 
-{% if not user.author %} <a href="{% url 'authors:become-author' %}" style="float:right;"> Join </a> {% endif %} </h2>
-{% endblock %}
 
+{% block page_header %}
+<h2 class="d-inline"> Authors </h2>
+   <form method="get" action="{% url 'authors:search_authors' %}" id="search" class="input-group-append"> 
+      <input type="search" class="form-control" name="query" placeholder="Search for authors...">
+      <button class="btn btn-outline-primary"> Search </button>
+   </form> 
+{% endblock %}
+   
+   
 {% block content %}
 <div class="authors">
-   <p> These are the authors/writers behind some of the best posts you've read on our site.. <br>
-       Feel free to reach out to any of them :) </p>
-   <div> 
-      {% for authors in authors %}
-         <ul> 
-            <li> <a style="color:blue; font-family:Tahoma;" href="{{ authors.get_absolute_url }}"> {{ authors.first_name|title }} {{ authors.last_name|title }} </a> </li>
-         </ul>  
-         {% empty %}
-            <h3> No authors. Click the link above to become an author. </h3>
-      {% endfor %}  
+   <div class="my-5">
+      <p style="display: inline;"> These are the authors/writers behind some of the best posts you've read on our site.. <br>
+         Feel free to reach out to any of them :) </p>
+         
+      {% if not request.user.author %} <a href="{% url 'authors:become_author' %}" style="font-size: 2rem;" class="float-md-right"> Join </a> {% endif %} 
    </div>
+ 
+   {% for authors in authors %}
+      <ul> 
+         <li class="my-3">
+            <img src="{{ authors.image.url }}" alt="" class="rounded-circle"> <br> 
+            <a style="color:blue; font-family:Tahoma;" href="{{ authors.get_absolute_url }}"> {{ authors.first_name|title }} {{ authors.last_name|title }} </a>       
+         </li>
+      </ul>
+   {% empty %}
+      <h3> No authors. Click the link above to become an author. </h3>
+   {% endfor %}  
 </div>
 {% endblock content %}
+
+
+{% block footer %} {% endblock %}
