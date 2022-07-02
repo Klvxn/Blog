@@ -1,0 +1,29 @@
+{% extends 'blogs/base.html' %}
+
+
+{% block page_header %}
+<h2 class="d-inline"> Search results for <i> "{{ searched }}" </i>  </h2> 
+<form id="search" class="input-group-append" method="get" action="{% url 'blogs:search_posts' %}"> 
+   <input type="search" class="form-control" name="query" placeholder="Search for posts...">
+   <button class="btn btn-outline-primary"> Search </button>
+</form> 
+{% endblock page_header %}
+
+
+{% block content %}
+<div class="search my-5">
+   {% if search.count %}
+      <h3> Posts </h3>
+      {% for searches in search %}
+         <ul> 
+            <li> <a href="{{ searches.get_absolute_url }}"> {{ searches.title }} </a>  by {{ searches.author.first_name|title }} {{ searches.author.last_name|title }} </li>  
+         </ul>
+      {% endfor %}
+   {% else %} 
+      <p> No post matched your search. </p>
+   {% endif %} 
+</div>
+{% endblock %}
+
+
+{% block footer %} {% endblock %}
