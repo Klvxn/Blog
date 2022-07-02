@@ -12,6 +12,7 @@ class BaseSetUp(TestCase):
         cls.user_1 = get_user_model().objects.create_user(
             username="sam", password="1234"
         )
+        
         cls.user_2 = get_user_model().objects.create_user(
             username="davidd", password="abcdef"
         )
@@ -102,16 +103,13 @@ class BecomeAuthorViewTest(BaseSetUp):
         response = self.client.post(
             "/authors/join/become-an-author/",
             {
-                # "user": self.user_2,
                 "first_name": "David",
                 "last_name": "Joshua",
-                # "image": "profile_pic.jpg",
                 "email": "davej@blog.co",
                 "bio": "i like running tests",
             }
         )
         self.assertEqual(response.status_code, 302)
-        # self.assertRedirects(response, "/authors/david-joshua/")
 
 
 class EditAuthorProfileViewTest(BaseSetUp):

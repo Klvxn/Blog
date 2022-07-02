@@ -3,7 +3,7 @@
 
 
 {% block page_header %}
-<h2 class="d-inline"> News Today </h2>
+<h2 class="d-inline"> Posts </h2>
 <form id="search" class="input-group-append" method="get" action="{% url 'blogs:search_posts' %}"> 
    <input type="search" class="form-control" name="query" placeholder="Search for posts...">
    <button class="btn btn-outline-primary"> Search </button>
@@ -50,21 +50,23 @@
       {% endfor %}
    </div>
 
-   <div class="pagination">
-      <span class="step-links">
-         {% if posts_list.has_previous %}
-            <a href="?page=1" class="page-link">&laquo; First</a>
-            <a href="?page={{ posts_list.previous_page_number }}" class="page-link">Previous</a>
-         {% endif %}
-         <span class="current">
-            Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}. <br>
+   {% if posts_list %}
+      <div class="pagination">
+         <span class="step-links">
+            {% if posts_list.has_previous %}
+               <a href="?page=1" class="page-link">&laquo; First</a>
+               <a href="?page={{ posts_list.previous_page_number }}" class="page-link">Previous</a>
+            {% endif %}
+            <span class="current">
+               Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}. <br>
+            </span>
+            {% if posts_list.has_next %}
+               <a href="?page={{ posts_list.next_page_number }}" class="page-link">Next </a>
+               <a href="?page={{ posts_list.paginator.num_pages }}" class="page-link"> Last &raquo;</a>
+            {% endif %}
          </span>
-         {% if posts_list.has_next %}
-            <a href="?page={{ posts_list.next_page_number }}" class="page-link">Next </a>
-            <a href="?page={{ posts_list.paginator.num_pages }}" class="page-link"> Last &raquo;</a>
-         {% endif %}
-      </span>
-   </div>
+      </div>
+   {% endif %}
 </div>
 &ThickSpace;
 {% endblock %}
