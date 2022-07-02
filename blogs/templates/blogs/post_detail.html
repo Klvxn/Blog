@@ -20,7 +20,7 @@
 {% endif %}
 <p class="details my-5"> Published by <a href="{{ post.author.get_absolute_url }}"> {{ post.author.first_name|title }} {{ post.author.last_name|title }} </a> <br> <img class="my-3 rounded-circle" src="{{ post.author.image.url }}" alt=""> <br> {{ post.date_added.date }} </p>
 <div class="main my-5">
-    <span> {{ post.text }} </span>
+    <p class="post"> {{ post.text }} </p>
     {% if post.source %}
         <p class="my-5"> Source: <a href="{{ post.source }}"> {{ post.source|truncatechars:55 }} </a> </p>
     {% endif %}

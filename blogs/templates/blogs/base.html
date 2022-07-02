@@ -18,7 +18,7 @@
 
         <style>
             :root {
-                --sm: 1.4rem;
+                --sm: 1.5rem;
             }
             
             body {
@@ -32,7 +32,7 @@
             }
 
             .nav1 a, .nav2 a {
-                font-size: 1.5rem;
+                font-size: var(--sm);
                 list-style-type: none;
             }
 
@@ -40,7 +40,7 @@
                 margin-left: 20px;
                 margin-right: 20px;
                 font-family:  sans-serif; 
-                font-size:2rem;
+                font-size:2.5rem;
                 margin:1.5rem 0;
                 padding: .5rem;
             }
@@ -56,7 +56,7 @@
             @media (max-width: 1024px) {
                 
                 h2 {
-                    font-size: 1.5rem;
+                    font-size: 2.5rem;
                     border-bottom: none;
                     margin-bottom: 2rem;
                 }
@@ -111,7 +111,7 @@
             }
 
             div.main {
-                font-size: 1.5rem;
+                font-size: 2rem;
                 margin: 0 auto;
                 padding: 1rem;
             }
@@ -124,17 +124,17 @@
             }
 
             .form-group label {
-                font-size: 1.5rem;
+                font-size: var(--sm);
                 text-align: left;
             } 
 
             .form-group input, .form-group textarea, .form-group p {
-                font-size: 1.5rem;
+                font-size: var(--sm);
             }
 
             .form-group button {
                 width: 10rem; 
-                font-size: 1.2rem;
+                font-size: var(--sm);
             }
 
             .form-group ul, .authors li {
@@ -177,11 +177,15 @@
                 padding: .5rem;
                 margin-top: 5%;
                 margin-bottom: 10%;
-                font-size: 1.5rem;
+                font-size: var(--sm);
             }
             
             p {
                 font-size: 1.2rem;
+            }
+
+            p.post {
+                font-size: 1.8rem;
             }
             
             #search {
@@ -195,6 +199,8 @@
                 width:100%;
                 font-size: 1.3rem;
                 color: rgb(95, 93, 93);
+                position: fixed;
+                bottom: 0;
             }
             
         </style>
@@ -205,7 +211,7 @@
         
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark ">
             <div class="container-fluid">
-                <a class="navbar-brand" style="font-size:2rem; " href="{% url 'blogs:index' %}">Blog</a>
+                <a class="navbar-brand" style="font-size:3rem; " href="{% url 'blogs:index' %}">Blog</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" 
                 aria-expanded="false" aria-label="Toggle navigation">
