@@ -36,8 +36,8 @@ DRF <br>
 pip install djangorestframework
 ```
 
-<h3> Deployed at </h3>
-Heroku > <a href="https://kvn-blog.herokuapp.com"> Blog app </a> <br>
+<h3> Deployment </h3>
+Deployed on Heroku > <a href="https://kvn-blog.herokuapp.com"> Blog app </a> <br>
 <a href="https://kvn-blog.herokuapp.com/api/v1/"> Blog API </a>
 
 
