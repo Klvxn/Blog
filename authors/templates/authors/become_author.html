@@ -10,6 +10,7 @@
 {% block content %}  
 <form enctype="multipart/form-data" class="form-group" method="post" action="">
     {% csrf_token %}
+    {{ form.media }}
     {% bootstrap_form form %}
     <button class="btn btn-dark"> Submit </button>  
 </form>   

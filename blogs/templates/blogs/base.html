@@ -18,7 +18,7 @@
 
         <style>
             :root {
-                --sm: 1.5rem;
+                --sm-font-size: 1.3rem;
             }
             
             body {
@@ -26,53 +26,42 @@
                 padding: 0;
             }
 
-            .navbar {
+            .navbar, .navbar-brand {
                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode';
-                font-size: 2rem;  
+                font-size: 1.5rem;  
             }
 
             .nav1 a, .nav2 a {
-                font-size: var(--sm);
+                font-size: 1.2rem;
                 list-style-type: none;
             }
 
             h2 {
-                margin-left: 20px;
-                margin-right: 20px;
-                font-family:  sans-serif; 
+                font-family: "Sitka Heading",Georgia, Cambria, Calibri;
                 font-size:2.5rem;
-                margin:1.5rem 0;
-                padding: .5rem;
-            }
-
-            h4 {
-                padding: 1.5rem 3rem;
+                padding: 2rem 0;
             }
 
             a {
-                font-size: var(--sm);
+                font-size: var(--sm-font-size);
+            }
+
+            .post div p {
+                padding: .5rem 0;
             }
 
             @media (max-width: 1024px) {
-                
-                h2 {
-                    font-size: 2.5rem;
-                    border-bottom: none;
-                    margin-bottom: 2rem;
-                }
 
                 div.recent-posts {
                     font-family: Arial, Helvetica, sans-serif;
                     padding: 1.5rem;
-                    background-color: rgb(216, 215, 210);
-                    width: fit-content;
-                    margin-top: 5rem;
-                    margin: 0 auto;
+                    background-color: rgb(245, 245, 245);
+                    width: 70%;
+                    outline: 1px solid;
                 }
 
-                #maincontent {
-                    width: 100%;
-                    padding: 1.5rem;
+                .recent-posts ul {
+                    line-height: 1rem;
                 }
 
                 .author-detail {
@@ -86,11 +75,10 @@
                     font-family: Arial, Helvetica, sans-serif;
                     padding: 1rem;
                     position: sticky;
-                    top:0;
+                    top: 0;
                     float: right;
                     width: 35%;
-                    padding: 1.4rem;
-                    background-color: rgb(232, 231, 231);
+                    background-color: rgb(245, 245, 245);
                 }
                
                 #maincontent {
@@ -102,39 +90,39 @@
                 .author-detail {
                     margin: 0 10rem;
                 }
-            
+         
             }  
             
             .details {
                 color: rgb(187, 187, 187);
-                padding: 1rem;
             }
 
-            div.main {
-                font-size: 2rem;
+            div.post {
+                font-size: var(--sm-font-size);
                 margin: 0 auto;
-                padding: 1rem;
+                font-family: cursive;
             }
             
             .form-group {
                 margin: 0 auto;
-                width: 90%;
                 margin-bottom: 3rem; 
                 text-align: center; 
+                width: 85%;
             }
 
             .form-group label {
-                font-size: var(--sm);
-                text-align: left;
+                font-size: var(--sm-font-size);
+                text-align: center;
+                display: block;
             } 
 
             .form-group input, .form-group textarea, .form-group p {
-                font-size: var(--sm);
+                font-size: var(--sm-font-size);
             }
 
             .form-group button {
                 width: 10rem; 
-                font-size: var(--sm);
+                font-size: var(--sm-font-size);
             }
 
             .form-group ul, .authors li {
@@ -152,7 +140,7 @@
             }
 
             .authors a, .author-detail b {
-                font-size: var(--sm);
+                font-size: var(--sm-font-size);
             }
 
             .author-detail div.card {
@@ -161,12 +149,12 @@
             }
 
             .details img  {
-                width: 10rem;
-                height: 10rem;
+                width: 6rem;
+                height: 6rem;
             }
 
             .alert {
-                font-size: var(--sm);
+                font-size: var(--sm-font-size);
             }
 
             .about a {
@@ -177,21 +165,11 @@
                 padding: .5rem;
                 margin-top: 5%;
                 margin-bottom: 10%;
-                font-size: var(--sm);
+                font-size: var(--sm-font-size);
             }
             
             p {
                 font-size: 1.2rem;
-            }
-
-            p.post {
-                font-size: 1.8rem;
-            }
-            
-            #search {
-                font-size: 2rem;
-                float: right;
-                font-family: sans-serif;
             }
 
             div.about {
@@ -199,7 +177,7 @@
                 width:100%;
                 font-size: 1.3rem;
                 color: rgb(95, 93, 93);
-                position: fixed;
+                /* position: fixed; */
                 bottom: 0;
             }
             
@@ -209,9 +187,9 @@
 
     <body>   
         
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark ">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
             <div class="container-fluid">
-                <a class="navbar-brand" style="font-size:3rem; " href="{% url 'blogs:index' %}">Blog</a>
+                <a class="navbar-brand" href="{% url 'blogs:index' %}">Blog</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" 
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -255,7 +233,7 @@
         </nav>
 
 
-        <main class="p-5">
+        <main class="p-2">
             {% block page_header %} {% endblock page_header %}
         
             {% block content %} {% endblock content %}

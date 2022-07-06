@@ -95,7 +95,7 @@ def edit_post(request, slug, pk):
 def delete_post(request, slug, pk):
     """Deleting an existing post."""
     post = get_object_or_404(BlogPost, slug=slug, pk=pk)
-    if post.author.user == request.user:
+    if request.user.is_superuser or post.author.user == request.user:
         if request.method == "POST":
             post.delete()
             return redirect("blogs:index")
@@ -107,7 +107,7 @@ def delete_post(request, slug, pk):
 
 
 def search_posts(request):
-    """Searching for post or an author."""
+    """Searching for post"""
     query = request.GET["query"]
     search_post_result = BlogPost.objects.filter(
         Q(title__icontains=query) | Q(text__icontains=query)

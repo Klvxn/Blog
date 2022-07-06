@@ -1,3 +1,5 @@
+from ckeditor.fields import RichTextField
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import reverse
@@ -13,7 +15,8 @@ class Author(models.Model):
     image = models.ImageField(("Profile Picture"), upload_to="media/avis/", null=True)
     slug = models.SlugField(unique=True)
     email = models.EmailField(("Email Address"), unique=True)
-    bio = models.TextField(("About yourself"))
+    bio = RichTextField(("About yourself"))
+    # date_joined = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

@@ -3,12 +3,14 @@
 
 
 {% block page_header %}
-<h2 class="d-inline"> Posts </h2>
-<form id="search" class="input-group-append" method="get" action="{% url 'blogs:search_posts' %}"> 
-   <input type="search" class="form-control" name="query" placeholder="Search for posts...">
-   <button class="btn btn-outline-primary"> Search </button>
-</form>  
+<h2> Posts
+   <form method="get" action="{% url 'blogs:search_posts' %}" class="input-group-append float-right"> 
+      <input type="search" class="form-control" name="query" placeholder="Search for posts">
+      <button class="btn btn-outline-primary"> Search </button>
+   </form>  
+</h2>
 {% endblock page_header %}
+
 
 {% block content %}
 {% if messages %}
@@ -23,22 +25,21 @@
 {% endif %}
 <div class="my-5">
    {% if all_posts %}
+   <div class="px-3">
       <div class="recent-posts">
-         <p> Recent posts </p> <hr> 
-            {% for post in all_posts %}
-            <ul>
-               <li> <a href="{{ post.get_absolute_url }}"> {{ post.title }}</a> </li> 
-            </ul>
-            {% endfor %} 
+         <h4> Recent posts </h4> <hr> 
+         {% for post in all_posts %}
+            <li> <a href="{{ post.get_absolute_url }}"> {{ post.title|truncatewords:15 }}</a> </li> 
+         {% endfor %} 
       </div>
+   </div>
    {% endif %}
 
    <div class="container-fluid" id="maincontent">
       {% for post in posts_list %}
          <div class="my-5 border-bottom">
-            <a href="{{ post.get_absolute_url }}" style="color:blue;"> {{ post.title }} </a>  
-         
-            <p> {{ post.text|truncatewords:30 }} </p>
+            <a href="{{ post.get_absolute_url }}"> {{ post.title }} </a>  
+            <div class="post p-0"> {{ post.text|truncatewords:30|safe }} </div>
             <div class="details text-2 p-0">
                By <b> {{ post.author.first_name|title }} {{ post.author.last_name|title }} </b> <br>
                <span> {{ post.date_added.date }} </span>

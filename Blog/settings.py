@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Third party apps
     "bootstrap4",
     "rest_framework",
+    "ckeditor",
 
     "django.contrib.admin",
     "django.contrib.auth",

@@ -1,3 +1,5 @@
+from ckeditor.fields import RichTextField 
+
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -10,7 +12,7 @@ class BlogPost(models.Model):
 
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    text = models.TextField()
+    text = RichTextField()
     slug = models.SlugField()
     source = models.URLField(null=True, blank=True)
     date_added = models.DateTimeField("Date Published", default=timezone.now)

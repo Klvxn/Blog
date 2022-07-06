@@ -2,21 +2,24 @@
 
 
 {% block page_header %}
-<h2 class="d-inline"> Search results for <i>"{{ searched }}"</i>  </h2> 
-<form id="search" class="input-group-append" method="get" action="{% url 'authors:search_authors' %}"> 
-    <input type="search" class="form-control" name="query" placeholder="Search for authors...">
-    <button class="btn btn-outline-primary"> Search </button>
- </form> 
+<h2> Search results for <i>"{{ searched }}"</i> 
+    <form method="get" action="{% url 'authors:search_authors' %}" class="input-group-append float-right"> 
+        <input type="search" class="form-control" name="query" placeholder="Search for authors">
+        <button class="btn btn-outline-primary"> Search </button>
+    </form> 
+</h2> 
 {% endblock page_header %}
 
 
 {% block content %}
-<div class="search my-5">
+<div class="search my-2 px-4">
     {% if search_result.count %}
         <h3> Authors </h3>
         {% for searched in search_result %}
             <ul>
-                <li> <a href="{{ searched.get_absolute_url }}"> {{ searched.first_name|title }} {{ searched.last_name|title }} </a> </li>
+                <li> 
+                    <a href="{{ searched.get_absolute_url }}"> {{ searched.first_name|title }} {{ searched.last_name|title }} </a> 
+                </li>
             </ul>
         {% endfor %}
     {% else %} 

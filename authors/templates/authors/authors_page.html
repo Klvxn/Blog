@@ -2,11 +2,12 @@
 
 
 {% block page_header %}
-<h2 class="d-inline"> Authors </h2>
-   <form method="get" action="{% url 'authors:search_authors' %}" id="search" class="input-group-append"> 
-      <input type="search" class="form-control" name="query" placeholder="Search for authors...">
+<h2> Authors
+   <form method="get" action="{% url 'authors:search_authors' %}" class="input-group-append float-right"> 
+      <input type="search" class="form-control" name="query" placeholder="Search for authors">
       <button class="btn btn-outline-primary"> Search </button>
    </form> 
+</h2>
 {% endblock %}
    
    

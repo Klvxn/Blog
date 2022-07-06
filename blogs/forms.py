@@ -1,3 +1,5 @@
+from ckeditor.widgets import CKEditorWidget
+
 from django import forms
 
 from .models import BlogPost, Comment
@@ -5,6 +7,7 @@ from .models import BlogPost, Comment
 
 # Forms
 class BlogForm(forms.ModelForm):
+    # text = forms.CharField(widget=CKEditorWidget())
     source = forms.URLField(
         required=False,
         widget=forms.URLInput(attrs={"placeholder": "Link to post source."}),

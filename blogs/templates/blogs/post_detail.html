@@ -8,52 +8,58 @@
 
 
 {% block content %}
-{% if messages %}
-<div class="alert alert-success w-75" role="alert">
-    {% for message in messages %}
-    <span> {{ message }} </span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    {% endfor %}
-</div>
-{% endif %}
-<p class="details my-5"> Published by <a href="{{ post.author.get_absolute_url }}"> {{ post.author.first_name|title }} {{ post.author.last_name|title }} </a> <br> <img class="my-3 rounded-circle" src="{{ post.author.image.url }}" alt=""> <br> {{ post.date_added.date }} </p>
-<div class="main my-5">
-    <p class="post"> {{ post.text }} </p>
-    {% if post.source %}
-        <p class="my-5"> Source: <a href="{{ post.source }}"> {{ post.source|truncatechars:55 }} </a> </p>
+<div class="p-3">
+    {% if messages %}
+    <div class="alert alert-success w-75" role="alert">
+        {% for message in messages %}
+        <span> {{ message }} </span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {% endfor %}
+    </div>
     {% endif %}
-</div>
+    <p class="details my-5">
+        Published by <a href="{{ post.author.get_absolute_url }}"> {{ post.author.first_name|title }} {{ post.author.last_name|title }} </a> <br>
+        <img class="my-3 rounded-circle" src="{{ post.author.image.url }}" alt=""> <br> {{ post.date_added.date }}
+    </p>
+    <div class="post my-5">
+        <div> {{ post.text|safe }} </div>
+        {% if post.source %}
+            <p class="my-5"> Source: <a href="{{ post.source }}"> {{ post.source|truncatechars:55 }} </a> </p>
+        {% endif %}
+    </div>
 
-<div class="p-5 border-bottom ">
-    {% if request.user.is_superuser or request.user == post.author.user %}
-        <a class="btn btn-primary text-white" " href="{% url 'blogs:edit_post' post.slug post.pk %}"> Edit post</a> 
-        <a class="btn btn-danger mx-5 text-white" " href="{% url 'blogs:delete_post' post.slug post.pk %}"> Delete post </a>
-    {% endif %}
-</div>
+    <div class="p-5 border-bottom ">
+        {% if request.user.is_superuser or request.user == post.author.user %}
+            <a class="btn btn-primary text-white" " href="{% url 'blogs:edit_post' post.slug post.pk %}"> Edit post</a>
+            <a class="btn btn-danger mx-5 text-white" " href="{% url 'blogs:delete_post' post.slug post.pk %}"> Delete post </a>
+        {% endif %}
+    </div>
 
-<div class="mt-3" id="comment-section">
-    <h4 class="d-inline">{% if post.comment_set.all %} Comment </h4>
-    <i style="color: burlywood;"> {{ comment_count.count }} comments </i>  
-    {% for comment in post.comment_set.all %}
-        <div class="ml-5 mt-5">
-            <p> <b> {{ comment.username }}: </b> - <i style="color:rgb(187, 187, 187);"> {{ comment.date_created|timesince }} ago </i> <br> 
-            {{ comment.text }} </p>  
-        </div> 
-    {% endfor %}  
-    {% else %} 
-        No comments..
-    {% endif %}   
+    <div class="mt-3">
+        <h4 class="d-inline">{% if post.comment_set.all %} Comment </h4>
+        <i style="color: burlywood;"> {{ comment_count.count }} comments </i>
+        {% for comment in post.comment_set.all %}
+            <div class="ml-3 mt-4">
+                <p> <b> {{ comment.username }}: </b> <br>
+                    {{ comment.text }} <br>
+                    <i style="color:rgb(187, 187, 187);">  {{ comment.date_created|timesince }} ago </i> <br>
+                </p>
+            </div>
+        {% endfor %}
+        {% else %}
+            No comments.
+        {% endif %}
+    </div>
+    <hr>
+    <h4> Add a comment </h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn bg-dark text-white px-3 mt-5">Post comment </button>
+    </form>
 </div>
-
-<hr>
-<h4> Add a comment </h4>
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn bg-dark text-white px-3 mt-5">Post comment </button>
-</form>
 {% endblock %}
 
 

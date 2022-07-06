@@ -22,6 +22,7 @@
 <p> {{ post }} </p>
 <form class="form-group" action="" method="post">
     {% csrf_token %}
+    {{ form.media }}
     {% bootstrap_form form %}
     {% if request.user.author %}
         <button class="btn btn-dark"> Submit </button>
