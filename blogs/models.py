@@ -1,4 +1,4 @@
-from ckeditor.fields import RichTextField 
+from ckeditor.fields import RichTextField
 
 from django.db import models
 from django.urls import reverse
@@ -19,8 +19,8 @@ class BlogPost(models.Model):
 
     class Meta:
         ordering = ["-date_added"]
-        verbose_name = ("Post")
-        verbose_name_plural = ("Posts")
+        verbose_name = "Post"
+        verbose_name_plural = "Posts"
 
     def __str__(self):
         return f"{self.title} by {self.author}"

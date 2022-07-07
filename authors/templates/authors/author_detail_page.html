@@ -2,9 +2,9 @@
 
 
 {% block page_header %}
-<h2> About {{ author.first_name|title }} {{ author.last_name|title }}  
+<h2> About {{ author.first_name|title }} {{ author.last_name|title }}
     {% if request.user == author.user %} 
-        <a style="float: right;" href="{% url 'authors:edit_author_profile' user.author.slug %}"> Edit profile </a>  
+        <a class="float-right" href="{% url 'authors:edit_author_profile' user.author.slug %}"> Edit profile </a>
     {% endif %}
 </h2>
 {% endblock page_header %}
@@ -32,20 +32,20 @@
     </div>
 
     <div class="my-5 card border-primary">
-        <b class="card-header bg-primary  text-center p-2">  Bio  </b> 
-        <p class="card-body p-2 border-0"> {{ author.bio|safe }} </p> 
+        <b class="card-header bg-primary  text-center p-2"> Bio </b>
+        <div class="card-body p-2 border-0"> {{ author.bio|safe }} </div>
     </div>
 
     <div class="card border-warning">
         <b class="card-header bg-warning text-center p-2"> Posts by {{ author.first_name|title }} {{ author.last_name|title }} </b> 
-        <div class="p-3">
-        <ul class="card-body border-0">
-            {% for posts in author_posts %}
-                <li> <a style="color: blue;" href="{{ posts.get_absolute_url }}">{{ posts.title }} </a> </li>
-            {% empty %}
-                <p> This author hasn't made any posts yet. </p>
-            {% endfor %}
-        </ul>
+        <div class="px-3">
+            <ul class="card-body border-0">
+                {% for posts in author_posts %}
+                    > <a href="{{ posts.get_absolute_url }}">{{ posts.title }} </a> <br>
+                {% empty %}
+                    <p> This author hasn't made any posts yet. </p>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </div>

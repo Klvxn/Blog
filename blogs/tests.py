@@ -26,7 +26,7 @@ class BaseSetUp(TestCase):
             last_name="Gregor",
             image="my_profile_pic.jpg",
             email="gresam@blogs.xo",
-            bio="I am a django developer",
+            bio="I am a django developer"
         )
 
         cls.blog = BlogPost.objects.create(
@@ -106,7 +106,7 @@ class PostDetailViewTest(BaseSetUp):
     def test_users_can_comment_under_a_post(self):
         response = self.client.post(
             "/posts/first-test/1/",
-            {"username": "testuser2", "text": "testing the comment section"},
+            {"username": "testuser2", "text": "testing the comment section"}
         )
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, "/posts/first-test/1/")
@@ -154,13 +154,13 @@ class CreatePostViewTest(BaseSetUp):
             {
                 "title": "test title",
                 "text": "when testing, more is better",
-                "source": "www.example.com/this-si",
-            },
+                "source": "www.example.com/this-si"
+            }
         )
         self.assertEqual(post_response.status_code, 200)
         self.assertContains(
             get_response,
-            "You are not a verified author. Only verified authors can create a post."
+            "You are not a verified author. Only verified authors can create a post.",
         )
 
 
@@ -189,8 +189,8 @@ class EditPostViewTest(BaseSetUp):
             {
                 "title": "test title (edited)",
                 "text": "when testing, more is better",
-                "source": "www.example.com/try-keeping-this-simple",
-            },
+                "source": "www.example.com/try-keeping-this-simple"
+            }
         )
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, "/posts/test-title-edited/1/")
@@ -208,8 +208,8 @@ class EditPostViewTest(BaseSetUp):
             {
                 "title": "test title (dont't edit)",
                 "text": "when testing, more is not better",
-                "source": "www.example.com/this-si",
-            },
+                "source": "www.example.com/this-si"
+            }
         )
         self.assertEqual(response.status_code, 403)
 

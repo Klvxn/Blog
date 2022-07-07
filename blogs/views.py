@@ -21,7 +21,7 @@ def index_view(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     template_name = "blogs/index.html"
-    context = {"posts_list": page_obj, "all_posts": posts[:7], "authors": authors}
+    context = {"posts_list": page_obj, "recent_posts": posts[:7], "authors": authors}
     return render(request, template_name, context)
 
 
@@ -107,7 +107,7 @@ def delete_post(request, slug, pk):
 
 
 def search_posts(request):
-    """Searching for post"""
+    """Searching for posts."""
     query = request.GET["query"]
     search_post_result = BlogPost.objects.filter(
         Q(title__icontains=query) | Q(text__icontains=query)

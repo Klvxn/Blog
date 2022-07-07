@@ -11,7 +11,7 @@
 <form class="form-group" method="post" action="">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button type="submit" class="btn btn-success" >Log in</button> 
+    <button type="submit" class="btn btn-success" >Log In</button> 
     <hr>
     <p> Don't have an account? <a class="text-success" href="{% url 'users:register' %}"> Register </a> </p>
 </form>

@@ -1,9 +1,11 @@
 from ckeditor.fields import RichTextField
+from datetime import timedelta
 
 from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.text import slugify
+from django.utils import timezone
 
 
 # Create your models here.
@@ -16,7 +18,15 @@ class Author(models.Model):
     slug = models.SlugField(unique=True)
     email = models.EmailField(("Email Address"), unique=True)
     bio = RichTextField(("About yourself"))
-    # date_joined = models.DateField(auto_now_add=True, null=True)
+    date_joined = models.DateField(auto_now_add=True, null=True)
+
+    class Meta:
+        ordering = ("-date_joined",)
+
+    def joined_recently(self):
+        now = timezone.now().date()
+        if now - self.date_joined < timedelta(days=5):
+            return True
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

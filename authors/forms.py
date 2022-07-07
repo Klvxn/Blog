@@ -7,4 +7,4 @@ from .models import Author
 class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author
-        exclude = ("user", "slug",)
+        exclude = ("user", "slug")

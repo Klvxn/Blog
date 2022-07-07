@@ -12,7 +12,7 @@ class BaseSetUp(TestCase):
         cls.user_1 = get_user_model().objects.create_user(
             username="sam", password="1234"
         )
-        
+
         cls.user_2 = get_user_model().objects.create_user(
             username="davidd", password="abcdef"
         )
@@ -107,7 +107,7 @@ class BecomeAuthorViewTest(BaseSetUp):
                 "last_name": "Joshua",
                 "email": "davej@blog.co",
                 "bio": "i like running tests",
-            }
+            },
         )
         self.assertEqual(response.status_code, 302)
 

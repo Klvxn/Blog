@@ -13,18 +13,21 @@
    
 {% block content %}
 <div class="authors">
-   <div class="my-5">
-      <p style="display: inline;"> These are the authors/writers behind some of the best posts you've read on our site.. <br>
+   <div class="my-5 p-3">
+      <p class="d-inline"> These are the authors/writers behind some of the best posts you've read on our site.. <br>
          Feel free to reach out to any of them :) </p>
          
-      {% if not request.user.author %} <a href="{% url 'authors:become_author' %}" style="font-size: 2rem;" class="float-md-right"> Join </a> {% endif %} 
+      {% if not request.user.author %} 
+         <a href="{% url 'authors:become_author' %}" style="font-size: 1.5rem;" class="float-right"> Join </a> 
+      {% endif %} 
    </div>
  
    {% for authors in authors %}
       <ul> 
          <li class="my-3">
             <img src="{{ authors.image.url }}" alt="" class="rounded-circle"> <br> 
-            <a style="color:blue; font-family:Tahoma;" href="{{ authors.get_absolute_url }}"> {{ authors.first_name|title }} {{ authors.last_name|title }} </a>       
+            <a style="color:blue; font-family:Tahoma;" href="{{ authors.get_absolute_url }}"> {{ authors.first_name|title }} {{ authors.last_name|title }} </a> 
+            <br> Joined: {{ authors.date_joined }}
          </li>
       </ul>
    {% empty %}

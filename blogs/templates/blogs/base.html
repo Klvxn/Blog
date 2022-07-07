@@ -27,8 +27,8 @@
             }
 
             .navbar, .navbar-brand {
-                font-family: 'Trebuchet MS', 'Lucida Sans Unicode';
-                font-size: 1.5rem;  
+                font-family: calibri;
+                font-size: 1.8rem;
             }
 
             .nav1 a, .nav2 a {
@@ -50,18 +50,25 @@
                 padding: .5rem 0;
             }
 
+            .sidebar {
+                font-family:"Sitka Heading";
+            }
+
             @media (max-width: 1024px) {
 
-                div.recent-posts {
-                    font-family: Arial, Helvetica, sans-serif;
-                    padding: 1.5rem;
-                    background-color: rgb(245, 245, 245);
-                    width: 70%;
-                    outline: 1px solid;
+
+                .recent-posts {
+                    padding: 1rem;
+                    background-color: whitesmoke;
+                    width: fit-content;
+                    outline: 2px solid rgb(220, 220, 220);
                 }
 
-                .recent-posts ul {
-                    line-height: 1rem;
+                .new-authors {
+                    width: fit-content;
+                    padding: 1rem;
+                    background-color: whitesmoke;
+                    outline: 2px solid rgb(220, 220, 220);
                 }
 
                 .author-detail {
@@ -71,18 +78,30 @@
 
             @media (min-width: 1025px) {
                 
-                div.recent-posts {
-                    font-family: Arial, Helvetica, sans-serif;
-                    padding: 1rem;
-                    position: sticky;
-                    top: 0;
+                .sidebar {
                     float: right;
-                    width: 35%;
-                    background-color: rgb(245, 245, 245);
+                    width: 37%;
+                    padding: 0;
+                    height: 150rem;
+                }
+
+                .recent-posts {
+                    width: fit-content;
+                    padding: 1rem;
+                    background-color: whitesmoke;
+                    outline: 2px solid rgb(220, 220, 220);
+                }
+                
+                .new-authors {
+                    padding: 1rem;
+                    top: 0;
+                    position: sticky;
+                    background-color: whitesmoke;
+                    outline: 2px solid rgb(220, 220, 220);
+                    margin: 10rem 0;
                 }
                
-                #maincontent {
-                    margin-left: 0;
+                .maincontent {
                     width: 60%;
                     font-family:Verdana, Geneva, Tahoma;
                 }
@@ -97,10 +116,10 @@
                 color: rgb(187, 187, 187);
             }
 
-            div.post {
+            .post {
                 font-size: var(--sm-font-size);
                 margin: 0 auto;
-                font-family: cursive;
+                font-family: Calisto MT, serif;
             }
             
             .form-group {
@@ -129,6 +148,11 @@
                 list-style-type: none;
             }
             
+            .authors {
+                padding: 1rem 0;
+                background-color: whitesmoke;
+            }
+
             .authors ul {
                 display: inline-flex;
                 text-align: center;
@@ -173,11 +197,9 @@
             }
 
             div.about {
-                background-color: rgb(235, 235, 235);
+                background-color:whitesmoke;
                 width:100%;
                 font-size: 1.3rem;
-                color: rgb(95, 93, 93);
-                /* position: fixed; */
                 bottom: 0;
             }
             
@@ -209,7 +231,7 @@
                         {% if user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 {% if user.author %}
-                                    <a type="button" class="nav-link active" data-toggle="dropdown" href="#"> Hello, {{ user.username|title }}&triangledown; </a> 
+                                    <a type="button" class="nav-link active" data-toggle="dropdown" href="#"> Hello, {{ user.username|title }}&blacktriangledown; </a> 
                                     <ul class="dropdown-menu"> 
                                         <li> <a class="dropdown-item" href="{{ user.author.get_absolute_url }}"> Your profile  </a> </li>   
                                         <li> <a class="dropdown-item" href="{% url 'authors:edit_author_profile' user.author.slug %}"> Edit profile </a> </li> 
@@ -220,10 +242,10 @@
                                 {% endif %}    
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'users:logout' %}"> Log out </a> </li> 
+                                <a class="nav-link" href="{% url 'users:logout' %}"> Log Out </a> </li> 
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'users:login' %}"> Log in </a> </li>
+                                <a class="nav-link" href="{% url 'users:login' %}"> Log In </a> </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'users:register' %}"> Register </a> </li>
                         {% endif %}
@@ -242,7 +264,7 @@
         {% block footer %}
         <footer class="mt-5 mx-0">
            <div class=" about bg-border text-center p-5">   
-              <p> Built with <a href="https://djangoproject.com"> Django </a> </p> <hr>
+              <p> Made with <a href="https://djangoproject.com"> Django </a> </p> <hr>
               <p> Copyright (c) 2022. All rights reserved.</p>
            </div>
         </footer>

@@ -11,7 +11,7 @@ from .models import Author
 
 
 # Create your views here.
-def authors(request):
+def authors_list(request):
     """Viewing all authors page."""
     authors = Author.objects.all()
     template_name = "authors/authors_page.html"
@@ -66,7 +66,7 @@ def edit_author_profile(request, slug):
 
 
 def search_authors(request):
-    """Searching for post or an author."""
+    """Searching for authors."""
     query = request.GET["query"]
     search_result = Author.objects.filter(
         Q(first_name__icontains=query) | Q(last_name__icontains=query)
