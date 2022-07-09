@@ -87,7 +87,7 @@ class BecomeAuthorViewTest(BaseSetUp):
 
     def test_that_view_requires_login(self):
         response = self.client.get("/authors/join/become-an-author/")
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         self.assertRedirects(
             response, "/users/login/?next=/authors/join/become-an-author/"
         )
