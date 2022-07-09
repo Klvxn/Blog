@@ -4,81 +4,79 @@
 
 {% block page_header %}
 <h2> Posts
-   <form id="search" class="d-flex" method="GET" action="{% url 'blogs:search' %}"> 
-      <div class="input-group ">
-      <input type="search" class=" form-control-lg mr-2 rounded" name="query" aria-label="Search" placeholder="Search...">
-      <button class="btn btn-outline-primary"  type="submit"> Search</button> </div>
+   <form method="get" action="{% url 'blogs:search_posts' %}" class="input-group-append float-right"> 
+      <input type="search" class="form-control" name="query" placeholder="Search for posts">
+      <button class="btn btn-outline-primary"> Search </button>
    </form>  
 </h2>
 {% endblock page_header %}
 
+
 {% block content %}
 {% if messages %}
-   <ul class="messages">
+   <div class="alert alert-success w-75 my-5" role="alert">
      {% for message in messages %}
-         <span style="color: rgb(6, 189, 6); font-size: xx-large;">{{ message }}</span>
+        <span> {{ message }} </span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
       {% endfor %}
-   </ul>
-{% endif %}
-<div class="mb-5">
-   <div id="sidebar" class="container" >
-      <div class="card welcomenote border mb-4">
-         <b> Hi there, Welcome to Blog.</b> <hr class="mt-3">
-         <span class="mb-4"> Your favourite web app for daily tech related news and discussions. </span>
-      </div>
-
-      {% if all_posts %}
-         <div class="card posts">
-            <p style="font-size:40px;"   class="mb-auto ">Recent posts <hr> </p> 
-               {% for post in all_posts %}
-                  <li> <a href="{{ post.get_absolute_url }}"> `{{post.title}} by {{post.author}} </a> </li> 
-               {% endfor %} <br/>   
-         </div>
-      {% endif %}
    </div>
+{% endif %}
+<div class="my-5">
+   {% if recent_posts %}
+   <div class="sidebar p-2">
+      <div class="recent-posts mb-5">
+         <h4> Recent posts </h4> <hr> 
+         {% for post in recent_posts %}
+            <li> <a href="{{ post.get_absolute_url }}"> {{ post.title|truncatewords:8 }}</a> </li>
+         {% endfor %} 
+      </div> <br>
+      <div class="new-authors">
+         <h4>Meet our newest Authors</h4> <hr>
+         {% for author in authors %}
+            {% if author.joined_recently %}
+               <li> <a href="{{ author.get_absolute_url }}">{{ author }}</a></li>
+            {% endif %}
+         {% endfor %}
+      </div>
+   </div>
+   {% endif %}
 
-   <article class="container-fluid" id="maincontent">
+   <div class="maincontent">
       {% for post in posts_list %}
-         <div class="text-left mb-4 border-bottom">
-            <div>
-               <a href="{{ post.get_absolute_url }}" style="color:blue; font-weight: bold; font-family:calibri; font-size:32px"> {{ post.title }} </a>  
-            </div>
-            <div> 
-               <p>{{ post.text|truncatewords:35 }}</p>
-               By <b> {{post.author.firstname|title}} {{post.author.lastname|title}} </b>
-               <br>  
-               <a style="color:rgb(187, 187, 187);"> {{post.date_added.date}} </a>
+         <div class="my-5 border-bottom container-fluid">
+            <a href="{{ post.get_absolute_url }}"> {{ post.title }} </a>  
+            <div class="post p-0"> {{ post.text|truncatewords:30|safe }} </div>
+            <div class="details text-2 p-0">
+               By <b> {{ post.author.first_name|title }} {{ post.author.last_name|title }} </b> <br>
+               <span> {{ post.date_added.date }} </span>
             </div>   
          </div>
       {% empty %}
-         <p> there are no posts at the moment. </p>
+         <p> There are no posts at the moment. </p>
       </div>
       {% endfor %}
-   </article>
-
-   <div class="pagination">
-      <span class="step-links">
-         {% if posts_list.has_previous %}
-            <a href="?page=1">&laquo; First</a>
-            <a href="?page={{posts_list.previous_page_number }}">Previous</a>
-         {% endif %}
-         <span class="current">
-            Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}. <br>
-         </span>
-         {% if posts_list.has_next %}
-            <a href="?page={{ posts_list.next_page_number }}">Next </a> | 
-            <a href="?page={{ posts_list.paginator.num_pages }}"> Last &raquo;</a>
-         {% endif %}
-      </span>
    </div>
+
+   {% if posts_list %}
+      <div class="pagination">
+         <span class="step-links">
+            {% if posts_list.has_previous %}
+               <a href="?page=1" class="page-link">&laquo; First</a>
+               <a href="?page={{ posts_list.previous_page_number }}" class="page-link">Previous</a>
+            {% endif %}
+            <span class="current">
+               Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}. <br>
+            </span>
+            {% if posts_list.has_next %}
+               <a href="?page={{ posts_list.next_page_number }}" class="page-link">Next </a>
+               <a href="?page={{ posts_list.paginator.num_pages }}" class="page-link"> Last &raquo;</a>
+            {% endif %}
+         </span>
+      </div>
+   {% endif %}
 </div>
 &ThickSpace;
-
-<footer class="mt-5 mr-0 ml-0">
-   <div class=" about bg-border text-center">   
-      <p> Built with <a href="https://djangoproject.com"> Django </a> </p> <hr>
-      <p> Copyright (c) 2022. All rights reserved.</p>
-   </div>
-</footer>
-
 {% endblock %}
+

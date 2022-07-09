@@ -1,0 +1,12 @@
+{% extends 'blogs/base.html' %}
+
+{% block page_header %} 
+<h2 class="text-danger"> Your post was not submitted. </h2>
+{% endblock page_header %}
+
+{% block content  %}
+<div>
+    <p> Only verified <a href="{% url 'blogs:authors' %}">  authors  </a> can create a post! </p>
+        Click <a href="{% url 'blogs:beauthor' %}"> here </a> to become an author.
+</div>
+{% endblock %}

@@ -1,6 +1,7 @@
 # Blog
 
 ![Test workflow](https://github.com/Kelvxn/Blog/actions/workflows/django_test_config.yml/badge.svg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 <h2> Introduction </h2>
 
@@ -35,8 +36,8 @@ DRF <br>
 pip install djangorestframework
 ```
 
-<h3> Deployed at </h3>
-Heroku > <a href="https://kvn-blog.herokuapp.com"> Blog app </a> <br>
+<h3> Deployment </h3>
+Deployed on Heroku > <a href="https://kvn-blog.herokuapp.com"> Blog app </a> <br>
 <a href="https://kvn-blog.herokuapp.com/api/v1/"> Blog API </a>
 
 
@@ -46,8 +47,3 @@ Clone the repository using <br>
 ```
 git clone https://github.com/Kelvxn/Blog.git
 ```
-
-<h3> P.S. </h3> 
-Make sure to view from a PC. 
-Feel free to clone or fork the repository. 
-or open an issue if you'd like to see a new feature.

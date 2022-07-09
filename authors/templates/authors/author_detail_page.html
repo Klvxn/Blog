@@ -1,0 +1,55 @@
+{% extends 'blogs/base.html' %}
+
+
+{% block page_header %}
+<h2> About {{ author.first_name|title }} {{ author.last_name|title }}
+    {% if request.user == author.user %} 
+        <a class="float-right" href="{% url 'authors:edit_author_profile' user.author.slug %}"> Edit profile </a>
+    {% endif %}
+</h2>
+{% endblock page_header %}
+
+
+{% block content %} 
+{% if messages %}
+   <div class="alert alert-success w-75 my-5" role="alert">
+     {% for message in messages %}
+        <span> {{ message }} </span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      {% endfor %}
+   </div>
+{% endif %}
+<div class="author-detail">
+    <div>
+        <img src="{{ author.image.url }}" alt="" class="rounded-circle">
+    </div>
+
+    <div class="card border-info mb-5" id="contact">
+        <b class="card-header bg-info text-center p-2"> Contact </b> 
+        <p class="card-body p-3 border-0"> E-mail: {{ author.email }} </p>
+    </div>
+
+    <div class="my-5 card border-primary">
+        <b class="card-header bg-primary  text-center p-2"> Bio </b>
+        <div class="card-body p-2 border-0"> {{ author.bio|safe }} </div>
+    </div>
+
+    <div class="card border-warning">
+        <b class="card-header bg-warning text-center p-2"> Posts by {{ author.first_name|title }} {{ author.last_name|title }} </b> 
+        <div class="px-3">
+            <ul class="card-body border-0">
+                {% for posts in author_posts %}
+                    > <a href="{{ posts.get_absolute_url }}">{{ posts.title }} </a> <br>
+                {% empty %}
+                    <p> This author hasn't made any posts yet. </p>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block footer %} {% endblock %}

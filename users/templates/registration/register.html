@@ -1,17 +1,21 @@
 {% extends 'blogs/base.html' %}
 {% load bootstrap4 %}
 
+
 {% block page_header%} 
-<h2> Register an account </h2>
+<h2> Register </h2>
 {% endblock %}
 
 
 {% block content %} 
-
-<form action="{% url 'users:register' %}" method="post" style="font-size:25px;">
+<form class="form-group" action="" method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button name="Submit" class="btn btn-success" style="font-size: 23px;"> Register </button>
+    <button type="Submit" class="btn btn-success">Register</button>
+    <hr>
+    <p> Already have an account? <a class="text-success" href="{% url 'users:login' %}"> Log In </a> </p>
 </form>
-
 {% endblock content %} 
+
+
+{% block footer %} {% endblock %}

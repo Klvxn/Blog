@@ -1,2 +1,8 @@
 __pycache__/
+/migrations/
 *.sqlite3
+*.pyc
+*.bat
+*.jpg
+.coverage
+staticfiles

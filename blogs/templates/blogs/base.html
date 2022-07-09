@@ -4,9 +4,12 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewpoint" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
+        <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
 
         <title> Blog </title>
+
+        <!-- HTMX -->
+        <script src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -14,141 +17,194 @@
         {% bootstrap_javascript jquery='full' %}
 
         <style>
-
-            .navbar{
-                position: static;
-                top: 0;
-                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-                font-size: xx-large;  
-            }
-
-            h2{
-                margin-left: 20px;
-                margin-right: 20px;
-                font-family:  sans-serif; 
-                font-size:40px;
-                margin-bottom:30px;
-                border-bottom:1px solid rgb(111, 104, 104);
-                padding:8px 0 10px 0 ;
-            }
-
-            div#sidebar{
-                position: sticky;
-                top:10px;
-                width:33%;
-                float: right;
-                font-family: 'Trebuchet MS';
-                list-style-type: none;
-                font-size: 17px; 
-            } 
-
-            #sidebar a{
-                color:rgb(126, 122, 122);
-                font-weight:bold; 
-                font-family:sans-serif; 
-                font-size:25px;
-            }
-
-            .welcomenote{
-                font-family: Arial, Helvetica, sans-serif;
-                background-color:khaki;
-                padding: 10px 5px 0 10px;
-                border-width: 2px;
-                font-size: 30px;
-            }
-
-            .posts{
-                font-family: Arial, Helvetica, sans-serif;
-                padding: 14px 5px 0 10px;
-                background-color: khaki;
-                border-width: 2px;
-                font-size: 30px;
-                margin-bottom: 0;
-                color: #000;
-            }
-
-            .nav1{
-               margin-left: 33%;
-               text-align: center;
-               float: left;
-            }
-
-            .nav2 a{
-                font-size: 25px;
-                float: right;
-            }
-                        
-            article#maincontent{
-                margin-left: 0;
-                width: 65%;
-                font-family:Verdana, Geneva, Tahoma;
-                font-size:20px;
-            }
-
-            #commentSection{
-                font-size: larger;
-            }
-
-            div.about{
-                position: relative;
-                background-color: rgba(235, 235, 235, 0.308);
-                width:100%;
-                font-size: 35px;
-                margin: 0 0 0 0;
-                margin-left: 0;
-                margin-right: 0;
-                font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-                color: rgb(95, 93, 93);
-                padding: 20px;
-                font-weight: normal;
+            :root {
+                --sm-font-size: 1.3rem;
             }
             
-            .about a{
-                color: rgba(0, 128, 0, 0.849);
+            body {
+                margin: 0;
+                padding: 0;
             }
 
-            .pagination{
-                background-color:sandybrown;
-                margin-right: 89%;
-                padding: 8px 8px;
-                margin-top: 5%;
-                margin-bottom: 10%;
-                font-size: 25px;
-                font-weight: bold;
+            .navbar, .navbar-brand {
+                font-family: calibri;
+                font-size: 1.8rem;
             }
 
-            .pagination a{
-                color: white;
-                margin-left: 0%;
-                font-size: 25px;
-                font-weight: bold; 
+            .nav1 a, .nav2 a {
+                font-size: 1.2rem;
+                list-style-type: none;
             }
 
-            div#sidebar a:hover{
-                color:white;
-                text-decoration:underline;
+            h2 {
+                font-family: "Sitka Heading",Georgia, Cambria, Calibri;
+                font-size:2.5rem;
+                padding: 2rem 0;
             }
 
-            .authors{
+            a {
+                font-size: var(--sm-font-size);
+            }
+
+            .post div p {
+                padding: .5rem 0;
+            }
+
+            .sidebar {
+                font-family:"Sitka Heading";
+            }
+
+            @media (max-width: 1024px) {
+
+                .sidebar {
+                    display: flex;
+                    justify-content: space-evenly;
+                }
+
+                .recent-posts {
+                    padding: 1rem;
+                    background-color: whitesmoke;
+                    outline: 2px solid rgb(220, 220, 220);
+                }
+
+                .new-authors {
+                    padding: 1rem;
+                    height: fit-content;
+                    background-color: whitesmoke;
+                    outline: 2px solid rgb(220, 220, 220);
+                }
+
+                .author-detail {
+                    margin: 0 5rem;
+                }
+            }
+
+            @media (min-width: 1025px) {
+                
+                .sidebar {
+                    float: right;
+                    width: 37%;
+                    padding: 0;
+                    height: 150rem;
+                }
+
+                .recent-posts {
+                    padding: 1rem;
+                    background-color: whitesmoke;
+                    outline: 2px solid rgb(220, 220, 220);
+                }
+                
+                .new-authors {
+                    padding: 1rem;
+                    top: 0;
+                    position: sticky;
+                    background-color: whitesmoke;
+                    outline: 2px solid rgb(220, 220, 220);
+                    margin: 10rem 0;
+                }
+               
+                .maincontent {
+                    width: 60%;
+                    font-family:Verdana, Geneva, Tahoma;
+                }
+
+                .author-detail {
+                    margin: 0 10rem;
+                }
+         
+            }  
+            
+            .details {
+                color: rgb(187, 187, 187);
+            }
+
+            .post {
+                font-size: var(--sm-font-size);
+                margin: 0 auto;
+                font-family: Calisto MT, serif;
+            }
+            
+            .form-group {
+                margin: 0 auto;
+                margin-bottom: 3rem; 
+                text-align: center; 
+                width: 85%;
+            }
+
+            .form-group label {
+                font-size: var(--sm-font-size);
+                text-align: center;
+                display: block;
+            } 
+
+            .form-group input, .form-group textarea, .form-group p {
+                font-size: var(--sm-font-size);
+            }
+
+            .form-group button {
+                width: 10rem; 
+                font-size: var(--sm-font-size);
+            }
+
+            .form-group ul, .authors li {
+                list-style-type: none;
+            }
+            
+            .authors {
+                padding: 1rem 0;
+                background-color: whitesmoke;
+            }
+
+            .authors ul {
+                display: inline-flex;
                 text-align: center;
             }
 
-            form{   
-                font-family: 'Trebuchet MS', 'Lucida Sans', Arial, sans-serif;
-                margin-left: 20px;
-                margin-right: 20px;
+            .authors img, .author-detail img {
+                width: 15rem;
+                height: 15rem;
             }
 
-            form#search{
-                font-size: 32px;
-                float: right;
-                font-family: sans-serif;
+            .authors a, .author-detail b {
+                font-size: var(--sm-font-size);
             }
 
-            .search, .search a{
-                font-size: 25px;
-                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            .author-detail div.card {
+                margin: 0 auto;
+                width: fit-content;    
             }
+
+            .details img  {
+                width: 6rem;
+                height: 6rem;
+            }
+
+            .alert {
+                font-size: var(--sm-font-size);
+            }
+
+            .about a {
+                color: rgb(0, 128, 0);
+            }
+            
+            .pagination {
+                padding: .5rem;
+                margin-top: 5%;
+                margin-bottom: 10%;
+                font-size: var(--sm-font-size);
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+
+            div.about {
+                background-color:whitesmoke;
+                width:100%;
+                font-size: 1.3rem;
+                bottom: 0;
+            }
+            
         </style>
 
     </head>
@@ -157,46 +213,43 @@
         
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
             <div class="container-fluid">
-                <a class="navbar-brand" style="font-size:60px; " href="{% url 'blogs:index' %}">Blog</a>
+                <a class="navbar-brand" href="{% url 'blogs:index' %}">Blog</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" 
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"> </span> </button>
 
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class ="navbar-nav nav1 selected">
+                    <ul class ="navbar-nav nav1 ml-auto">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'blogs:index' %}"> Home </a> </li>
                         <li class="nav-item">
-                            <a class="nav-link active ml-3 mr-3" aria-current="page" href="{% url 'blogs:create_post' %}"> Create post </a> </li>
+                            <a class="nav-link active" aria-current="page" href="{% url 'blogs:create_post' %}"> Create post </a> </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'blogs:authors' %}"> Authors </a> </li>
+                            <a class="nav-link active" aria-current="page" href="{% url 'authors:authors' %}"> Authors </a> </li>
                     </ul> 
             
                     <ul class="navbar-nav nav2 ml-auto" > 
                         {% if user.is_authenticated %}
-
                             <li class="nav-item dropdown">
                                 {% if user.author %}
-                                    <a type="button" class="mb-2" data-toggle="dropdown"  style="font-size: 30px;" href="#"> Hello,  {{ user.username|title }} &triangledown; </a> 
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{user.author.get_absolute_url}}"> Your profile  </a> 
-                                        <a class="dropdown-item" href="{% url 'blogs:edit_author_profile' user.author.firstname user.author.lastname %}"> Edit profile  </a>
-                                    </div>
+                                    <a type="button" class="nav-link active" data-toggle="dropdown" href="#"> Hello, {{ user.username|title }}&blacktriangledown; </a> 
+                                    <ul class="dropdown-menu"> 
+                                        <li> <a class="dropdown-item" href="{{ user.author.get_absolute_url }}"> Your profile  </a> </li>   
+                                        <li> <a class="dropdown-item" href="{% url 'authors:edit_author_profile' user.author.slug %}"> Edit profile </a> </li> 
+                                    </ul>
                                 {% else %}
                                 <li class="nav-item">
-                                    <a href="#" class="mb-2" style="font-size: 30px;" >  Hello,  {{ user.username|title }} </a> </li>
+                                    <a href="#" class="nav-link"> Hello, {{ user.username|title }} </a> </li>
                                 {% endif %}    
                             </li>
                             <li class="nav-item">
-                                <a class="btn border-light text-light ml-3" href="{% url 'users:logout' %}"> Log out </a> </li> 
-
+                                <a class="nav-link" href="{% url 'users:logout' %}"> Log Out </a> </li> 
                         {% else %}
                             <li class="nav-item">
-                                <a class="btn btn-outline-success mr-4 mb-2" href="{% url 'users:login' %}"> Log in </a> </li>
-
+                                <a class="nav-link" href="{% url 'users:login' %}"> Log In </a> </li>
                             <li class="nav-item">
-                                <a class="btn btn-success" href="{% url 'users:register' %}"> Register </a> </li>
+                                <a class="nav-link" href="{% url 'users:register' %}"> Register </a> </li>
                         {% endif %}
                     </ul>
                 </div>
@@ -204,16 +257,20 @@
         </nav>
 
 
-        <main class="mr-2 ml-2">
-            
-                {% block page_header %} {% endblock page_header %}
-            
-
-            
-                {% block content %} {% endblock content %}
-           
+        <main class="p-2">
+            {% block page_header %} {% endblock page_header %}
+        
+            {% block content %} {% endblock content %}
         </main>
-       
+
+        {% block footer %}
+        <footer class="mt-5 mx-0">
+           <div class=" about bg-border text-center p-5">   
+              <p> Made with <a href="https://djangoproject.com"> Django </a> </p> <hr>
+              <p> Copyright (c) 2022. All rights reserved.</p>
+           </div>
+        </footer>
+        {% endblock %}
     </body> 
 
 </html>
