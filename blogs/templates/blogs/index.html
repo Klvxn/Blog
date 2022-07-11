@@ -14,7 +14,7 @@
 
 {% block content %}
 {% if messages %}
-   <div class="alert alert-success w-75 my-5" role="alert">
+   <div class="alert alert-success m-5 w-75" role="alert">
      {% for message in messages %}
         <span> {{ message }} </span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -23,6 +23,7 @@
       {% endfor %}
    </div>
 {% endif %}
+
 <div class="my-5">
    {% if recent_posts %}
    <div class="sidebar p-2">
@@ -43,12 +44,12 @@
    </div>
    {% endif %}
 
-   <div class="maincontent">
+   <div class="posts-list">
       {% for post in posts_list %}
          <div class="my-5 border-bottom container-fluid">
-            <a href="{{ post.get_absolute_url }}"> {{ post.title }} </a>  
+            <a href="{{ post.get_absolute_url }}"> {{ post.title|truncatewords:15 }} </a>  
             <div class="post p-0"> {{ post.text|truncatewords:30|safe }} </div>
-            <div class="details text-2 p-0">
+            <div class="details">
                By <b> {{ post.author.first_name|title }} {{ post.author.last_name|title }} </b> <br>
                <span> {{ post.date_added.date }} </span>
             </div>   
@@ -66,9 +67,9 @@
                <a href="?page=1" class="page-link">&laquo; First</a>
                <a href="?page={{ posts_list.previous_page_number }}" class="page-link">Previous</a>
             {% endif %}
-            <span class="current">
-               Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}. <br>
-            </span>
+            <div class="p-3">
+               Page {{ posts_list.number }} of {{ posts_list.paginator.num_pages }}. 
+            </div>
             {% if posts_list.has_next %}
                <a href="?page={{ posts_list.next_page_number }}" class="page-link">Next </a>
                <a href="?page={{ posts_list.paginator.num_pages }}" class="page-link"> Last &raquo;</a>
@@ -77,6 +78,5 @@
       </div>
    {% endif %}
 </div>
-&ThickSpace;
 {% endblock %}
 

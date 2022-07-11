@@ -1,8 +1,9 @@
-__pycache__/
-/migrations/
+__pycache__
+
+.pytest_cache
 *.sqlite3
 *.pyc
-*.bat
 *.jpg
 .coverage
+htmlcov
 staticfiles
