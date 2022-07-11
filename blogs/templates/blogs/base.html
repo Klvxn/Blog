@@ -46,19 +46,23 @@
                 font-size: var(--sm-font-size);
             }
 
-            .post div p {
-                padding: .5rem 0;
-            }
-
             .sidebar {
                 font-family:"Sitka Heading";
+            }
+
+            .posts-list a {
+                font-size: 1.5rem;
+            }
+            
+            .post div p {
+                padding: .5rem 0;
             }
 
             @media (max-width: 1024px) {
 
                 .sidebar {
                     display: flex;
-                    justify-content: space-evenly;
+                    justify-content: space-around;
                 }
 
                 .recent-posts {
@@ -77,6 +81,11 @@
                 .author-detail {
                     margin: 0 5rem;
                 }
+            }
+
+            img {
+                width: fit-content;
+                height: fit-content;
             }
 
             @media (min-width: 1025px) {
@@ -103,7 +112,7 @@
                     margin: 10rem 0;
                 }
                
-                .maincontent {
+                .posts-list {
                     width: 60%;
                     font-family:Verdana, Geneva, Tahoma;
                 }
@@ -116,6 +125,11 @@
             
             .details {
                 color: rgb(187, 187, 187);
+            }
+
+            .details img  {
+                width: 5rem;
+                height: 5rem;
             }
 
             .post {
@@ -150,6 +164,11 @@
                 list-style-type: none;
             }
             
+            .errorlist {
+
+                font-size: var(--sm-font-size);
+            }
+
             .authors {
                 padding: 1rem 0;
                 background-color: whitesmoke;
@@ -173,45 +192,31 @@
                 margin: 0 auto;
                 width: fit-content;    
             }
-
-            .details img  {
-                width: 6rem;
-                height: 6rem;
-            }
-
+ 
             .alert {
                 font-size: var(--sm-font-size);
-            }
-
-            .about a {
-                color: rgb(0, 128, 0);
+                width: fit-content;
             }
             
             .pagination {
+                display: flex;
                 padding: .5rem;
                 margin-top: 5%;
                 margin-bottom: 10%;
                 font-size: var(--sm-font-size);
             }
-            
+
             p {
                 font-size: 1.2rem;
             }
 
-            div.about {
-                background-color:whitesmoke;
-                width:100%;
-                font-size: 1.3rem;
-                bottom: 0;
-            }
-            
         </style>
 
     </head>
 
     <body>   
         
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 py-1">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'blogs:index' %}">Blog</a>
 
@@ -257,22 +262,12 @@
         </nav>
 
 
-        <main class="p-2">
+        <main class="p-2 container-fluid" role="main">
             {% block page_header %} {% endblock page_header %}
         
             {% block content %} {% endblock content %}
         </main>
-
-        {% block footer %}
-        <footer class="mt-5 mx-0">
-           <div class=" about bg-border text-center p-5">   
-              <p> Made with <a href="https://djangoproject.com"> Django </a> </p> <hr>
-              <p> Copyright (c) 2022. All rights reserved.</p>
-           </div>
-        </footer>
-        {% endblock %}
     </body> 
-
 </html>
 
 
