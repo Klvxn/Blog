@@ -38,6 +38,8 @@ def become_author(request):
             new_author.user = request.user
             new_author.save()
             return redirect(new_author)
+        else:
+            messages.error(request, "Error while submitting form.")
     else:
         author_form = AuthorForm()
     template_name = "authors/become_author.html"
@@ -56,6 +58,8 @@ def edit_author_profile(request, slug):
                 edit = form.save()
                 messages.success(request, "Changes saved.")
                 return redirect(edit)
+            else:
+                messages.error(request, "Error while updating profile.")
         else:
             form = AuthorForm(instance=author)
     else:

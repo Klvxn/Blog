@@ -12,8 +12,8 @@ class BlogPost(models.Model):
 
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    text = RichTextField()
-    slug = models.SlugField()
+    text = RichTextField(max_length=7000)
+    slug = models.SlugField(max_length=200, unique=True)
     source = models.URLField(null=True, blank=True)
     date_added = models.DateTimeField("Date Published", default=timezone.now)
 

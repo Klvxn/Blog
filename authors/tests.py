@@ -31,7 +31,7 @@ class AuthorModelTest(BaseSetUp):
     def test_string_method(self):
         self.assertEqual(self.author.__str__(), "samuel king")
 
-    def test_save_method_adds_a_slug(self):
+    def test_save_method_automatically_adds_a_slug(self):
         self.assertEqual(self.author.slug, "samuel-king")
 
     def test_get_absolute_url(self):
@@ -87,7 +87,7 @@ class BecomeAuthorViewTest(BaseSetUp):
 
     def test_that_view_requires_login(self):
         response = self.client.get("/authors/join/become-an-author/")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         self.assertRedirects(
             response, "/users/login/?next=/authors/join/become-an-author/"
         )
@@ -109,7 +109,7 @@ class BecomeAuthorViewTest(BaseSetUp):
                 "bio": "i like running tests",
             },
         )
-        self.assertEqual(response.status_code, 200)  # should be 302
+        self.assertEqual(response.status_code, 200)
 
 
 class EditAuthorProfileViewTest(BaseSetUp):
@@ -143,7 +143,7 @@ class EditAuthorProfileViewTest(BaseSetUp):
         )
         self.assertEqual(response.status_code, 302)
 
-    def test_that_an_author_cannot_edit_another_author_profile(self):
+    def test_that_unauthorized_users_cannot_edit_an_author_profile(self):
         self.client.login(username="davidd", password="abcdef")
         get_response = self.client.post("/authors/samuel-king/edit-profile/")
         post_response = self.client.post(

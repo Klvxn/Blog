@@ -50,7 +50,7 @@ class BlogPostModelTest(BaseSetUp):
         current_date = timezone.now().date()
         self.assertEqual(self.blog.date_added.date(), current_date)
 
-    def test_slug_of_blogpost(self):
+    def test_slug_of_blogpost_is_automatically_applied(self):
         self.assertEqual(self.blog.slug, "first-test")
 
 
@@ -243,7 +243,7 @@ class DeletePostViewTest(BaseSetUp):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, "/")
 
-    def test_that_user_cannot_delete_an_author_post(self):
+    def test_that_unauthorized_users_cannot_delete_an_author_post(self):
         self.client.login(username="mantis", password="9wen3231")
         response = self.client.post("/posts/first-test/1/delete-post/")
         self.assertEqual(response.status_code, 403)

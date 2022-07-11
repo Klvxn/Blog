@@ -9,7 +9,7 @@
 
 {% block content %}
 {% if messages %}
-    <div class="alert alert-danger mb-5 w-75" role="alert">
+    <div class="alert alert-danger m-5 w-75" role="alert">
         {% for message in messages %}
             <i class="fa fa-warning"> </i> {{ message }}
             <br> Click <a href="{% url 'authors:become_author' %}" class="alert-link"> here </a> to become an author.
@@ -19,7 +19,13 @@
         {% endfor %}
     </div>
 {% endif %}
-<p> {{ post }} </p>
+
+{% if form.errors %}
+    <div class="alert alert-danger my-5">
+        {{ form.errors|escape }} 
+    </div>
+{% endif %}
+
 <form class="form-group" action="" method="post">
     {% csrf_token %}
     {{ form.media }}

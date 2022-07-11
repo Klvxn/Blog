@@ -57,6 +57,8 @@ def create_post(request):
                 new_post.save()
                 messages.success(request, "Your post was submitted successfully.")
                 return redirect("blogs:index")
+        elif form.errors:
+            messages.error(request, "Error while submitting post.")
     else:
         if not hasattr(request.user, "author"):
             messages.warning(
@@ -82,6 +84,8 @@ def edit_post(request, slug, pk):
                 edit.save()
                 messages.success(request, "Post updated successfully.")
                 return redirect(edit)
+            elif form.errors:
+                messages.error(request, "Error while updating post.")
         else:
             form = BlogForm(instance=post)
     else:
