@@ -3,7 +3,7 @@
 ![Test workflow](https://github.com/Kelvxn/Blog/actions/workflows/django_test_config.yml/badge.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-<h2> Introduction </h2>
+<h3> Introduction </h3>
 
 A Django based web app that allows users to view, create, edit or delete blog posts...and other features including it's API. <br>
 (From the book, Python Crash Course (2nd Edition) by Eric Matthes)
@@ -14,7 +14,7 @@ A Django based web app that allows users to view, create, edit or delete blog po
 <ol>
      <li> Author model and view </li>
      <li> Added and ran tests using pytest-django package </li>
-     <li> Pagination - 11 posts per page </li>
+     <li> Pagination </li>
      <li> Browsable API </li>
      <li> Comment section </li>
      <li> Author's can also edit their profile </li>
