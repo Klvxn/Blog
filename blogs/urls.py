@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import include, path
 
+from .api import urls
 from . import views
 
 
@@ -7,6 +8,7 @@ app_name = "blogs"
 
 urlpatterns = [
     path("", views.index_view, name="index"),
+    path("api/", include(urls)),
     path("posts/<slug:slug>/<int:pk>/", views.post_detail, name="post_detail"),
     path("create-post/", views.create_post, name="create_post"),
     path("posts/<slug:slug>/<int:pk>/edit-post/", views.edit_post, name="edit_post"),

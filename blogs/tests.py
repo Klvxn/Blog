@@ -179,7 +179,7 @@ class EditPostViewTest(BaseSetUp):
         response = self.client.get("/posts/first-test/1/edit-post/")
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(
-            response, "/users/login/?next=/posts/first-test/1/edit-post/"
+            response, "/login/?next=/posts/first-test/1/edit-post/"
         )
 
     def test_edit_blog(self):

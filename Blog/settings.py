@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     # My apps
-    "api.apps.ApiConfig",
     "authors.apps.AuthorsConfig",
     "blogs.apps.BlogsConfig",
     "users.apps.UsersConfig",
@@ -119,8 +118,6 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Africa/Lagos"
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 

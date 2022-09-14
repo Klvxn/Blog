@@ -11,13 +11,13 @@ class UserTest(TestCase):
         return super().setUp()
 
     def test_register_page_exists(self):
-        response = self.client.get("/users/register/")
+        response = self.client.get("/register/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "registration/register.html")
 
     def test_user_can_register(self):
         response = self.client.post(
-            "/users/register/",
+            "/register/",
             {
                 "username": "testuserx",
                 "password": "django-test12",
@@ -27,18 +27,18 @@ class UserTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_login_page_exists(self):
-        response = self.client.get("/users/login/")
+        response = self.client.get("/login/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "registration/login.html")
 
     def test_user_can_login(self):
         response = self.client.post(
-            "/users/login/", {"username": "testuser3", "password": "django-test12"}
+            "/login/", {"username": "testuser3", "password": "django-test12"}
         )
         self.assertEqual(response.status_code, 200)
 
     def test_logout_page_exists(self):
-        response = self.client.post("/users/logout/")
+        response = self.client.post("/logout/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "logged out successfully")
         self.assertTemplateUsed(response, "registration/logged_out.html")

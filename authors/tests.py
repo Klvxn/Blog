@@ -89,7 +89,7 @@ class BecomeAuthorViewTest(BaseSetUp):
         response = self.client.get("/authors/join/become-an-author/")
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(
-            response, "/users/login/?next=/authors/join/become-an-author/"
+            response, "/login/?next=/authors/join/become-an-author/"
         )
 
     def test_that_view_renders_correct_template(self):
@@ -127,7 +127,7 @@ class EditAuthorProfileViewTest(BaseSetUp):
         response = self.client.get("/authors/samuel-king/edit-profile/")
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(
-            response, "/users/login/?next=/authors/samuel-king/edit-profile/"
+            response, "/login/?next=/authors/samuel-king/edit-profile/"
         )
 
     def test_edit_author_profile(self):
